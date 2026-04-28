@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高校入試・高認 漢字語句 インデックス | 江原予備校</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    background:linear-gradient(135deg,#fef6e4 0%,#f3d2c1 100%);
+    color:#001858;
+    line-height:1.6;
+    min-height:100vh;
+    padding:16px;
+  }
+  .container{max-width:920px;margin:0 auto}
+  
+  header{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,24,88,0.08);
+    text-align:center;
+  }
+  header .badge{
+    display:inline-block;
+    background:#f582ae;
+    color:#fff;
+    padding:4px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  header h1{font-size:26px;color:#001858;margin-bottom:6px}
+  header .sub{font-size:14px;color:#5e6472}
+  
+  .intro{
+    background:#fff;
+    border-radius:16px;
+    padding:20px 24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,24,88,0.08);
+  }
+  .intro p{font-size:14px;margin-bottom:8px;color:#001858}
+  .intro p:last-child{margin-bottom:0}
+  .intro strong{color:#c1121f}
+  
+  .legend{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid #f3d2c1;
+  }
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    color:#5e6472;
+  }
+  .legend-dot{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+  }
+  .legend-dot.published{background:#10b981}
+  .legend-dot.preparing{background:#f3d2c1}
+  
+  /* Unit accordion */
+  .unit{
+    background:#fff;
+    border-radius:14px;
+    margin-bottom:12px;
+    box-shadow:0 2px 8px rgba(0,24,88,0.06);
+    overflow:hidden;
+    border:2px solid transparent;
+    transition:all 0.2s;
+  }
+  .unit.open{border-color:#f582ae}
+  
+  .unit-hd{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 20px;
+    cursor:pointer;
+    user-select:none;
+    background:#fff;
+    transition:background 0.2s;
+    flex-wrap:wrap;
+  }
+  .unit-hd:hover{background:#fef6e4}
+  .unit.open .unit-hd{background:#fef6e4;border-bottom:2px solid #f3d2c1}
+  
+  .unit-num{
+    background:#001858;
+    color:#fff;
+    padding:5px 12px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+  .unit-title{
+    font-size:17px;
+    font-weight:bold;
+    color:#001858;
+    flex:1;
+    min-width:160px;
+  }
+  .unit-badge{
+    background:#10b981;
+    color:#fff;
+    padding:3px 10px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+  .unit-badge.preparing{background:#f3d2c1;color:#001858}
+  .unit-toggle{
+    font-size:16px;
+    color:#5e6472;
+    margin-left:6px;
+    transition:transform 0.2s;
+  }
+  .unit.open .unit-toggle{transform:rotate(180deg)}
+  
+  .unit-body{display:none;padding:18px 20px}
+  .unit.open .unit-body{display:block}
+  
+  .unit-desc{
+    font-size:14px;
+    color:#5e6472;
+    margin-bottom:12px;
+    padding:10px 14px;
+    background:#fef6e4;
+    border-radius:8px;
+  }
+  
+  .sec-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:10px;
+  }
+  
+  .sec-card{
+    border:2px solid #f3d2c1;
+    border-radius:10px;
+    overflow:hidden;
+    transition:all 0.15s;
+    background:#fff;
+  }
+  .sec-card:hover{border-color:#f582ae;transform:translateY(-2px);box-shadow:0 4px 10px rgba(245,130,174,0.15)}
+  .sec-card.disabled{opacity:0.5;background:#f8f8f8}
+  .sec-card.disabled:hover{transform:none;box-shadow:none;border-color:#f3d2c1}
+  .sec-card a{
+    display:block;
+    padding:12px 14px;
+    text-decoration:none;
+    color:#001858;
+  }
+  .sec-card.disabled a{cursor:not-allowed;color:#5e6472}
+  .sc-hd{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .sc-step{
+    background:#001858;
+    color:#fff;
+    padding:2px 8px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:bold;
+  }
+  .sc-step.A{background:#001858}
+  .sc-step.C{background:#f582ae}
+  .sc-step.B{background:#10b981}
+  .sc-title{font-size:14px;font-weight:bold;flex:1}
+  .sc-meta{font-size:12px;color:#5e6472}
+  
+  footer{
+    text-align:center;
+    margin-top:30px;
+    padding:20px;
+    font-size:13px;
+    color:#5e6472;
+  }
+  
+  @media(max-width:600px){
+    header h1{font-size:20px}
+    .unit-title{font-size:15px;min-width:120px}
+    .sec-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <span class="badge">江原予備校 高校入試・高認対策</span>
+    <h1>漢字・語句 インデックス</h1>
+    <div class="sub">読み・書き・意味を四択クイズで定着させよう</div>
+  </header>
+  
+  <div class="intro">
+    <p><strong>📖 学習の進め方</strong></p>
+    <p>各ユニットは <strong>ステップA(漢字→読み)→ ステップC(文中での意味)→ ステップB(読み→漢字)</strong> の3段階で構成されています。順番に進むことで、漢字が定着しやすくなります。</p>
+    <p>間違えた問題は自動的に<strong>苦手カード</strong>に集まり、いつでも復習できます。</p>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot published"></span>公開中</div>
+      <div class="legend-item"><span class="legend-dot preparing"></span>準備中</div>
+    </div>
+  </div>
+  
+  <!-- Unit 1: 動詞訓読み -->
+  <div class="unit open">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 1</span>
+      <span class="unit-title">動詞の訓読み</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">入試・高認で頻出する動詞の訓読み。「促す」「漂う」「妨げる」など、ランクA(基礎)30問を3ステップで学習します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji01.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
+            <div class="sc-meta">30問 / 基礎</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji01.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">30問 / 基礎</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji01.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字</span></div>
+            <div class="sc-meta">30問 / 基礎</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 2: 形容詞訓読み -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 2</span>
+      <span class="unit-title">形容詞の訓読み</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「鮮やか」「巧み」「穏やか」など、状態や性質を表す形容詞の訓読み。ランクA(基礎)20問を3ステップで学習します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji02.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
+            <div class="sc-meta">20問 / 基礎</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji02.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">20問 / 基礎</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji02.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字</span></div>
+            <div class="sc-meta">20問 / 基礎</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 3: 名詞訓読み -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 3</span>
+      <span class="unit-title">名詞の訓読み</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「気配」「輪郭」「催し」「執念」「鼓動」など、入試で頻出する名詞。ランクA(8問)+ B上位12問を合わせた20問構成です。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji03.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
+            <div class="sc-meta">20問 / 基礎+応用</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji03.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">20問 / 基礎+応用</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji03.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字</span></div>
+            <div class="sc-meta">20問 / 基礎+応用</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 4: 音読み熟語 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 4</span>
+      <span class="unit-title">音読み熟語</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「披露」「制御」「典型」「貢献」「示唆」など、現代文や論説文で頻出する音読み熟語。ランクA(基礎)27問を3ステップで学習します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji04.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">熟語 → 読み</span></div>
+            <div class="sc-meta">27問 / 基礎</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji04.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">27問 / 基礎</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji04.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 熟語</span></div>
+            <div class="sc-meta">27問 / 基礎</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 5: 同訓異字 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 5</span>
+      <span class="unit-title">同訓異字</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「収める/納める/治める/修める」「暑い/熱い/厚い」など、同じ訓読みで意味によって使い分ける漢字を学びます。全71問・26グループを2ステップで学習。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji05.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">使い分け</span></div>
+            <div class="sc-meta">71問 / 全グループ</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji05.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">71問 / 全グループ</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 6: 同音異義語 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 6</span>
+      <span class="unit-title">同音異義語</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「開放/解放/介抱/快方」「異議/意義/威儀」「意外/以外」など、同じ音読みで意味が違う熟語を区別する力を養います。全103問・39グループを2ステップで学習。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji06.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">使い分け</span></div>
+            <div class="sc-meta">103問 / 全グループ</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji06.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">103問 / 全グループ</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 7: 書き取り -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 7</span>
+      <span class="unit-title">書き取り(必修語)</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「光をアびる」「ゴミをヒロう」など、例文中のカタカナを正しい漢字に直す書き取り問題。全185問を <strong>ランクA(基礎62問)・B(応用60問)・C(発展63問)</strong> の3コースに分け、各コース内で A(漢字→読み)・C(意味)・B(書き取り)の3ステップを進めます。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji07.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
+            <div class="sc-meta">3コース選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji07.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
+            <div class="sc-meta">3コース選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji07.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">書き取り</span></div>
+            <div class="sc-meta">3コース選択可</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 8: 四字熟語 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 8</span>
+      <span class="unit-title">四字熟語</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「支離滅裂」「以心伝心」「一石二鳥」「絶体絶命」など、入試頻出の四字熟語54語を <strong>1レッスン9語ずつの6レッスン</strong> に分けて学習。各レッスン内で意味・使い方・空欄補充の3ステップを進めます。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji08.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">四字熟語 → 意味</span></div>
+            <div class="sc-meta">6レッスン選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji08.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">例文での使い方</span></div>
+            <div class="sc-meta">6レッスン選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji08.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">空欄補充</span></div>
+            <div class="sc-meta">6レッスン選択可</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 9: 類義語 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 9</span>
+      <span class="unit-title">類義語</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「案外 ≒ 意外」「永遠 ≒ 永久」「方法 ≒ 手段」など、似た意味を持つ語のペア77組を <strong>10レッスン</strong> に分けて学習。A(語1→類義語)とC(類義語→語1)の双方向で確認します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji09.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">語1 → 類義語</span></div>
+            <div class="sc-meta">10レッスン選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji09.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">類義語 → 語1(逆方向)</span></div>
+            <div class="sc-meta">10レッスン選択可</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 10: 対義語 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 10</span>
+      <span class="unit-title">対義語</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「安全 ⇔ 危険」「具象 ⇔ 抽象」「需要 ⇔ 供給」など、反対の意味を持つ語のペア97組を <strong>10レッスン</strong> に分けて学習。A(語1→対義語)とC(対義語→語1)の双方向で確認します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji10.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">語1 → 対義語</span></div>
+            <div class="sc-meta">10レッスン選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji10.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">対義語 → 語1(逆方向)</span></div>
+            <div class="sc-meta">10レッスン選択可</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 11: 慣用句 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 11</span>
+      <span class="unit-title">慣用句・ことわざ</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「手に汗握る」「目を見張る」「覆水盆に返らず」「百聞は一見にしかず」「身から出た錆」など、頻出の慣用句・ことわざ10問を双方向(慣用句↔意味)で学習します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji11.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">慣用句 → 意味</span></div>
+            <div class="sc-meta">10問 / 全範囲</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji11.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">意味 → 慣用句(逆方向)</span></div>
+            <div class="sc-meta">10問 / 全範囲</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 12: 熟字訓 -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 12</span>
+      <span class="unit-title">熟字訓</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「明日(あす/あした)」「梅雨(つゆ)」「笑顔(えがお)」「相撲(すもう)」「七夕(たなばた)」など、特殊な読み方をする67語を <strong>8レッスン</strong> に分けて双方向(熟字↔読み)で学習します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji12.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">熟字 → 読み</span></div>
+            <div class="sc-meta">8レッスン選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji12.html">
+            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">読み → 熟字(逆方向)</span></div>
+            <div class="sc-meta">8レッスン選択可</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Unit 13: 読み誤りやすい -->
+  <div class="unit">
+    <div class="unit-hd" onclick="toggleUnit(this)">
+      <span class="unit-num">Unit 13</span>
+      <span class="unit-title">読み誤りやすい漢字</span>
+      <span class="unit-badge">✅ 公開中</span>
+      <span class="unit-toggle">▼</span>
+    </div>
+    <div class="unit-body">
+      <div class="unit-desc">「気配(けはい)」「仮病(けびょう)」「吹聴(ふいちょう)」「更迭(こうてつ)」「内裏(だいり)」など、間違えやすい読み方の漢字100語を <strong>10レッスン × 10問</strong> に分けて双方向(漢字↔読み)で学習します。</div>
+      <div class="sec-grid">
+        <div class="sec-card">
+          <a href="kounin-kanji13.html">
+            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
+            <div class="sc-meta">10レッスン選択可</div>
+          </a>
+        </div>
+        <div class="sec-card">
+          <a href="kounin-kanji13.html">
+            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字(逆方向)</span></div>
+            <div class="sc-meta">10レッスン選択可</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>江原予備校 - 高校入試・高認対策 学習ツール</p>
+  </footer>
+  
+</div>
+
+<script>
+function toggleUnit(el){
+  const unit = el.closest('.unit');
+  unit.classList.toggle('open');
+}
+</script>
+</body>
+</html>

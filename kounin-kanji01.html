@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高校入試 漢字四択 Unit 1 - 動詞の訓読み(基礎)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    background:linear-gradient(135deg,#fef6e4 0%,#f3d2c1 100%);
+    color:#001858;
+    line-height:1.6;
+    min-height:100vh;
+    padding:16px;
+  }
+  .container{max-width:820px;margin:0 auto}
+  
+  header{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,24,88,0.08);
+    text-align:center;
+  }
+  header .badge{
+    display:inline-block;
+    background:#f582ae;
+    color:#fff;
+    padding:4px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  header h1{font-size:24px;color:#001858;margin-bottom:6px}
+  header .sub{font-size:14px;color:#5e6472}
+  header .stats{margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .stat-chip{
+    background:#fef6e4;
+    border:2px solid #f3d2c1;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .stat-chip.weak{background:#ffe5ec;border-color:#f582ae;color:#c1121f}
+  
+  .tabs{
+    display:flex;
+    gap:4px;
+    margin-bottom:16px;
+    background:#fff;
+    padding:6px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,24,88,0.06);
+  }
+  .tab{
+    flex:1;
+    padding:12px 8px;
+    border:none;
+    background:transparent;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#5e6472;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .tab.active{background:#001858;color:#fff}
+  .tab:hover:not(.active){background:#fef6e4}
+  
+  .panel{display:none;background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 12px rgba(0,24,88,0.08)}
+  .panel.active{display:block}
+  
+  h2{font-size:20px;margin-bottom:16px;color:#001858;border-bottom:3px solid #f582ae;padding-bottom:8px}
+  h3{font-size:16px;margin:18px 0 10px;color:#001858}
+  
+  .intro-card{background:#fef6e4;padding:18px;border-radius:12px;margin-bottom:16px}
+  .intro-card p{margin-bottom:10px;font-size:15px}
+  .intro-card p:last-child{margin-bottom:0}
+  
+  .step-cards{display:grid;gap:12px;margin-top:16px}
+  .step-card{
+    background:#fff;
+    border:2px solid #f3d2c1;
+    border-radius:14px;
+    padding:18px;
+    cursor:pointer;
+    transition:all 0.2s;
+    position:relative;
+  }
+  .step-card:hover{border-color:#f582ae;transform:translateY(-2px);box-shadow:0 6px 16px rgba(245,130,174,0.2)}
+  .step-card .step-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .step-card .step-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+  .step-card[data-step="C"] .step-icon{background:#f582ae}
+  .step-card[data-step="B"] .step-icon{background:#10b981}
+  .step-card .step-title{font-size:17px;font-weight:bold;color:#001858}
+  .step-card .step-sub{font-size:13px;color:#5e6472;margin-top:2px}
+  .step-card .step-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .step-card .meta-chip{
+    font-size:12px;
+    padding:3px 10px;
+    border-radius:12px;
+    background:#fef6e4;
+    color:#5e6472;
+    font-weight:bold;
+  }
+  .step-card .meta-chip.score{background:#d1fae5;color:#065f46}
+  .step-card .meta-chip.weak-chip{background:#ffe5ec;color:#c1121f}
+  .step-card .arrow{
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:20px;
+    color:#5e6472;
+  }
+  
+  .start-btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    margin-top:16px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .start-btn:hover{background:#172554;transform:translateY(-1px)}
+  .start-btn.secondary{background:#f582ae;margin-top:8px}
+  .start-btn.secondary:hover{background:#e26d97}
+  .start-btn.gray{background:#5e6472;margin-top:8px}
+  .start-btn.gray:hover{background:#475569}
+  
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .step-badge{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    background:#001858;
+    color:#fff;
+  }
+  .step-badge.C{background:#f582ae}
+  .step-badge.B{background:#10b981}
+  .progress{
+    flex:1;
+    min-width:140px;
+    background:#fef6e4;
+    border-radius:20px;
+    height:10px;
+    overflow:hidden;
+  }
+  .progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,#f582ae,#001858);
+    transition:width 0.3s;
+    width:0%;
+  }
+  .progress-text{font-size:13px;font-weight:bold;color:#5e6472;white-space:nowrap}
+  
+  .question-card{
+    background:linear-gradient(135deg,#fef6e4 0%,#fff 100%);
+    padding:24px;
+    border-radius:14px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .question-num{font-size:13px;color:#5e6472;margin-bottom:8px;font-weight:bold}
+  .question-prompt{font-size:14px;color:#5e6472;margin-bottom:14px}
+  .question-kanji{
+    font-size:56px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.05em;
+  }
+  .question-reading{
+    font-size:38px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.1em;
+  }
+  .question-sentence{
+    font-size:15px;
+    color:#5e6472;
+    margin-top:10px;
+    padding:10px;
+    background:#fff;
+    border-radius:8px;
+    display:inline-block;
+  }
+  .question-sentence .target{color:#c1121f;font-weight:bold}
+  .question-sentence .blank{
+    background:#fef6e4;
+    color:#5e6472;
+    padding:0 8px;
+    border-bottom:2px solid #001858;
+    font-weight:bold;
+  }
+  .speaker-btn{
+    background:#f582ae;
+    color:#fff;
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:13px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+  .speaker-btn:hover{background:#e26d97}
+  
+  .options{display:grid;gap:10px}
+  .option{
+    background:#fff;
+    border:2px solid #cbd5e1;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    transition:all 0.15s;
+    text-align:left;
+    color:#001858;
+    font-family:inherit;
+  }
+  .option:hover:not(:disabled){border-color:#f582ae;background:#fef6e4}
+  .option.correct{background:#d1fae5;border-color:#10b981;color:#065f46;font-weight:bold}
+  .option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+  .option:disabled{cursor:not-allowed}
+  .option .label{
+    display:inline-block;
+    background:#001858;
+    color:#fff;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    text-align:center;
+    line-height:24px;
+    font-size:13px;
+    margin-right:10px;
+    font-weight:bold;
+  }
+  .option.correct .label{background:#10b981}
+  .option.wrong .label{background:#ef4444}
+  
+  .feedback{margin-top:16px;padding:16px;border-radius:12px;display:none}
+  .feedback.show{display:block;animation:slideIn 0.3s}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .feedback.correct{background:#d1fae5;border-left:4px solid #10b981}
+  .feedback.wrong{background:#fee2e2;border-left:4px solid #ef4444}
+  .feedback-title{font-weight:bold;font-size:16px;margin-bottom:8px}
+  .feedback.correct .feedback-title{color:#065f46}
+  .feedback.wrong .feedback-title{color:#991b1b}
+  .feedback-content{font-size:14px;color:#001858;line-height:1.7}
+  .feedback-content .label{font-weight:bold;color:#5e6472;display:inline-block;width:60px}
+  .next-btn{
+    display:block;
+    margin:14px 0 0 auto;
+    padding:10px 28px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .next-btn:hover{background:#172554}
+  
+  .result-card{text-align:center;padding:30px 20px}
+  .result-card .score-big{
+    font-size:64px;
+    font-weight:bold;
+    color:#001858;
+    margin:20px 0;
+  }
+  .result-card .score-big .total{font-size:32px;color:#5e6472}
+  .result-msg{font-size:18px;margin-bottom:20px;color:#001858}
+  .result-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .result-buttons button{flex:1;min-width:140px}
+  
+  .empty-state{text-align:center;padding:40px 20px;color:#5e6472}
+  .empty-state .icon{font-size:48px;margin-bottom:12px}
+  
+  .weak-section{margin-bottom:20px}
+  .weak-section-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .weak-section-title .step-mini{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .weak-section-title .step-mini.C{background:#f582ae}
+  .weak-section-title .step-mini.B{background:#10b981}
+  .weak-section-title h3{margin:0;border:none;padding:0}
+  .weak-section-title .count{font-size:13px;color:#5e6472;margin-left:auto;font-weight:bold}
+  
+  .weak-list{display:grid;gap:8px}
+  .weak-item{
+    background:#fef6e4;
+    padding:12px 16px;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .weak-item .kanji-text{font-size:22px;font-weight:bold;color:#001858}
+  .weak-item .reading-text{font-size:14px;color:#5e6472;margin-left:10px}
+  .weak-item .miss-count{
+    background:#f582ae;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+  }
+  .weak-item .streak{
+    background:#10b981;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    margin-left:6px;
+  }
+  
+  vw{
+    color:#001858;
+    background:#fef6e4;
+    padding:1px 4px;
+    border-radius:4px;
+    cursor:pointer;
+    border-bottom:2px dotted #f582ae;
+  }
+  vw:hover{background:#f3d2c1}
+  .vw-pop{
+    position:absolute;
+    background:#fff;
+    border:2px solid #001858;
+    border-radius:10px;
+    padding:14px;
+    box-shadow:0 6px 20px rgba(0,24,88,0.2);
+    z-index:1000;
+    max-width:300px;
+    min-width:240px;
+  }
+  .vw-pop .word{font-size:18px;font-weight:bold;color:#001858;margin-bottom:4px}
+  .vw-pop .pron{font-size:13px;color:#5e6472;margin-bottom:8px}
+  .vw-pop .meaning{font-size:14px;margin-bottom:10px;color:#001858}
+  .vw-pop .quiz-q{font-size:13px;font-weight:bold;color:#5e6472;margin-bottom:6px}
+  .vw-pop .quiz-opts{display:grid;gap:4px}
+  .vw-pop .quiz-opt{
+    background:#fef6e4;
+    border:1px solid #f3d2c1;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:13px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+  }
+  .vw-pop .quiz-opt:hover{background:#f3d2c1}
+  .vw-pop .quiz-opt.correct{background:#d1fae5;border-color:#10b981}
+  .vw-pop .quiz-opt.wrong{background:#fee2e2;border-color:#ef4444}
+  
+  .confetti-piece{position:fixed;width:10px;height:10px;z-index:9999;pointer-events:none}
+  
+  @media(max-width:600px){
+    .question-kanji{font-size:44px}
+    .question-reading{font-size:30px}
+    header h1{font-size:18px}
+    .tab{font-size:12px;padding:10px 4px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <span class="badge">江原予備校 高校入試対策</span>
+    <h1>漢字四択クイズ Unit 1</h1>
+    <div class="sub">動詞の訓読み(基礎・ランクA)</div>
+    <div class="stats">
+      <div class="stat-chip">📚 全30問 × 3ステップ</div>
+      <div class="stat-chip weak" id="weak-count-chip" style="display:none">⚠ 苦手 <span id="weak-count">0</span></div>
+    </div>
+  </header>
+  
+  <div class="tabs">
+    <button class="tab active" data-tab="home">🏠 ホーム</button>
+    <button class="tab" data-tab="quiz">📝 練習</button>
+    <button class="tab" data-tab="weak">⚡ 苦手復習</button>
+  </div>
+  
+  <div class="panel active" id="panel-home">
+    <h2>このユニットについて</h2>
+    
+    <div class="intro-card">
+      <p><strong>📖 動詞の訓読みとは?</strong></p>
+      <p>漢字の読み方には大きく分けて<strong>音読み</strong>と<strong>訓読み</strong>があります。訓読みは、漢字に日本語(やまとことば)の意味を当てた読み方です。</p>
+      <p>たとえば「<strong>浸す</strong>」を「<strong>ひたす</strong>」と読むのが訓読みで、「米を水にひたす」のように動作を表します。</p>
+    </div>
+    
+    <h3>📌 学習の進め方(足し算型)</h3>
+    <p style="font-size:14px;color:#5e6472;margin-bottom:6px">A → C → B の順で進むと、漢字が定着しやすくなります。</p>
+    
+    <div class="step-cards" id="step-cards"></div>
+    
+    <h3 style="margin-top:24px">🎯 出題範囲</h3>
+    <div class="intro-card">
+      <p>「1_動詞訓読み」<strong>ランクA(基礎)</strong>から最初の30問。<vw onclick="showVwPop(this,event)" data-pron="ひんしゅつ" data-mean="よく出ること" data-opts="[&quot;よく出ること&quot;,&quot;新しいこと&quot;,&quot;むずかしいこと&quot;,&quot;短いこと&quot;]" data-ans="0">頻出</vw>の動詞ばかりで、入試で問われやすいものを集めました。</p>
+    </div>
+  </div>
+  
+  <div class="panel" id="panel-quiz">
+    <div class="quiz-header">
+      <span class="step-badge" id="step-badge">A</span>
+      <div class="progress-text" id="progress-text">問題 1 / 30</div>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+    <div id="quiz-content"></div>
+  </div>
+  
+  <div class="panel" id="panel-weak">
+    <h2>⚡ 苦手カード</h2>
+    <p style="margin-bottom:14px;color:#5e6472;font-size:14px">間違えた問題が自動で集まります。連続2回正解すると外れます。ステップごとに別々に管理されます。</p>
+    <div id="weak-content"></div>
+    <button class="start-btn gray" id="btn-clear-weak" style="margin-top:14px">🗑 全ての苦手カードを消去</button>
+  </div>
+  
+</div>
+
+<script>
+const QUESTIONS_A = [{"no": 1, "kanji": "浸す", "reading": "ひたす", "sentence": "米を水に浸す。", "meaning": "水などにつける", "options": ["たがやす", "うながす", "ひたす", "めぐらす"], "answer_index": 2}, {"no": 2, "kanji": "促す", "reading": "うながす", "sentence": "成長を促す。", "meaning": "急がせる、催促する", "options": ["めぐらす", "こらす", "ついやす", "うながす"], "answer_index": 3}, {"no": 3, "kanji": "澄む", "reading": "すむ", "sentence": "冷たく澄んだ川の水。", "meaning": "にごりがなくきれい", "options": ["おしむ", "なごむ", "すむ", "ひそむ"], "answer_index": 2}, {"no": 4, "kanji": "覆う", "reading": "おおう", "sentence": "厚い雲に覆われている。", "meaning": "上からかぶせる", "options": ["おおう", "よそおう", "そう", "つちかう"], "answer_index": 0}, {"no": 5, "kanji": "携える", "reading": "たずさえる", "sentence": "互いに手を携える。", "meaning": "手を取り合う、持って行く", "options": ["たずさえる", "きたえる", "もうける", "ねる"], "answer_index": 0}, {"no": 6, "kanji": "鍛える", "reading": "きたえる", "sentence": "試合に備えて体を鍛える。", "meaning": "強くする", "options": ["もぐる", "きたえる", "まぎれる", "しぼる"], "answer_index": 1}, {"no": 7, "kanji": "仰ぐ", "reading": "あおぐ", "sentence": "専門家の指導を仰ぐ。", "meaning": "見上げる、たよる", "options": ["あおぐ", "そそぐ", "ゆらぐ", "かせぐ"], "answer_index": 0}, {"no": 8, "kanji": "迫る", "reading": "せまる", "sentence": "提出期限が迫る。", "meaning": "近づく", "options": ["ねる", "せまる", "つのる", "めばえる"], "answer_index": 1}, {"no": 9, "kanji": "漂う", "reading": "ただよう", "sentence": "波間をゆらゆらと漂う。", "meaning": "ふわふわと浮かぶ", "options": ["ただよう", "せおう", "とまどう", "いこう"], "answer_index": 0}, {"no": 10, "kanji": "募る", "reading": "つのる", "sentence": "希望者を募る。", "meaning": "広く呼びかけて集める", "options": ["かえりみる", "はあくする", "かんちがいする", "つのる"], "answer_index": 3}, {"no": 11, "kanji": "操る", "reading": "あやつる", "sentence": "巧みな技を操る。", "meaning": "うまく動かす", "options": ["へだてる", "ぎょうしする", "あやつる", "うける"], "answer_index": 2}, {"no": 12, "kanji": "潜む", "reading": "ひそむ", "sentence": "水の奥深くに潜む魚。", "meaning": "見えないところにいる", "options": ["ひそむ", "のぞむ", "なごむ", "いどむ"], "answer_index": 0}, {"no": 13, "kanji": "妨げる", "reading": "さまたげる", "sentence": "自由な発想を妨げる。", "meaning": "じゃまをする", "options": ["そえる", "もぐる", "にる", "さまたげる"], "answer_index": 3}, {"no": 14, "kanji": "伴う", "reading": "ともなう", "sentence": "危険を伴った任務。", "meaning": "一緒についてくる", "options": ["つどう", "ともなう", "まかなう", "かう"], "answer_index": 1}, {"no": 15, "kanji": "凝視する", "reading": "ぎょうしする", "sentence": "一点を凝視する。", "meaning": "じっと見つめる", "options": ["しいる", "かたよる", "とげる", "ぎょうしする"], "answer_index": 3}, {"no": 16, "kanji": "憩う", "reading": "いこう", "sentence": "憩いの場を求める。", "meaning": "ゆっくり休む", "options": ["せおう", "ふるう", "になう", "いこう"], "answer_index": 3}, {"no": 17, "kanji": "陥る", "reading": "おちいる", "sentence": "誰でも陥る可能性のある症状。", "meaning": "落ち込む、ある状態になる", "options": ["おちいる", "そえる", "さえぎる", "はえる"], "answer_index": 0}, {"no": 18, "kanji": "駆られる", "reading": "かられる", "sentence": "強い衝動に駆られる。", "meaning": "強く感じさせられる", "options": ["かられる", "さずかる", "すすめる", "まぎれる"], "answer_index": 0}, {"no": 19, "kanji": "巡らす", "reading": "めぐらす", "sentence": "考えを巡らす。", "meaning": "あちこち動かす", "options": ["さとす", "めぐらす", "ついやす", "はげます"], "answer_index": 1}, {"no": 20, "kanji": "授かる", "reading": "さずかる", "sentence": "小さな命を授かる。", "meaning": "授けられる", "options": ["かられる", "おとずれる", "はえる", "さずかる"], "answer_index": 3}, {"no": 21, "kanji": "紛れる", "reading": "まぎれる", "sentence": "気が紛れる。", "meaning": "他のものと混じる", "options": ["さずかる", "まぎれる", "だまる", "あずける"], "answer_index": 1}, {"no": 22, "kanji": "預ける", "reading": "あずける", "sentence": "保育園に預ける。", "meaning": "保管をたのむ", "options": ["こうむる", "あずける", "おさめる", "すたれる"], "answer_index": 1}, {"no": 23, "kanji": "凝らす", "reading": "こらす", "sentence": "目を凝らして見つめる。", "meaning": "集中させる", "options": ["こらす", "たがやす", "うながす", "ついやす"], "answer_index": 0}, {"no": 24, "kanji": "施す", "reading": "ほどこす", "sentence": "防水加工を施したスーツ。", "meaning": "ほどこす、加える", "options": ["おろす", "ほどこす", "はげます", "うながす"], "answer_index": 1}, {"no": 25, "kanji": "揺らぐ", "reading": "ゆらぐ", "sentence": "決心が揺らぐ。", "meaning": "ぐらぐらと動く", "options": ["あおぐ", "やわらぐ", "そそぐ", "ゆらぐ"], "answer_index": 3}, {"no": 26, "kanji": "弾む", "reading": "はずむ", "sentence": "希望に心が弾む。", "meaning": "活気づく", "options": ["おしむ", "こばむ", "はずむ", "なごむ"], "answer_index": 2}, {"no": 27, "kanji": "挑む", "reading": "いどむ", "sentence": "登頂に挑む。", "meaning": "立ち向かう", "options": ["こばむ", "なごむ", "ひそむ", "いどむ"], "answer_index": 3}, {"no": 28, "kanji": "欠ける", "reading": "かける", "sentence": "慎重さに欠ける。", "meaning": "足りない", "options": ["おちいる", "かける", "はえる", "きたえる"], "answer_index": 1}, {"no": 29, "kanji": "把握する", "reading": "はあくする", "sentence": "在庫数を把握する。", "meaning": "しっかりとらえる", "options": ["ゆるめる", "つのる", "のべる", "はあくする"], "answer_index": 3}, {"no": 30, "kanji": "添える", "reading": "そえる", "sentence": "贈りものに手紙を添える。", "meaning": "つけ加える", "options": ["あやつる", "とげる", "そえる", "すえる"], "answer_index": 2}];
+const QUESTIONS_C = [{"no": 1, "kanji": "浸す", "reading": "ひたす", "sentence": "米を水に浸す。", "meaning": "水などにつける", "options": ["じっと見つめる", "水などにつける", "学び身につける", "近づく"], "answer_index": 1}, {"no": 2, "kanji": "促す", "reading": "うながす", "sentence": "成長を促す。", "meaning": "急がせる、催促する", "options": ["してみるよう促す", "急がせる、催促する", "ふりをする、身なりを整える", "話さない"], "answer_index": 1}, {"no": 3, "kanji": "澄む", "reading": "すむ", "sentence": "冷たく澄んだ川の水。", "meaning": "にごりがなくきれい", "options": ["使われなくなる", "にごりがなくきれい", "夢中になる", "おだやかになる"], "answer_index": 1}, {"no": 4, "kanji": "覆う", "reading": "おおう", "sentence": "厚い雲に覆われている。", "meaning": "上からかぶせる", "options": ["悲しむ、なげき悲しむ", "やわらかい雰囲気にする", "集中させる", "上からかぶせる"], "answer_index": 3}, {"no": 5, "kanji": "携える", "reading": "たずさえる", "sentence": "互いに手を携える。", "meaning": "手を取り合う、持って行く", "options": ["使ってなくす", "集中させる", "手を取り合う、持って行く", "大きな声を出す"], "answer_index": 2}, {"no": 6, "kanji": "鍛える", "reading": "きたえる", "sentence": "試合に備えて体を鍛える。", "meaning": "強くする", "options": ["取り除く、減らす", "おだやかになる", "強くする", "ゆるくする"], "answer_index": 2}, {"no": 7, "kanji": "仰ぐ", "reading": "あおぐ", "sentence": "専門家の指導を仰ぐ。", "meaning": "見上げる、たよる", "options": ["助ける", "見上げる、たよる", "ふりをする、身なりを整える", "途中で止める"], "answer_index": 1}, {"no": 8, "kanji": "迫る", "reading": "せまる", "sentence": "提出期限が迫る。", "meaning": "近づく", "options": ["夢中になる", "活気づく", "近づく", "反省する"], "answer_index": 2}, {"no": 9, "kanji": "漂う", "reading": "ただよう", "sentence": "波間をゆらゆらと漂う。", "meaning": "ふわふわと浮かぶ", "options": ["ふわふわと浮かぶ", "上からかぶせる", "話さない", "両方をもっている"], "answer_index": 0}, {"no": 10, "kanji": "募る", "reading": "つのる", "sentence": "希望者を募る。", "meaning": "広く呼びかけて集める", "options": ["ぎゅっとしめる", "広く呼びかけて集める", "よく考える", "中に持つ"], "answer_index": 1}, {"no": 11, "kanji": "操る", "reading": "あやつる", "sentence": "巧みな技を操る。", "meaning": "うまく動かす", "options": ["つくろう、ごまかす", "ふりかえって考える", "あちこち動かす", "うまく動かす"], "answer_index": 3}, {"no": 12, "kanji": "潜む", "reading": "ひそむ", "sentence": "水の奥深くに潜む魚。", "meaning": "見えないところにいる", "options": ["にごりがなくきれい", "どうしてよいかわからない", "見えないところにいる", "一方によりすぎる"], "answer_index": 2}, {"no": 13, "kanji": "妨げる", "reading": "さまたげる", "sentence": "自由な発想を妨げる。", "meaning": "じゃまをする", "options": ["動物を世話する", "やり終える", "じゃまをする", "途中で止める"], "answer_index": 2}, {"no": 14, "kanji": "伴う", "reading": "ともなう", "sentence": "危険を伴った任務。", "meaning": "一緒についてくる", "options": ["強く感じさせられる", "学び身につける", "一緒についてくる", "形をこわす"], "answer_index": 2}, {"no": 15, "kanji": "凝視する", "reading": "ぎょうしする", "sentence": "一点を凝視する。", "meaning": "じっと見つめる", "options": ["見えないところにいる", "ぎゅっとしめる", "入りまじる", "じっと見つめる"], "answer_index": 3}, {"no": 16, "kanji": "憩う", "reading": "いこう", "sentence": "憩いの場を求める。", "meaning": "ゆっくり休む", "options": ["ゆっくり休む", "強く感じさせられる", "広く呼びかけて集める", "やりくりする"], "answer_index": 0}, {"no": 17, "kanji": "陥る", "reading": "おちいる", "sentence": "誰でも陥る可能性のある症状。", "meaning": "落ち込む、ある状態になる", "options": ["落ち込む、ある状態になる", "活気づく", "夢中になる", "見えないところにいる"], "answer_index": 0}, {"no": 18, "kanji": "駆られる", "reading": "かられる", "sentence": "強い衝動に駆られる。", "meaning": "強く感じさせられる", "options": ["授けられる", "引き受ける、背負う", "強く感じさせられる", "立ち向かう"], "answer_index": 2}, {"no": 19, "kanji": "巡らす", "reading": "めぐらす", "sentence": "考えを巡らす。", "meaning": "あちこち動かす", "options": ["あちこち動かす", "夢中になる", "つくろう、ごまかす", "落ち込む、ある状態になる"], "answer_index": 0}, {"no": 20, "kanji": "授かる", "reading": "さずかる", "sentence": "小さな命を授かる。", "meaning": "授けられる", "options": ["保管をたのむ", "強く感じさせられる", "うまく動かす", "授けられる"], "answer_index": 3}, {"no": 21, "kanji": "紛れる", "reading": "まぎれる", "sentence": "気が紛れる。", "meaning": "他のものと混じる", "options": ["悲しむ、なげき悲しむ", "入りまじる", "やわらかい雰囲気にする", "他のものと混じる"], "answer_index": 3}, {"no": 22, "kanji": "預ける", "reading": "あずける", "sentence": "保育園に預ける。", "meaning": "保管をたのむ", "options": ["してみるよう促す", "そっくりである", "保管をたのむ", "つぎ込む"], "answer_index": 2}, {"no": 23, "kanji": "凝らす", "reading": "こらす", "sentence": "目を凝らして見つめる。", "meaning": "集中させる", "options": ["集中させる", "使われなくなる", "上からかぶせる", "集まる"], "answer_index": 0}, {"no": 24, "kanji": "施す", "reading": "ほどこす", "sentence": "防水加工を施したスーツ。", "meaning": "ほどこす、加える", "options": ["つけ加える", "強く感じさせられる", "ほどこす、加える", "もったいなく思う"], "answer_index": 2}, {"no": 25, "kanji": "揺らぐ", "reading": "ゆらぐ", "sentence": "決心が揺らぐ。", "meaning": "ぐらぐらと動く", "options": ["動く", "わかるように教える", "取り除く、減らす", "ぐらぐらと動く"], "answer_index": 3}, {"no": 26, "kanji": "弾む", "reading": "はずむ", "sentence": "希望に心が弾む。", "meaning": "活気づく", "options": ["活気づく", "ゆっくり休む", "見えないところにいる", "元気づける"], "answer_index": 0}, {"no": 27, "kanji": "挑む", "reading": "いどむ", "sentence": "登頂に挑む。", "meaning": "立ち向かう", "options": ["向かう、参加する", "立ち向かう", "ほどこす、加える", "急がせる、催促する"], "answer_index": 1}, {"no": 28, "kanji": "欠ける", "reading": "かける", "sentence": "慎重さに欠ける。", "meaning": "足りない", "options": ["熟す", "足りない", "どうしてよいかわからない", "光を通して見る"], "answer_index": 1}, {"no": 29, "kanji": "把握する", "reading": "はあくする", "sentence": "在庫数を把握する。", "meaning": "しっかりとらえる", "options": ["取り除く、減らす", "ふわふわと浮かぶ", "ほどこす、加える", "しっかりとらえる"], "answer_index": 3}, {"no": 30, "kanji": "添える", "reading": "そえる", "sentence": "贈りものに手紙を添える。", "meaning": "つけ加える", "options": ["使ってなくす", "生活を支える", "ゆるくする", "つけ加える"], "answer_index": 3}];
+const QUESTIONS_B = [{"no": 1, "kanji": "浸す", "reading": "ひたす", "sentence": "米を水に浸す。", "meaning": "水などにつける", "options": ["蒸す", "浸す", "宿す", "崩す"], "answer_index": 1}, {"no": 2, "kanji": "促す", "reading": "うながす", "sentence": "成長を促す。", "meaning": "急がせる、催促する", "options": ["宿す", "施す", "促す", "卸す"], "answer_index": 2}, {"no": 3, "kanji": "澄む", "reading": "すむ", "sentence": "冷たく澄んだ川の水。", "meaning": "にごりがなくきれい", "options": ["臨む", "潜む", "澄む", "和む"], "answer_index": 2}, {"no": 4, "kanji": "覆う", "reading": "おおう", "sentence": "厚い雲に覆われている。", "meaning": "上からかぶせる", "options": ["覆う", "装う", "集う", "敬う"], "answer_index": 0}, {"no": 5, "kanji": "携える", "reading": "たずさえる", "sentence": "互いに手を携える。", "meaning": "手を取り合う、持って行く", "options": ["兼ね備える", "鍛える", "芽生える", "携える"], "answer_index": 3}, {"no": 6, "kanji": "鍛える", "reading": "きたえる", "sentence": "試合に備えて体を鍛える。", "meaning": "強くする", "options": ["添える", "映える", "鍛える", "据える"], "answer_index": 2}, {"no": 7, "kanji": "仰ぐ", "reading": "あおぐ", "sentence": "専門家の指導を仰ぐ。", "meaning": "見上げる、たよる", "options": ["巡らす", "仰ぐ", "稼ぐ", "注ぐ"], "answer_index": 1}, {"no": 8, "kanji": "迫る", "reading": "せまる", "sentence": "提出期限が迫る。", "meaning": "近づく", "options": ["迫る", "偏る", "似る", "黙る"], "answer_index": 0}, {"no": 9, "kanji": "漂う", "reading": "ただよう", "sentence": "波間をゆらゆらと漂う。", "meaning": "ふわふわと浮かぶ", "options": ["憩う", "漂う", "背負う", "賄う"], "answer_index": 1}, {"no": 10, "kanji": "募る", "reading": "つのる", "sentence": "希望者を募る。", "meaning": "広く呼びかけて集める", "options": ["練る", "潜る", "被る", "募る"], "answer_index": 3}, {"no": 11, "kanji": "操る", "reading": "あやつる", "sentence": "巧みな技を操る。", "meaning": "うまく動かす", "options": ["乗る", "操る", "潜る", "似る"], "answer_index": 1}, {"no": 12, "kanji": "潜む", "reading": "ひそむ", "sentence": "水の奥深くに潜む魚。", "meaning": "見えないところにいる", "options": ["挑む", "弾む", "潜む", "拒む"], "answer_index": 2}, {"no": 13, "kanji": "妨げる", "reading": "さまたげる", "sentence": "自由な発想を妨げる。", "meaning": "じゃまをする", "options": ["宿す", "妨げる", "遂げる", "遂げる"], "answer_index": 1}, {"no": 14, "kanji": "伴う", "reading": "ともなう", "sentence": "危険を伴った任務。", "meaning": "一緒についてくる", "options": ["漂う", "覆う", "敬う", "伴う"], "answer_index": 3}, {"no": 15, "kanji": "凝視する", "reading": "ぎょうしする", "sentence": "一点を凝視する。", "meaning": "じっと見つめる", "options": ["継承する", "凝視する", "折衷する", "満喫する"], "answer_index": 1}, {"no": 16, "kanji": "憩う", "reading": "いこう", "sentence": "憩いの場を求める。", "meaning": "ゆっくり休む", "options": ["救う", "憩う", "装う", "伴う"], "answer_index": 1}, {"no": 17, "kanji": "陥る", "reading": "おちいる", "sentence": "誰でも陥る可能性のある症状。", "meaning": "落ち込む、ある状態になる", "options": ["迫る", "募る", "怠る", "陥る"], "answer_index": 3}, {"no": 18, "kanji": "駆られる", "reading": "かられる", "sentence": "強い衝動に駆られる。", "meaning": "強く感じさせられる", "options": ["極める", "装う", "漂う", "駆られる"], "answer_index": 3}, {"no": 19, "kanji": "巡らす", "reading": "めぐらす", "sentence": "考えを巡らす。", "meaning": "あちこち動かす", "options": ["巡らす", "臨む", "添える", "凝らす"], "answer_index": 0}, {"no": 20, "kanji": "授かる", "reading": "さずかる", "sentence": "小さな命を授かる。", "meaning": "授けられる", "options": ["授かる", "宿す", "澄む", "戸惑う"], "answer_index": 0}, {"no": 21, "kanji": "紛れる", "reading": "まぎれる", "sentence": "気が紛れる。", "meaning": "他のものと混じる", "options": ["揺れる", "紛れる", "熟れる", "廃れる"], "answer_index": 1}, {"no": 22, "kanji": "預ける", "reading": "あずける", "sentence": "保育園に預ける。", "meaning": "保管をたのむ", "options": ["請ける", "欠ける", "預ける", "設ける"], "answer_index": 2}, {"no": 23, "kanji": "凝らす", "reading": "こらす", "sentence": "目を凝らして見つめる。", "meaning": "集中させる", "options": ["承る", "遂げる", "凝らす", "巡らす"], "answer_index": 2}, {"no": 24, "kanji": "施す", "reading": "ほどこす", "sentence": "防水加工を施したスーツ。", "meaning": "ほどこす、加える", "options": ["潤す", "施す", "浸す", "崩す"], "answer_index": 1}, {"no": 25, "kanji": "揺らぐ", "reading": "ゆらぐ", "sentence": "決心が揺らぐ。", "meaning": "ぐらぐらと動く", "options": ["揺らぐ", "導く", "和らぐ", "巡らす"], "answer_index": 0}, {"no": 26, "kanji": "弾む", "reading": "はずむ", "sentence": "希望に心が弾む。", "meaning": "活気づく", "options": ["拒む", "臨む", "弾む", "澄む"], "answer_index": 2}, {"no": 27, "kanji": "挑む", "reading": "いどむ", "sentence": "登頂に挑む。", "meaning": "立ち向かう", "options": ["挑む", "潜む", "拒む", "澄む"], "answer_index": 0}, {"no": 28, "kanji": "欠ける", "reading": "かける", "sentence": "慎重さに欠ける。", "meaning": "足りない", "options": ["請ける", "設ける", "欠ける", "預ける"], "answer_index": 2}, {"no": 29, "kanji": "把握する", "reading": "はあくする", "sentence": "在庫数を把握する。", "meaning": "しっかりとらえる", "options": ["吟味する", "凝視する", "把握する", "満喫する"], "answer_index": 2}, {"no": 30, "kanji": "添える", "reading": "そえる", "sentence": "贈りものに手紙を添える。", "meaning": "つけ加える", "options": ["鍛える", "芽生える", "添える", "携える"], "answer_index": 2}];
+
+const STEP_INFO = {
+  A: {title: '漢字 → 読み', sub: '漢字を見て、正しい読みを選びます', icon: 'A', questions: QUESTIONS_A},
+  C: {title: '文中での意味', sub: '例文を読んで、その意味を選びます', icon: 'C', questions: QUESTIONS_C},
+  B: {title: '読み → 漢字', sub: '読みを見て、正しい漢字を選びます', icon: 'B', questions: QUESTIONS_B}
+};
+
+const STORAGE_PREFIX = 'kounin-kanji01-';
+let currentStep = 'A';
+let currentQuestions = [];
+let currentIndex = 0;
+let correctCount = 0;
+let isWeakMode = false;
+
+function weakKey(step){return STORAGE_PREFIX + 'weak-' + step;}
+function scoreKey(step){return STORAGE_PREFIX + 'score-' + step;}
+
+function loadWeak(step){
+  try{return JSON.parse(localStorage.getItem(weakKey(step)) || '{}');}
+  catch(e){return {};}
+}
+function saveWeak(step, data){localStorage.setItem(weakKey(step), JSON.stringify(data));}
+
+function loadScore(step){
+  try{return JSON.parse(localStorage.getItem(scoreKey(step)) || 'null');}
+  catch(e){return null;}
+}
+function saveScore(step, correct, total){
+  localStorage.setItem(scoreKey(step), JSON.stringify({correct, total, date: Date.now()}));
+}
+
+function totalWeakCount(){
+  return ['A','C','B'].reduce((sum, s) => sum + Object.keys(loadWeak(s)).length, 0);
+}
+function updateWeakCountChip(){
+  const count = totalWeakCount();
+  const chip = document.getElementById('weak-count-chip');
+  if(count > 0){
+    chip.style.display = 'inline-block';
+    document.getElementById('weak-count').textContent = count;
+  }else{
+    chip.style.display = 'none';
+  }
+}
+
+function renderStepCards(){
+  const container = document.getElementById('step-cards');
+  let html = '';
+  ['A','C','B'].forEach(step => {
+    const info = STEP_INFO[step];
+    const score = loadScore(step);
+    const weakCount = Object.keys(loadWeak(step)).length;
+    
+    let metaHtml = '';
+    if(score){
+      const pct = Math.round(score.correct/score.total*100);
+      metaHtml += `<span class="meta-chip score">最高 ${score.correct}/${score.total} (${pct}%)</span>`;
+    }else{
+      metaHtml += `<span class="meta-chip">未挑戦</span>`;
+    }
+    if(weakCount > 0){
+      metaHtml += `<span class="meta-chip weak-chip">苦手 ${weakCount}件</span>`;
+    }
+    
+    html += `
+      <div class="step-card" data-step="${step}" onclick="startStep('${step}')">
+        <div class="step-head">
+          <div class="step-icon">${info.icon}</div>
+          <div>
+            <div class="step-title">ステップ${step}: ${info.title}</div>
+            <div class="step-sub">${info.sub}</div>
+          </div>
+        </div>
+        <div class="step-meta">${metaHtml}</div>
+        <span class="arrow">▶</span>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => switchTab(t.dataset.tab));
+});
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  if(name === 'weak') renderWeakPanel();
+  if(name === 'home'){renderStepCards(); updateWeakCountChip();}
+}
+
+function startStep(step){
+  currentStep = step;
+  isWeakMode = false;
+  currentQuestions = [...STEP_INFO[step].questions];
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function startWeakReview(step){
+  const weak = loadWeak(step);
+  const weakNos = Object.keys(weak).map(Number);
+  if(weakNos.length === 0){
+    alert('このステップの苦手カードはまだありません');
+    return;
+  }
+  currentStep = step;
+  isWeakMode = true;
+  currentQuestions = STEP_INFO[step].questions.filter(q => weakNos.includes(q.no));
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = currentQuestions[currentIndex];
+  const total = currentQuestions.length;
+  
+  document.getElementById('step-badge').textContent = currentStep + (isWeakMode ? ' (苦手復習)' : '');
+  document.getElementById('step-badge').className = 'step-badge ' + currentStep;
+  document.getElementById('progress-text').textContent = `問題 ${currentIndex+1} / ${total}`;
+  document.getElementById('progress-bar').style.width = (currentIndex/total*100) + '%';
+  
+  let mainDisplay = '';
+  let promptText = '';
+  let sentenceHTML = '';
+  
+  if(currentStep === 'A'){
+    promptText = '次の漢字の読みを選びなさい';
+    mainDisplay = `<div class="question-kanji">${q.kanji}<button class="speaker-btn" onclick="speak('${q.kanji}')">▶</button></div>`;
+    const sH = q.sentence.replace(q.kanji, `<span class="target">${q.kanji}</span>`);
+    sentenceHTML = `<div class="question-sentence">${sH}<button class="speaker-btn" onclick="speak('${q.sentence}')">▶</button></div>`;
+  }else if(currentStep === 'C'){
+    promptText = '次の例文中の漢字の意味として最も適切なものを選びなさい';
+    const sH = q.sentence.replace(q.kanji, `<span class="target">${q.kanji}</span>`);
+    mainDisplay = `<div style="font-size:24px;margin:20px 0;line-height:1.5;color:#001858;font-weight:bold">${sH}<button class="speaker-btn" onclick="speak('${q.sentence}')">▶</button></div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">「<strong style="color:#c1121f">${q.kanji}</strong>(${q.reading})」の意味は?</div>`;
+  }else if(currentStep === 'B'){
+    promptText = '次の読みに当てはまる漢字を選びなさい';
+    mainDisplay = `<div class="question-reading">${q.reading}<button class="speaker-btn" onclick="speak('${q.reading}')">▶</button></div>`;
+    const sH = q.sentence.replace(q.kanji, `<span class="blank">${q.reading}</span>`);
+    sentenceHTML = `<div class="question-sentence">${sH}</div>`;
+  }
+  
+  const html = `
+    <div class="question-card">
+      <div class="question-num">第 ${currentIndex+1} 問</div>
+      <div class="question-prompt">${promptText}</div>
+      ${mainDisplay}
+      ${sentenceHTML}
+    </div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+  `;
+  document.getElementById('quiz-content').innerHTML = html;
+  
+  const optsDiv = document.getElementById('options');
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    const fontStyle = currentStep === 'B' ? 'font-size:22px;' : '';
+    btn.innerHTML = `<span class="label">${String.fromCharCode(65+i)}</span><span style="${fontStyle}">${opt}</span>`;
+    btn.addEventListener('click', () => answerQuestion(i));
+    optsDiv.appendChild(btn);
+  });
+}
+
+function answerQuestion(selectedIndex){
+  const q = currentQuestions[currentIndex];
+  const correct = selectedIndex === q.answer_index;
+  
+  document.querySelectorAll('.option').forEach((opt, i) => {
+    opt.disabled = true;
+    if(i === q.answer_index) opt.classList.add('correct');
+    else if(i === selectedIndex) opt.classList.add('wrong');
+  });
+  
+  const weak = loadWeak(currentStep);
+  if(correct){
+    correctCount++;
+    if(weak[q.no]){
+      weak[q.no].streak = (weak[q.no].streak || 0) + 1;
+      if(weak[q.no].streak >= 2){
+        delete weak[q.no];
+      }
+    }
+    confetti();
+  }else{
+    if(!weak[q.no]){
+      weak[q.no] = {missCount: 1, streak: 0};
+    }else{
+      weak[q.no].missCount += 1;
+      weak[q.no].streak = 0;
+    }
+  }
+  saveWeak(currentStep, weak);
+  
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback show ' + (correct ? 'correct' : 'wrong');
+  fb.innerHTML = `
+    <div class="feedback-title">${correct ? '⭕ 正解!' : '❌ 不正解'}</div>
+    <div class="feedback-content">
+      <div><span class="label">漢字:</span><strong>${q.kanji}</strong></div>
+      <div><span class="label">読み:</span><strong style="color:#c1121f">${q.reading}</strong></div>
+      <div><span class="label">意味:</span>${q.meaning}</div>
+      <div><span class="label">例文:</span>${q.sentence}</div>
+    </div>
+    <button class="next-btn" id="next-btn">${currentIndex+1 === currentQuestions.length ? '結果を見る ▶' : '次の問題 ▶'}</button>
+  `;
+  document.getElementById('next-btn').addEventListener('click', nextQuestion);
+}
+
+function nextQuestion(){
+  currentIndex++;
+  if(currentIndex >= currentQuestions.length){
+    showResult();
+  }else{
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  const total = currentQuestions.length;
+  const pct = Math.round(correctCount/total*100);
+  const stepName = STEP_INFO[currentStep].title;
+  
+  if(!isWeakMode){
+    const prev = loadScore(currentStep);
+    if(!prev || correctCount/total > prev.correct/prev.total){
+      saveScore(currentStep, correctCount, total);
+    }
+  }
+  
+  let msg;
+  if(pct === 100) msg = '🎉 パーフェクト! 全問正解です!';
+  else if(pct >= 80) msg = '👍 よくできました!';
+  else if(pct >= 60) msg = '✏ あと少し!間違えた問題を復習しよう';
+  else msg = '💪 苦手カードでくり返し練習しよう';
+  
+  let nextStepHint = '';
+  const order = ['A','C','B'];
+  const idx = order.indexOf(currentStep);
+  if(!isWeakMode && pct >= 80 && idx < 2){
+    const next = order[idx+1];
+    nextStepHint = `<div style="margin-top:10px;padding:12px;background:#fef6e4;border-radius:8px;font-size:14px">🎯 次は <strong>ステップ${next}: ${STEP_INFO[next].title}</strong> に進みましょう!</div>`;
+  }
+  
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('progress-text').textContent = '完了';
+  document.getElementById('quiz-content').innerHTML = `
+    <div class="result-card">
+      <h2 style="border:none">ステップ${currentStep} ${isWeakMode ? '(苦手復習)' : ''} 結果</h2>
+      <div style="font-size:14px;color:#5e6472;margin-bottom:6px">${stepName}</div>
+      <div class="score-big">${correctCount}<span class="total"> / ${total}</span></div>
+      <div class="result-msg">${msg}</div>
+      <div style="font-size:14px;color:#5e6472">正答率: ${pct}%</div>
+      ${nextStepHint}
+      <div class="result-buttons">
+        <button class="start-btn" onclick="startStep('${currentStep}')">🔄 もう一度</button>
+        ${idx < 2 && !isWeakMode ? `<button class="start-btn secondary" onclick="startStep('${order[idx+1]}')">▶ ステップ${order[idx+1]}へ</button>` : ''}
+        <button class="start-btn gray" onclick="switchTab('home')">🏠 ホーム</button>
+      </div>
+    </div>
+  `;
+  if(pct === 100) bigConfetti();
+  updateWeakCountChip();
+}
+
+function renderWeakPanel(){
+  const container = document.getElementById('weak-content');
+  const totalCount = totalWeakCount();
+  
+  if(totalCount === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✨</div>
+        <div>苦手カードはまだありません</div>
+        <div style="font-size:13px;margin-top:6px">練習で間違えた問題が自動で集まります</div>
+      </div>
+    `;
+    document.getElementById('btn-clear-weak').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('btn-clear-weak').style.display = 'block';
+  
+  let html = '';
+  ['A','C','B'].forEach(step => {
+    const weak = loadWeak(step);
+    const nos = Object.keys(weak).map(Number).sort((a,b) => weak[b].missCount - weak[a].missCount);
+    if(nos.length === 0) return;
+    
+    const info = STEP_INFO[step];
+    html += `
+      <div class="weak-section">
+        <div class="weak-section-title">
+          <div class="step-mini ${step}">${step}</div>
+          <h3>ステップ${step}: ${info.title}</h3>
+          <span class="count">${nos.length}件</span>
+        </div>
+        <div class="weak-list">
+    `;
+    nos.forEach(no => {
+      const q = info.questions.find(x => x.no === no);
+      if(!q) return;
+      const w = weak[no];
+      html += `
+        <div class="weak-item">
+          <div>
+            <span class="kanji-text">${q.kanji}</span>
+            <span class="reading-text">(${q.reading})</span>
+          </div>
+          <div>
+            <span class="miss-count">×${w.missCount}</span>
+            ${w.streak > 0 ? `<span class="streak">連続${w.streak}</span>` : ''}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>
+        <button class="start-btn secondary" style="margin-top:10px" onclick="startWeakReview('${step}')">⚡ ステップ${step}の苦手を復習</button>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+document.getElementById('btn-clear-weak').addEventListener('click', () => {
+  if(confirm('全てのステップの苦手カードを消去しますか?')){
+    ['A','C','B'].forEach(s => saveWeak(s, {}));
+    renderWeakPanel();
+    updateWeakCountChip();
+  }
+});
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+let currentVwPop = null;
+function showVwPop(el, event){
+  event.stopPropagation();
+  closeVwPop();
+  
+  const word = el.textContent;
+  const pron = el.dataset.pron || '';
+  const mean = el.dataset.mean || '';
+  let opts = [];
+  try{opts = JSON.parse(el.dataset.opts || '[]');}catch(e){}
+  const ans = parseInt(el.dataset.ans || '0', 10);
+  
+  const pop = document.createElement('div');
+  pop.className = 'vw-pop';
+  let optsHtml = '';
+  opts.forEach((o, i) => {
+    optsHtml += `<button class="quiz-opt" data-i="${i}" data-ans="${ans}">${o}</button>`;
+  });
+  pop.innerHTML = `
+    <div class="word">${word}</div>
+    <div class="pron">[${pron}]</div>
+    <div class="meaning">${mean}</div>
+    ${opts.length > 0 ? `<div class="quiz-q">クイズ:正しい意味は?</div><div class="quiz-opts">${optsHtml}</div>` : ''}
+  `;
+  
+  document.body.appendChild(pop);
+  
+  const rect = el.getBoundingClientRect();
+  const popRect = pop.getBoundingClientRect();
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 6;
+  if(left + popRect.width > window.innerWidth - 10){
+    left = window.innerWidth - popRect.width - 10;
+  }
+  if(left < 10) left = 10;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  
+  pop.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const i = parseInt(btn.dataset.i, 10);
+      const a = parseInt(btn.dataset.ans, 10);
+      pop.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+      if(i === a){
+        btn.classList.add('correct');
+      }else{
+        btn.classList.add('wrong');
+        pop.querySelectorAll('.quiz-opt')[a].classList.add('correct');
+      }
+    });
+  });
+  
+  currentVwPop = pop;
+}
+function closeVwPop(){
+  if(currentVwPop){currentVwPop.remove();currentVwPop = null;}
+}
+document.addEventListener('click', closeVwPop);
+
+function confetti(){
+  const colors = ['#f582ae','#001858','#fef6e4','#10b981','#f3d2c1'];
+  for(let i = 0; i < 30; i++){
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.left = (50 + (Math.random()-0.5)*60) + '%';
+    p.style.top = '40%';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(p);
+    
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 3 + Math.random() * 4;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed - 4;
+    let x = 0, y = 0;
+    
+    const animate = () => {
+      vy += 0.3;
+      x += vx;
+      y += vy;
+      p.style.transform = `translate(${x}px, ${y}px) rotate(${x*4}deg)`;
+      p.style.opacity = Math.max(0, 1 - y/300);
+      if(y < 400){
+        requestAnimationFrame(animate);
+      }else{
+        p.remove();
+      }
+    };
+    requestAnimationFrame(animate);
+  }
+}
+function bigConfetti(){
+  for(let i = 0; i < 4; i++){
+    setTimeout(confetti, i * 200);
+  }
+}
+
+renderStepCards();
+updateWeakCountChip();
+</script>
+</body>
+</html>

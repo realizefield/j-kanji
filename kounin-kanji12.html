@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高校入試 漢字四択 Unit 12 - 熟字訓</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    background:linear-gradient(135deg,#fef6e4 0%,#f3d2c1 100%);
+    color:#001858;
+    line-height:1.6;
+    min-height:100vh;
+    padding:16px;
+  }
+  .container{max-width:820px;margin:0 auto}
+  
+  header{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,24,88,0.08);
+    text-align:center;
+  }
+  header .badge{
+    display:inline-block;
+    background:#f582ae;
+    color:#fff;
+    padding:4px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  header h1{font-size:24px;color:#001858;margin-bottom:6px}
+  header .sub{font-size:14px;color:#5e6472}
+  header .stats{margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .stat-chip{
+    background:#fef6e4;
+    border:2px solid #f3d2c1;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .stat-chip.weak{background:#ffe5ec;border-color:#f582ae;color:#c1121f}
+  
+  .tabs{
+    display:flex;
+    gap:4px;
+    margin-bottom:16px;
+    background:#fff;
+    padding:6px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,24,88,0.06);
+  }
+  .tab{
+    flex:1;
+    padding:12px 8px;
+    border:none;
+    background:transparent;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#5e6472;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .tab.active{background:#001858;color:#fff}
+  .tab:hover:not(.active){background:#fef6e4}
+  
+  .panel{display:none;background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 12px rgba(0,24,88,0.08)}
+  .panel.active{display:block}
+  
+  h2{font-size:20px;margin-bottom:16px;color:#001858;border-bottom:3px solid #f582ae;padding-bottom:8px}
+  h3{font-size:16px;margin:18px 0 10px;color:#001858}
+  
+  .intro-card{background:#fef6e4;padding:18px;border-radius:12px;margin-bottom:16px}
+  .intro-card p{margin-bottom:10px;font-size:15px}
+  .intro-card p:last-child{margin-bottom:0}
+  
+  .step-cards{display:grid;gap:12px;margin-top:16px}
+  .step-card{
+    background:#fff;
+    border:2px solid #f3d2c1;
+    border-radius:14px;
+    padding:18px;
+    cursor:pointer;
+    transition:all 0.2s;
+    position:relative;
+  }
+  .step-card:hover{border-color:#f582ae;transform:translateY(-2px);box-shadow:0 6px 16px rgba(245,130,174,0.2)}
+  .step-card .step-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .step-card .step-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+  .step-card[data-step="C"] .step-icon{background:#f582ae}
+  .step-card[data-step="B"] .step-icon{background:#10b981}
+  .step-card .step-title{font-size:17px;font-weight:bold;color:#001858}
+  .step-card .step-sub{font-size:13px;color:#5e6472;margin-top:2px}
+  .step-card .step-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .step-card .meta-chip{
+    font-size:12px;
+    padding:3px 10px;
+    border-radius:12px;
+    background:#fef6e4;
+    color:#5e6472;
+    font-weight:bold;
+  }
+  .step-card .meta-chip.score{background:#d1fae5;color:#065f46}
+  .step-card .meta-chip.weak-chip{background:#ffe5ec;color:#c1121f}
+  .step-card .arrow{
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:20px;
+    color:#5e6472;
+  }
+  
+  .start-btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    margin-top:16px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .start-btn:hover{background:#172554;transform:translateY(-1px)}
+  .start-btn.secondary{background:#f582ae;margin-top:8px}
+  .start-btn.secondary:hover{background:#e26d97}
+  .start-btn.gray{background:#5e6472;margin-top:8px}
+  .start-btn.gray:hover{background:#475569}
+  
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .step-badge{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    background:#001858;
+    color:#fff;
+  }
+  .step-badge.C{background:#f582ae}
+  .step-badge.B{background:#10b981}
+  .progress{
+    flex:1;
+    min-width:140px;
+    background:#fef6e4;
+    border-radius:20px;
+    height:10px;
+    overflow:hidden;
+  }
+  .progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,#f582ae,#001858);
+    transition:width 0.3s;
+    width:0%;
+  }
+  .progress-text{font-size:13px;font-weight:bold;color:#5e6472;white-space:nowrap}
+  
+  .question-card{
+    background:linear-gradient(135deg,#fef6e4 0%,#fff 100%);
+    padding:24px;
+    border-radius:14px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .question-num{font-size:13px;color:#5e6472;margin-bottom:8px;font-weight:bold}
+  .question-prompt{font-size:14px;color:#5e6472;margin-bottom:14px}
+  .question-kanji{
+    font-size:56px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.05em;
+  }
+  .question-reading{
+    font-size:38px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.1em;
+  }
+  .question-sentence{
+    font-size:15px;
+    color:#5e6472;
+    margin-top:10px;
+    padding:10px;
+    background:#fff;
+    border-radius:8px;
+    display:inline-block;
+  }
+  .question-sentence .target{color:#c1121f;font-weight:bold}
+  .question-sentence .blank{
+    background:#fef6e4;
+    color:#5e6472;
+    padding:0 8px;
+    border-bottom:2px solid #001858;
+    font-weight:bold;
+  }
+  .speaker-btn{
+    background:#f582ae;
+    color:#fff;
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:13px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+  .speaker-btn:hover{background:#e26d97}
+  
+  .options{display:grid;gap:10px}
+  .option{
+    background:#fff;
+    border:2px solid #cbd5e1;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    transition:all 0.15s;
+    text-align:left;
+    color:#001858;
+    font-family:inherit;
+  }
+  .option:hover:not(:disabled){border-color:#f582ae;background:#fef6e4}
+  .option.correct{background:#d1fae5;border-color:#10b981;color:#065f46;font-weight:bold}
+  .option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+  .option:disabled{cursor:not-allowed}
+  .option .label{
+    display:inline-block;
+    background:#001858;
+    color:#fff;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    text-align:center;
+    line-height:24px;
+    font-size:13px;
+    margin-right:10px;
+    font-weight:bold;
+  }
+  .option.correct .label{background:#10b981}
+  .option.wrong .label{background:#ef4444}
+  
+  .feedback{margin-top:16px;padding:16px;border-radius:12px;display:none}
+  .feedback.show{display:block;animation:slideIn 0.3s}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .feedback.correct{background:#d1fae5;border-left:4px solid #10b981}
+  .feedback.wrong{background:#fee2e2;border-left:4px solid #ef4444}
+  .feedback-title{font-weight:bold;font-size:16px;margin-bottom:8px}
+  .feedback.correct .feedback-title{color:#065f46}
+  .feedback.wrong .feedback-title{color:#991b1b}
+  .feedback-content{font-size:14px;color:#001858;line-height:1.7}
+  .feedback-content .label{font-weight:bold;color:#5e6472;display:inline-block;width:60px}
+  .next-btn{
+    display:block;
+    margin:14px 0 0 auto;
+    padding:10px 28px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .next-btn:hover{background:#172554}
+  
+  .result-card{text-align:center;padding:30px 20px}
+  .result-card .score-big{
+    font-size:64px;
+    font-weight:bold;
+    color:#001858;
+    margin:20px 0;
+  }
+  .result-card .score-big .total{font-size:32px;color:#5e6472}
+  .result-msg{font-size:18px;margin-bottom:20px;color:#001858}
+  .result-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .result-buttons button{flex:1;min-width:140px}
+  
+  .empty-state{text-align:center;padding:40px 20px;color:#5e6472}
+  .empty-state .icon{font-size:48px;margin-bottom:12px}
+  
+  .weak-section{margin-bottom:20px}
+  .weak-section-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .weak-section-title .step-mini{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .weak-section-title .step-mini.C{background:#f582ae}
+  .weak-section-title .step-mini.B{background:#10b981}
+  .weak-section-title h3{margin:0;border:none;padding:0}
+  .weak-section-title .count{font-size:13px;color:#5e6472;margin-left:auto;font-weight:bold}
+  
+  .weak-list{display:grid;gap:8px}
+  .weak-item{
+    background:#fef6e4;
+    padding:12px 16px;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .weak-item .kanji-text{font-size:22px;font-weight:bold;color:#001858}
+  .weak-item .reading-text{font-size:14px;color:#5e6472;margin-left:10px}
+  .weak-item .miss-count{
+    background:#f582ae;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+  }
+  .weak-item .streak{
+    background:#10b981;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    margin-left:6px;
+  }
+  
+  vw{
+    color:#001858;
+    background:#fef6e4;
+    padding:1px 4px;
+    border-radius:4px;
+    cursor:pointer;
+    border-bottom:2px dotted #f582ae;
+  }
+  vw:hover{background:#f3d2c1}
+  .vw-pop{
+    position:absolute;
+    background:#fff;
+    border:2px solid #001858;
+    border-radius:10px;
+    padding:14px;
+    box-shadow:0 6px 20px rgba(0,24,88,0.2);
+    z-index:1000;
+    max-width:300px;
+    min-width:240px;
+  }
+  .vw-pop .word{font-size:18px;font-weight:bold;color:#001858;margin-bottom:4px}
+  .vw-pop .pron{font-size:13px;color:#5e6472;margin-bottom:8px}
+  .vw-pop .meaning{font-size:14px;margin-bottom:10px;color:#001858}
+  .vw-pop .quiz-q{font-size:13px;font-weight:bold;color:#5e6472;margin-bottom:6px}
+  .vw-pop .quiz-opts{display:grid;gap:4px}
+  .vw-pop .quiz-opt{
+    background:#fef6e4;
+    border:1px solid #f3d2c1;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:13px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+  }
+  .vw-pop .quiz-opt:hover{background:#f3d2c1}
+  .vw-pop .quiz-opt.correct{background:#d1fae5;border-color:#10b981}
+  .vw-pop .quiz-opt.wrong{background:#fee2e2;border-color:#ef4444}
+  
+  .confetti-piece{position:fixed;width:10px;height:10px;z-index:9999;pointer-events:none}
+  
+  @media(max-width:600px){
+    .question-kanji{font-size:44px}
+    .question-reading{font-size:30px}
+    header h1{font-size:18px}
+    .tab{font-size:12px;padding:10px 4px}
+  }
+
+  .course-selector{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin-top:8px;
+  }
+  @media(min-width:480px){
+    .course-selector{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(min-width:680px){
+    .course-selector{grid-template-columns:repeat(5,1fr);}
+  }
+  .course-btn{
+    padding:14px 8px;
+    border:2px solid #f3d2c1;
+    border-radius:12px;
+    background:#fff;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:bold;
+    color:#001858;
+    transition:all 0.2s;
+    text-align:center;
+  }
+  .course-btn:hover{border-color:#f582ae;background:#fef6e4}
+  .course-btn.active{
+    background:#001858;
+    color:#fff;
+    border-color:#001858;
+  }
+  .course-btn .label{font-size:14px;display:block}
+  .course-btn .sub{font-size:12px;display:block;margin-top:2px;opacity:0.8;font-weight:normal}
+  .course-btn.active .sub{color:#fef6e4}
+  
+  /* Highlight katakana in sentences */
+  .katakana-target{
+    background:#fef6e4;
+    color:#c1121f;
+    padding:0 4px;
+    border-radius:4px;
+    border-bottom:2px solid #c1121f;
+    font-weight:bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <span class="badge">江原予備校 高校入試対策</span>
+    <h1>漢字四択クイズ Unit 12</h1>
+    <div class="sub">熟字訓(全67問・8レッスン)</div>
+    <div class="stats">
+      <div class="stat-chip" id="course-info-chip">📚 Lesson 1: 8問 × 2ステップ</div>
+      <div class="stat-chip weak" id="weak-count-chip" style="display:none">⚠ 苦手 <span id="weak-count">0</span></div>
+    </div>
+  </header>
+  
+  <div class="tabs">
+    <button class="tab active" data-tab="home">🏠 ホーム</button>
+    <button class="tab" data-tab="quiz">📝 練習</button>
+    <button class="tab" data-tab="weak">⚡ 苦手復習</button>
+  </div>
+  
+  <div class="panel active" id="panel-home">
+    <h2>このユニットについて</h2>
+    
+    <div class="intro-card">
+      <p><strong>📖 熟字訓とは?</strong></p>
+      <p>二字以上の漢字をまとめて<strong>特別な訓読み</strong>で読む語です。一字ずつの音読み・訓読みでは読めず、漢字の組み合わせ全体に意味と読みを当てています。</p>
+      <p>たとえば「<strong>梅雨</strong>」は「ばいう」ではなく「<strong>つゆ</strong>」、「<strong>笑顔</strong>」は「しょうがん」ではなく「<strong>えがお</strong>」と読みます。日常語に多く、入試・高認でも頻出です。</p>
+    </div>
+    
+<h3 style="margin-top:20px">📚 レッスンを選ぶ</h3>
+    <div class="course-selector" id="course-selector"></div>
+    
+    <h3 style="margin-top:20px">📌 ステップ</h3>
+    <p style="font-size:14px;color:#5e6472;margin-bottom:6px">A → C と進めると、双方向で関係が定着します。</p>
+    <div class="step-cards" id="step-cards"></div>
+    
+    <h3 style="margin-top:24px">🎯 出題範囲</h3>
+    <div class="intro-card">
+      <p>「12_熟字訓」全67問を <strong>8レッスン</strong> に分けています(8問×5レッスン + 9問×3レッスン)。「明日(あす/あした)」「<vw onclick="showVwPop(this,event)" data-pron="ちくとう" data-mean="練習用の竹の刀" data-opts="[&quot;練習用の竹の刀&quot;,&quot;竹の笛&quot;,&quot;竹の杖&quot;,&quot;竹の物差し&quot;]" data-ans="0">竹刀</vw>(しない)」「相撲(すもう)」など、<vw onclick="showVwPop(this,event)" data-pron="とくしゅ" data-mean="特別なきまりに従うこと" data-opts="[&quot;特別なきまりに従うこと&quot;,&quot;ふつうのこと&quot;,&quot;新しいこと&quot;,&quot;古いこと&quot;]" data-ans="0">特殊</vw>な読み方をする語を集めました。ステップAで「熟字→読み」、ステップCで「読み→熟字」と双方向で確認します。</p>
+    </div>
+  </div>
+  
+  <div class="panel" id="panel-quiz">
+    <div class="quiz-header">
+      <span class="step-badge" id="step-badge">A</span>
+      <div class="progress-text" id="progress-text">問題 1 / 8</div>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+    <div id="quiz-content"></div>
+  </div>
+  
+  <div class="panel" id="panel-weak">
+    <h2>⚡ 苦手カード</h2>
+    <p style="margin-bottom:14px;color:#5e6472;font-size:14px">間違えた問題が自動で集まります。連続2回正解すると外れます。ステップごとに別々に管理されます。</p>
+    <div id="weak-content"></div>
+    <button class="start-btn gray" id="btn-clear-weak" style="margin-top:14px">🗑 全ての苦手カードを消去</button>
+  </div>
+  
+</div>
+
+<script>
+const COURSES = {"L1": {"A": [{"no": 1, "kanji": "明日", "reading": "あす", "sentence": "", "meaning": "あす", "pair_w1": "明日", "pair_w2": "あす", "options": ["たち", "やまと", "あす", "おとうさん"], "answer_index": 2}, {"no": 2, "kanji": "明日", "reading": "あした", "sentence": "", "meaning": "あした", "pair_w1": "明日", "pair_w2": "あした", "options": ["じょうず", "うば", "ふたり", "あした"], "answer_index": 3}, {"no": 3, "kanji": "竹刀", "reading": "しない", "sentence": "", "meaning": "しない", "pair_w1": "竹刀", "pair_w2": "しない", "options": ["きのう", "いぶき", "しない", "おば"], "answer_index": 2}, {"no": 4, "kanji": "小豆", "reading": "あずき", "sentence": "", "meaning": "あずき", "pair_w1": "小豆", "pair_w2": "あずき", "options": ["あずき", "たび", "たなばた", "くだもの"], "answer_index": 0}, {"no": 5, "kanji": "芝生", "reading": "しばふ", "sentence": "", "meaning": "しばふ", "pair_w1": "芝生", "pair_w2": "しばふ", "options": ["おとな", "しばふ", "おかあさん", "すもう"], "answer_index": 1}, {"no": 6, "kanji": "硫黄", "reading": "いおう", "sentence": "", "meaning": "いおう", "pair_w1": "硫黄", "pair_w2": "いおう", "options": ["しぐれ", "うなばら", "さつきばれ", "いおう"], "answer_index": 3}, {"no": 7, "kanji": "三味線", "reading": "しゃみせん", "sentence": "", "meaning": "しゃみせん", "pair_w1": "三味線", "pair_w2": "しゃみせん", "options": ["しみず", "わこうど", "ひとり", "しゃみせん"], "answer_index": 3}, {"no": 8, "kanji": "意気地", "reading": "いくじ", "sentence": "", "meaning": "いくじ", "pair_w1": "意気地", "pair_w2": "いくじ", "options": ["いくじ", "つゆ", "しばふ", "ふたり"], "answer_index": 0}], "C": [{"no": 1, "kanji": "あす", "reading": "", "sentence": "", "meaning": "明日", "pair_w1": "明日", "pair_w2": "あす", "options": ["雪崩", "明日", "砂利", "三味線"], "answer_index": 1}, {"no": 2, "kanji": "あした", "reading": "", "sentence": "", "meaning": "明日", "pair_w1": "明日", "pair_w2": "あした", "options": ["海原", "凸凹", "明日", "二人"], "answer_index": 2}, {"no": 3, "kanji": "しない", "reading": "", "sentence": "", "meaning": "竹刀", "pair_w1": "竹刀", "pair_w2": "しない", "options": ["凸凹", "眼鏡", "竹刀", "草履"], "answer_index": 2}, {"no": 4, "kanji": "あずき", "reading": "", "sentence": "", "meaning": "小豆", "pair_w1": "小豆", "pair_w2": "あずき", "options": ["三味線", "名残", "二人", "小豆"], "answer_index": 3}, {"no": 5, "kanji": "しばふ", "reading": "", "sentence": "", "meaning": "芝生", "pair_w1": "芝生", "pair_w2": "しばふ", "options": ["吹雪", "伯父", "仮名", "芝生"], "answer_index": 3}, {"no": 6, "kanji": "いおう", "reading": "", "sentence": "", "meaning": "硫黄", "pair_w1": "硫黄", "pair_w2": "いおう", "options": ["硫黄", "日和", "清水", "心地"], "answer_index": 0}, {"no": 7, "kanji": "しゃみせん", "reading": "", "sentence": "", "meaning": "三味線", "pair_w1": "三味線", "pair_w2": "しゃみせん", "options": ["三味線", "海原", "大和絵", "一人"], "answer_index": 0}, {"no": 8, "kanji": "いくじ", "reading": "", "sentence": "", "meaning": "意気地", "pair_w1": "意気地", "pair_w2": "いくじ", "options": ["意気地", "芝生", "叔父", "乳母"], "answer_index": 0}], "count": 8, "range_start": 1, "range_end": 8, "first_pair": "明日=あす", "last_pair": "意気地=いくじ"}, "L2": {"A": [{"no": 9, "kanji": "砂利", "reading": "じゃり", "sentence": "", "meaning": "じゃり", "pair_w1": "砂利", "pair_w2": "じゃり", "options": ["ゆくえ", "じゃり", "おば", "ここち"], "answer_index": 1}, {"no": 10, "kanji": "田舎", "reading": "いなか", "sentence": "", "meaning": "いなか", "pair_w1": "田舎", "pair_w2": "いなか", "options": ["いなか", "しらが", "さしつかえる", "かぜ"], "answer_index": 0}, {"no": 11, "kanji": "上手", "reading": "じょうず", "sentence": "", "meaning": "じょうず", "pair_w1": "上手", "pair_w2": "じょうず", "options": ["ひより", "へた", "いくじ", "じょうず"], "answer_index": 3}, {"no": 12, "kanji": "海原", "reading": "うなばら", "sentence": "", "meaning": "うなばら", "pair_w1": "海原", "pair_w2": "うなばら", "options": ["うなばら", "もみじ", "でこぼこ", "ふたり"], "answer_index": 0}, {"no": 13, "kanji": "白髪", "reading": "しらが", "sentence": "", "meaning": "しらが", "pair_w1": "白髪", "pair_w2": "しらが", "options": ["さなえ", "しらが", "あした", "めがね"], "answer_index": 1}, {"no": 14, "kanji": "乳母", "reading": "うば", "sentence": "", "meaning": "うば", "pair_w1": "乳母", "pair_w2": "うば", "options": ["おとうさん", "じょうず", "しない", "うば"], "answer_index": 3}, {"no": 15, "kanji": "相撲", "reading": "すもう", "sentence": "", "meaning": "すもう", "pair_w1": "相撲", "pair_w2": "すもう", "options": ["えがお", "ゆくえ", "うなばら", "すもう"], "answer_index": 3}, {"no": 16, "kanji": "笑顔", "reading": "えがお", "sentence": "", "meaning": "えがお", "pair_w1": "笑顔", "pair_w2": "えがお", "options": ["かな", "なだれ", "えがお", "おもや"], "answer_index": 2}], "C": [{"no": 9, "kanji": "じゃり", "reading": "", "sentence": "", "meaning": "砂利", "pair_w1": "砂利", "pair_w2": "じゃり", "options": ["竹刀", "上手", "昨日", "砂利"], "answer_index": 3}, {"no": 10, "kanji": "いなか", "reading": "", "sentence": "", "meaning": "田舎", "pair_w1": "田舎", "pair_w2": "いなか", "options": ["田舎", "海原", "叔父", "五月晴れ"], "answer_index": 0}, {"no": 11, "kanji": "じょうず", "reading": "", "sentence": "", "meaning": "上手", "pair_w1": "上手", "pair_w2": "じょうず", "options": ["乙女", "大和", "上手", "一人"], "answer_index": 2}, {"no": 12, "kanji": "うなばら", "reading": "", "sentence": "", "meaning": "海原", "pair_w1": "海原", "pair_w2": "うなばら", "options": ["小豆", "白髪", "海原", "仮名"], "answer_index": 2}, {"no": 13, "kanji": "しらが", "reading": "", "sentence": "", "meaning": "白髪", "pair_w1": "白髪", "pair_w2": "しらが", "options": ["田舎", "白髪", "二人", "母屋"], "answer_index": 1}, {"no": 14, "kanji": "うば", "reading": "", "sentence": "", "meaning": "乳母", "pair_w1": "乳母", "pair_w2": "うば", "options": ["乳母", "木綿", "迷子", "紅葉"], "answer_index": 0}, {"no": 15, "kanji": "すもう", "reading": "", "sentence": "", "meaning": "相撲", "pair_w1": "相撲", "pair_w2": "すもう", "options": ["相撲", "三味線", "伯母", "木綿"], "answer_index": 0}, {"no": 16, "kanji": "えがお", "reading": "", "sentence": "", "meaning": "笑顔", "pair_w1": "笑顔", "pair_w2": "えがお", "options": ["迷子", "下手", "母屋", "笑顔"], "answer_index": 3}], "count": 8, "range_start": 9, "range_end": 16, "first_pair": "砂利=じゃり", "last_pair": "笑顔=えがお"}, "L3": {"A": [{"no": 17, "kanji": "叔父", "reading": "おじ", "sentence": "", "meaning": "おじ", "pair_w1": "叔父", "pair_w2": "おじ", "options": ["つゆ", "ふぶき", "おじ", "いくじ"], "answer_index": 2}, {"no": 18, "kanji": "伯父", "reading": "おじ", "sentence": "", "meaning": "おじ", "pair_w1": "伯父", "pair_w2": "おじ", "options": ["おば", "ぞうり", "つゆ", "おじ"], "answer_index": 3}, {"no": 19, "kanji": "草履", "reading": "ぞうり", "sentence": "", "meaning": "ぞうり", "pair_w1": "草履", "pair_w2": "ぞうり", "options": ["じゃり", "ぞうり", "きょう", "ふたり"], "answer_index": 1}, {"no": 20, "kanji": "太刀", "reading": "たち", "sentence": "", "meaning": "たち", "pair_w1": "太刀", "pair_w2": "たち", "options": ["ひとり", "でこぼこ", "ゆくえ", "たち"], "answer_index": 3}, {"no": 21, "kanji": "乙女", "reading": "おとめ", "sentence": "", "meaning": "おとめ", "pair_w1": "乙女", "pair_w2": "おとめ", "options": ["はとば", "もみじ", "あす", "おとめ"], "answer_index": 3}, {"no": 22, "kanji": "叔母", "reading": "おば", "sentence": "", "meaning": "おば", "pair_w1": "叔母", "pair_w2": "おば", "options": ["さなえ", "ひとり", "かわせ", "おば"], "answer_index": 3}, {"no": 23, "kanji": "伯母", "reading": "おば", "sentence": "", "meaning": "おば", "pair_w1": "伯母", "pair_w2": "おば", "options": ["あす", "めがね", "おば", "たび"], "answer_index": 2}, {"no": 24, "kanji": "足袋", "reading": "たび", "sentence": "", "meaning": "たび", "pair_w1": "足袋", "pair_w2": "たび", "options": ["たび", "おもや", "ひより", "おば"], "answer_index": 0}], "C": [{"no": 17, "kanji": "おじ", "reading": "", "sentence": "", "meaning": "叔父", "pair_w1": "叔父", "pair_w2": "おじ", "options": ["土産", "叔父", "今日", "下手"], "answer_index": 1}, {"no": 18, "kanji": "おじ", "reading": "", "sentence": "", "meaning": "伯父", "pair_w1": "伯父", "pair_w2": "おじ", "options": ["伯父", "上手", "叔母", "意気地"], "answer_index": 0}, {"no": 19, "kanji": "ぞうり", "reading": "", "sentence": "", "meaning": "草履", "pair_w1": "草履", "pair_w2": "ぞうり", "options": ["時雨", "草履", "波止場", "笑顔"], "answer_index": 1}, {"no": 20, "kanji": "たち", "reading": "", "sentence": "", "meaning": "太刀", "pair_w1": "太刀", "pair_w2": "たち", "options": ["太刀", "お母さん", "砂利", "お父さん"], "answer_index": 0}, {"no": 21, "kanji": "おとめ", "reading": "", "sentence": "", "meaning": "乙女", "pair_w1": "乙女", "pair_w2": "おとめ", "options": ["差し支える", "大和", "太刀", "乙女"], "answer_index": 3}, {"no": 22, "kanji": "おば", "reading": "", "sentence": "", "meaning": "叔母", "pair_w1": "叔母", "pair_w2": "おば", "options": ["二人", "一人", "笑顔", "叔母"], "answer_index": 3}, {"no": 23, "kanji": "おば", "reading": "", "sentence": "", "meaning": "伯母", "pair_w1": "伯母", "pair_w2": "おば", "options": ["七夕", "行方", "伯母", "紅葉"], "answer_index": 2}, {"no": 24, "kanji": "たび", "reading": "", "sentence": "", "meaning": "足袋", "pair_w1": "足袋", "pair_w2": "たび", "options": ["足袋", "凸凹", "お母さん", "下手"], "answer_index": 0}], "count": 8, "range_start": 17, "range_end": 24, "first_pair": "叔父=おじ", "last_pair": "足袋=たび"}, "L4": {"A": [{"no": 25, "kanji": "梅雨", "reading": "つゆ", "sentence": "", "meaning": "つゆ", "pair_w1": "梅雨", "pair_w2": "つゆ", "options": ["さみだれ", "あした", "つゆ", "たなばた"], "answer_index": 2}, {"no": 26, "kanji": "風邪", "reading": "かぜ", "sentence": "", "meaning": "かぜ", "pair_w1": "風邪", "pair_w2": "かぜ", "options": ["しぐれ", "いぶき", "かぜ", "しばふ"], "answer_index": 2}, {"no": 27, "kanji": "凸凹", "reading": "でこぼこ", "sentence": "", "meaning": "でこぼこ", "pair_w1": "凸凹", "pair_w2": "でこぼこ", "options": ["いおう", "はとば", "つゆ", "でこぼこ"], "answer_index": 3}, {"no": 28, "kanji": "仮名", "reading": "かな", "sentence": "", "meaning": "かな", "pair_w1": "仮名", "pair_w2": "かな", "options": ["かな", "いなか", "あす", "めがね"], "answer_index": 0}, {"no": 29, "kanji": "名残", "reading": "なごり", "sentence": "", "meaning": "なごり", "pair_w1": "名残", "pair_w2": "なごり", "options": ["えがお", "ふぶき", "ここち", "なごり"], "answer_index": 3}, {"no": 30, "kanji": "為替", "reading": "かわせ", "sentence": "", "meaning": "かわせ", "pair_w1": "為替", "pair_w2": "かわせ", "options": ["わこうど", "たち", "かわせ", "しみず"], "answer_index": 2}, {"no": 31, "kanji": "雪崩", "reading": "なだれ", "sentence": "", "meaning": "なだれ", "pair_w1": "雪崩", "pair_w2": "なだれ", "options": ["なだれ", "おもや", "きのう", "かぜ"], "answer_index": 0}, {"no": 32, "kanji": "河原", "reading": "かわら", "sentence": "", "meaning": "かわら", "pair_w1": "河原", "pair_w2": "かわら", "options": ["さしつかえる", "かわら", "おとめ", "おとうさん"], "answer_index": 1}], "C": [{"no": 25, "kanji": "つゆ", "reading": "", "sentence": "", "meaning": "梅雨", "pair_w1": "梅雨", "pair_w2": "つゆ", "options": ["梅雨", "迷子", "下手", "二十歳"], "answer_index": 0}, {"no": 26, "kanji": "かぜ", "reading": "", "sentence": "", "meaning": "風邪", "pair_w1": "風邪", "pair_w2": "かぜ", "options": ["太刀", "土産", "風邪", "草履"], "answer_index": 2}, {"no": 27, "kanji": "でこぼこ", "reading": "", "sentence": "", "meaning": "凸凹", "pair_w1": "凸凹", "pair_w2": "でこぼこ", "options": ["早苗", "凸凹", "お父さん", "相撲"], "answer_index": 1}, {"no": 28, "kanji": "かな", "reading": "", "sentence": "", "meaning": "仮名", "pair_w1": "仮名", "pair_w2": "かな", "options": ["河原", "仮名", "乙女", "昨日"], "answer_index": 1}, {"no": 29, "kanji": "なごり", "reading": "", "sentence": "", "meaning": "名残", "pair_w1": "名残", "pair_w2": "なごり", "options": ["差し支える", "名残", "波止場", "浮つく"], "answer_index": 1}, {"no": 30, "kanji": "かわせ", "reading": "", "sentence": "", "meaning": "為替", "pair_w1": "為替", "pair_w2": "かわせ", "options": ["河原", "七夕", "為替", "風邪"], "answer_index": 2}, {"no": 31, "kanji": "なだれ", "reading": "", "sentence": "", "meaning": "雪崩", "pair_w1": "雪崩", "pair_w2": "なだれ", "options": ["清水", "雪崩", "芝生", "河原"], "answer_index": 1}, {"no": 32, "kanji": "かわら", "reading": "", "sentence": "", "meaning": "河原", "pair_w1": "河原", "pair_w2": "かわら", "options": ["足袋", "河原", "上手", "白髪"], "answer_index": 1}], "count": 8, "range_start": 25, "range_end": 32, "first_pair": "梅雨=つゆ", "last_pair": "河原=かわら"}, "L5": {"A": [{"no": 33, "kanji": "二十歳", "reading": "はたち", "sentence": "", "meaning": "はたち", "pair_w1": "二十歳", "pair_w2": "はたち", "options": ["かわせ", "はたち", "じゃり", "えがお"], "answer_index": 1}, {"no": 34, "kanji": "昨日", "reading": "きのう", "sentence": "", "meaning": "きのう", "pair_w1": "昨日", "pair_w2": "きのう", "options": ["おば", "きのう", "うば", "いぶき"], "answer_index": 1}, {"no": 35, "kanji": "日和", "reading": "ひより", "sentence": "", "meaning": "ひより", "pair_w1": "日和", "pair_w2": "ひより", "options": ["いぶき", "ひより", "いおう", "めがね"], "answer_index": 1}, {"no": 36, "kanji": "果物", "reading": "くだもの", "sentence": "", "meaning": "くだもの", "pair_w1": "果物", "pair_w2": "くだもの", "options": ["くだもの", "けさ", "おとめ", "へた"], "answer_index": 0}, {"no": 37, "kanji": "吹雪", "reading": "ふぶき", "sentence": "", "meaning": "ふぶき", "pair_w1": "吹雪", "pair_w2": "ふぶき", "options": ["しらが", "えがお", "ふぶき", "まいご"], "answer_index": 2}, {"no": 38, "kanji": "土産", "reading": "みやげ", "sentence": "", "meaning": "みやげ", "pair_w1": "土産", "pair_w2": "みやげ", "options": ["いなか", "かな", "ゆくえ", "みやげ"], "answer_index": 3}, {"no": 39, "kanji": "心地", "reading": "ここち", "sentence": "", "meaning": "ここち", "pair_w1": "心地", "pair_w2": "ここち", "options": ["おもや", "うば", "ここち", "しらが"], "answer_index": 2}, {"no": 40, "kanji": "紅葉", "reading": "もみじ", "sentence": "", "meaning": "もみじ", "pair_w1": "紅葉", "pair_w2": "もみじ", "options": ["きょう", "さつきばれ", "わこうど", "もみじ"], "answer_index": 3}], "C": [{"no": 33, "kanji": "はたち", "reading": "", "sentence": "", "meaning": "二十歳", "pair_w1": "二十歳", "pair_w2": "はたち", "options": ["仮名", "大和", "伯父", "二十歳"], "answer_index": 3}, {"no": 34, "kanji": "きのう", "reading": "", "sentence": "", "meaning": "昨日", "pair_w1": "昨日", "pair_w2": "きのう", "options": ["今日", "昨日", "河原", "土産"], "answer_index": 1}, {"no": 35, "kanji": "ひより", "reading": "", "sentence": "", "meaning": "日和", "pair_w1": "日和", "pair_w2": "ひより", "options": ["意気地", "波止場", "日和", "紅葉"], "answer_index": 2}, {"no": 36, "kanji": "くだもの", "reading": "", "sentence": "", "meaning": "果物", "pair_w1": "果物", "pair_w2": "くだもの", "options": ["田舎", "七夕", "果物", "清水"], "answer_index": 2}, {"no": 37, "kanji": "ふぶき", "reading": "", "sentence": "", "meaning": "吹雪", "pair_w1": "吹雪", "pair_w2": "ふぶき", "options": ["昨日", "木綿", "七夕", "吹雪"], "answer_index": 3}, {"no": 38, "kanji": "みやげ", "reading": "", "sentence": "", "meaning": "土産", "pair_w1": "土産", "pair_w2": "みやげ", "options": ["時雨", "土産", "二十歳", "七夕"], "answer_index": 1}, {"no": 39, "kanji": "ここち", "reading": "", "sentence": "", "meaning": "心地", "pair_w1": "心地", "pair_w2": "ここち", "options": ["名残", "心地", "昨日", "行方"], "answer_index": 1}, {"no": 40, "kanji": "もみじ", "reading": "", "sentence": "", "meaning": "紅葉", "pair_w1": "紅葉", "pair_w2": "もみじ", "options": ["梅雨", "紅葉", "下手", "時雨"], "answer_index": 1}], "count": 8, "range_start": 33, "range_end": 40, "first_pair": "二十歳=はたち", "last_pair": "紅葉=もみじ"}, "L6": {"A": [{"no": 41, "kanji": "早苗", "reading": "さなえ", "sentence": "", "meaning": "さなえ", "pair_w1": "早苗", "pair_w2": "さなえ", "options": ["さなえ", "ひとり", "うば", "ひより"], "answer_index": 0}, {"no": 42, "kanji": "大和", "reading": "やまと", "sentence": "", "meaning": "やまと", "pair_w1": "大和", "pair_w2": "やまと", "options": ["さなえ", "へた", "しみず", "やまと"], "answer_index": 3}, {"no": 43, "kanji": "五月雨", "reading": "さみだれ", "sentence": "", "meaning": "さみだれ", "pair_w1": "五月雨", "pair_w2": "さみだれ", "options": ["うなばら", "さみだれ", "おかあさん", "しみず"], "answer_index": 1}, {"no": 44, "kanji": "行方", "reading": "ゆくえ", "sentence": "", "meaning": "ゆくえ", "pair_w1": "行方", "pair_w2": "ゆくえ", "options": ["ゆくえ", "ぞうり", "おとな", "あずき"], "answer_index": 0}, {"no": 45, "kanji": "時雨", "reading": "しぐれ", "sentence": "", "meaning": "しぐれ", "pair_w1": "時雨", "pair_w2": "しぐれ", "options": ["しぐれ", "かな", "おば", "もめん"], "answer_index": 0}, {"no": 46, "kanji": "若人", "reading": "わこうど", "sentence": "", "meaning": "わこうど", "pair_w1": "若人", "pair_w2": "わこうど", "options": ["たび", "おもや", "もめん", "わこうど"], "answer_index": 3}, {"no": 47, "kanji": "浮つく", "reading": "うわつく", "sentence": "", "meaning": "うわつく", "pair_w1": "浮つく", "pair_w2": "うわつく", "options": ["もみじ", "さなえ", "うわつく", "おとめ"], "answer_index": 2}, {"no": 48, "kanji": "差し支える", "reading": "さしつかえる", "sentence": "", "meaning": "さしつかえる", "pair_w1": "差し支える", "pair_w2": "さしつかえる", "options": ["おじ", "さつきばれ", "たち", "さしつかえる"], "answer_index": 3}, {"no": 49, "kanji": "五月晴れ", "reading": "さつきばれ", "sentence": "", "meaning": "さつきばれ", "pair_w1": "五月晴れ", "pair_w2": "さつきばれ", "options": ["いおう", "さつきばれ", "あす", "うわつく"], "answer_index": 1}], "C": [{"no": 41, "kanji": "さなえ", "reading": "", "sentence": "", "meaning": "早苗", "pair_w1": "早苗", "pair_w2": "さなえ", "options": ["白髪", "早苗", "五月晴れ", "息吹"], "answer_index": 1}, {"no": 42, "kanji": "やまと", "reading": "", "sentence": "", "meaning": "大和", "pair_w1": "大和", "pair_w2": "やまと", "options": ["太刀", "時雨", "大和", "意気地"], "answer_index": 2}, {"no": 43, "kanji": "さみだれ", "reading": "", "sentence": "", "meaning": "五月雨", "pair_w1": "五月雨", "pair_w2": "さみだれ", "options": ["五月晴れ", "大和", "心地", "五月雨"], "answer_index": 3}, {"no": 44, "kanji": "ゆくえ", "reading": "", "sentence": "", "meaning": "行方", "pair_w1": "行方", "pair_w2": "ゆくえ", "options": ["行方", "為替", "梅雨", "田舎"], "answer_index": 0}, {"no": 45, "kanji": "しぐれ", "reading": "", "sentence": "", "meaning": "時雨", "pair_w1": "時雨", "pair_w2": "しぐれ", "options": ["河原", "時雨", "今朝", "田舎"], "answer_index": 1}, {"no": 46, "kanji": "わこうど", "reading": "", "sentence": "", "meaning": "若人", "pair_w1": "若人", "pair_w2": "わこうど", "options": ["お父さん", "上手", "足袋", "若人"], "answer_index": 3}, {"no": 47, "kanji": "うわつく", "reading": "", "sentence": "", "meaning": "浮つく", "pair_w1": "浮つく", "pair_w2": "うわつく", "options": ["浮つく", "吹雪", "雪崩", "硫黄"], "answer_index": 0}, {"no": 48, "kanji": "さしつかえる", "reading": "", "sentence": "", "meaning": "差し支える", "pair_w1": "差し支える", "pair_w2": "さしつかえる", "options": ["伯父", "差し支える", "白髪", "眼鏡"], "answer_index": 1}, {"no": 49, "kanji": "さつきばれ", "reading": "", "sentence": "", "meaning": "五月晴れ", "pair_w1": "五月晴れ", "pair_w2": "さつきばれ", "options": ["五月晴れ", "雪崩", "名残", "吹雪"], "answer_index": 0}], "count": 9, "range_start": 41, "range_end": 49, "first_pair": "早苗=さなえ", "last_pair": "五月晴れ=さつきばれ"}, "L7": {"A": [{"no": 50, "kanji": "木綿", "reading": "もめん", "sentence": "", "meaning": "もめん", "pair_w1": "木綿", "pair_w2": "もめん", "options": ["もめん", "きょう", "はたち", "あずき"], "answer_index": 0}, {"no": 51, "kanji": "八百屋", "reading": "やおや", "sentence": "", "meaning": "やおや", "pair_w1": "八百屋", "pair_w2": "やおや", "options": ["すもう", "やおや", "いなか", "うなばら"], "answer_index": 1}, {"no": 52, "kanji": "大和絵", "reading": "やまとえ", "sentence": "", "meaning": "やまとえ", "pair_w1": "大和絵", "pair_w2": "やまとえ", "options": ["いぶき", "でこぼこ", "やまとえ", "くだもの"], "answer_index": 2}, {"no": 53, "kanji": "波止場", "reading": "はとば", "sentence": "", "meaning": "はとば", "pair_w1": "波止場", "pair_w2": "はとば", "options": ["おとな", "はとば", "うば", "はたち"], "answer_index": 1}, {"no": 54, "kanji": "迷子", "reading": "まいご", "sentence": "", "meaning": "まいご", "pair_w1": "迷子", "pair_w2": "まいご", "options": ["まいご", "めがね", "しゃみせん", "おとうさん"], "answer_index": 0}, {"no": 55, "kanji": "眼鏡", "reading": "めがね", "sentence": "", "meaning": "めがね", "pair_w1": "眼鏡", "pair_w2": "めがね", "options": ["もみじ", "めがね", "あした", "うわつく"], "answer_index": 1}, {"no": 56, "kanji": "下手", "reading": "へた", "sentence": "", "meaning": "へた", "pair_w1": "下手", "pair_w2": "へた", "options": ["ゆくえ", "めがね", "へた", "ひとり"], "answer_index": 2}, {"no": 57, "kanji": "息吹", "reading": "いぶき", "sentence": "", "meaning": "いぶき", "pair_w1": "息吹", "pair_w2": "いぶき", "options": ["おば", "じゃり", "いぶき", "ゆくえ"], "answer_index": 2}, {"no": 58, "kanji": "母屋", "reading": "おもや", "sentence": "", "meaning": "おもや", "pair_w1": "母屋", "pair_w2": "おもや", "options": ["いおう", "さしつかえる", "まいご", "おもや"], "answer_index": 3}], "C": [{"no": 50, "kanji": "もめん", "reading": "", "sentence": "", "meaning": "木綿", "pair_w1": "木綿", "pair_w2": "もめん", "options": ["伯父", "木綿", "白髪", "雪崩"], "answer_index": 1}, {"no": 51, "kanji": "やおや", "reading": "", "sentence": "", "meaning": "八百屋", "pair_w1": "八百屋", "pair_w2": "やおや", "options": ["紅葉", "八百屋", "お父さん", "太刀"], "answer_index": 1}, {"no": 52, "kanji": "やまとえ", "reading": "", "sentence": "", "meaning": "大和絵", "pair_w1": "大和絵", "pair_w2": "やまとえ", "options": ["五月雨", "迷子", "大和絵", "草履"], "answer_index": 2}, {"no": 53, "kanji": "はとば", "reading": "", "sentence": "", "meaning": "波止場", "pair_w1": "波止場", "pair_w2": "はとば", "options": ["八百屋", "時雨", "波止場", "三味線"], "answer_index": 2}, {"no": 54, "kanji": "まいご", "reading": "", "sentence": "", "meaning": "迷子", "pair_w1": "迷子", "pair_w2": "まいご", "options": ["笑顔", "差し支える", "迷子", "息吹"], "answer_index": 2}, {"no": 55, "kanji": "めがね", "reading": "", "sentence": "", "meaning": "眼鏡", "pair_w1": "眼鏡", "pair_w2": "めがね", "options": ["お父さん", "眼鏡", "心地", "意気地"], "answer_index": 1}, {"no": 56, "kanji": "へた", "reading": "", "sentence": "", "meaning": "下手", "pair_w1": "下手", "pair_w2": "へた", "options": ["下手", "母屋", "お父さん", "硫黄"], "answer_index": 0}, {"no": 57, "kanji": "いぶき", "reading": "", "sentence": "", "meaning": "息吹", "pair_w1": "息吹", "pair_w2": "いぶき", "options": ["息吹", "竹刀", "心地", "眼鏡"], "answer_index": 0}, {"no": 58, "kanji": "おもや", "reading": "", "sentence": "", "meaning": "母屋", "pair_w1": "母屋", "pair_w2": "おもや", "options": ["早苗", "母屋", "足袋", "今朝"], "answer_index": 1}], "count": 9, "range_start": 50, "range_end": 58, "first_pair": "木綿=もめん", "last_pair": "母屋=おもや"}, "L8": {"A": [{"no": 59, "kanji": "清水", "reading": "しみず", "sentence": "", "meaning": "しみず", "pair_w1": "清水", "pair_w2": "しみず", "options": ["ひとり", "ふぶき", "うば", "しみず"], "answer_index": 3}, {"no": 60, "kanji": "お母さん", "reading": "おかあさん", "sentence": "", "meaning": "おかあさん", "pair_w1": "お母さん", "pair_w2": "おかあさん", "options": ["じょうず", "おかあさん", "ゆくえ", "でこぼこ"], "answer_index": 1}, {"no": 61, "kanji": "お父さん", "reading": "おとうさん", "sentence": "", "meaning": "おとうさん", "pair_w1": "お父さん", "pair_w2": "おとうさん", "options": ["ぞうり", "いおう", "おとうさん", "なごり"], "answer_index": 2}, {"no": 62, "kanji": "大人", "reading": "おとな", "sentence": "", "meaning": "おとな", "pair_w1": "大人", "pair_w2": "おとな", "options": ["おとな", "もみじ", "めがね", "たなばた"], "answer_index": 0}, {"no": 63, "kanji": "一人", "reading": "ひとり", "sentence": "", "meaning": "ひとり", "pair_w1": "一人", "pair_w2": "ひとり", "options": ["あす", "ひとり", "じゃり", "じょうず"], "answer_index": 1}, {"no": 64, "kanji": "二人", "reading": "ふたり", "sentence": "", "meaning": "ふたり", "pair_w1": "二人", "pair_w2": "ふたり", "options": ["やおや", "ふたり", "はとば", "うば"], "answer_index": 1}, {"no": 65, "kanji": "今日", "reading": "きょう", "sentence": "", "meaning": "きょう", "pair_w1": "今日", "pair_w2": "きょう", "options": ["きょう", "たち", "やおや", "ひより"], "answer_index": 0}, {"no": 66, "kanji": "今朝", "reading": "けさ", "sentence": "", "meaning": "けさ", "pair_w1": "今朝", "pair_w2": "けさ", "options": ["かぜ", "あす", "けさ", "なごり"], "answer_index": 2}, {"no": 67, "kanji": "七夕", "reading": "たなばた", "sentence": "", "meaning": "たなばた", "pair_w1": "七夕", "pair_w2": "たなばた", "options": ["うば", "しばふ", "しゃみせん", "たなばた"], "answer_index": 3}], "C": [{"no": 59, "kanji": "しみず", "reading": "", "sentence": "", "meaning": "清水", "pair_w1": "清水", "pair_w2": "しみず", "options": ["雪崩", "行方", "清水", "伯母"], "answer_index": 2}, {"no": 60, "kanji": "おかあさん", "reading": "", "sentence": "", "meaning": "お母さん", "pair_w1": "お母さん", "pair_w2": "おかあさん", "options": ["息吹", "お母さん", "小豆", "凸凹"], "answer_index": 1}, {"no": 61, "kanji": "おとうさん", "reading": "", "sentence": "", "meaning": "お父さん", "pair_w1": "お父さん", "pair_w2": "おとうさん", "options": ["早苗", "明日", "お父さん", "清水"], "answer_index": 2}, {"no": 62, "kanji": "おとな", "reading": "", "sentence": "", "meaning": "大人", "pair_w1": "大人", "pair_w2": "おとな", "options": ["大人", "大和", "お父さん", "果物"], "answer_index": 0}, {"no": 63, "kanji": "ひとり", "reading": "", "sentence": "", "meaning": "一人", "pair_w1": "一人", "pair_w2": "ひとり", "options": ["七夕", "叔母", "若人", "一人"], "answer_index": 3}, {"no": 64, "kanji": "ふたり", "reading": "", "sentence": "", "meaning": "二人", "pair_w1": "二人", "pair_w2": "ふたり", "options": ["木綿", "波止場", "二人", "日和"], "answer_index": 2}, {"no": 65, "kanji": "きょう", "reading": "", "sentence": "", "meaning": "今日", "pair_w1": "今日", "pair_w2": "きょう", "options": ["今日", "仮名", "伯母", "白髪"], "answer_index": 0}, {"no": 66, "kanji": "けさ", "reading": "", "sentence": "", "meaning": "今朝", "pair_w1": "今朝", "pair_w2": "けさ", "options": ["五月晴れ", "今朝", "竹刀", "叔母"], "answer_index": 1}, {"no": 67, "kanji": "たなばた", "reading": "", "sentence": "", "meaning": "七夕", "pair_w1": "七夕", "pair_w2": "たなばた", "options": ["七夕", "白髪", "名残", "下手"], "answer_index": 0}], "count": 9, "range_start": 59, "range_end": 67, "first_pair": "清水=しみず", "last_pair": "七夕=たなばた"}};
+let currentCourse = 'L1';  // current lesson: 'L1' through 'L6'
+let QUESTIONS_A = COURSES[currentCourse].A;
+let QUESTIONS_C = COURSES[currentCourse].C;
+let QUESTIONS_B = COURSES[currentCourse].B;
+
+let STEP_INFO = {};
+function buildStepInfo(){
+  STEP_INFO = {
+    A: {title: '熟字 → 読み', sub: '熟字を見て、正しい読みを選びます', icon: 'A', questions: COURSES[currentCourse].A},
+    C: {title: '読み → 熟字', sub: '読みから熟字を選びます(逆方向)', icon: 'C', questions: COURSES[currentCourse].C}
+  };
+}
+const STEP_ORDER = ['A','C'];
+buildStepInfo();
+
+const STORAGE_PREFIX_BASE = 'kounin-kanji12-';
+let currentStep = 'A';
+let currentQuestions = [];
+let currentIndex = 0;
+let correctCount = 0;
+let isWeakMode = false;
+
+function weakKey(step){return STORAGE_PREFIX_BASE + currentCourse + '-weak-' + step;}
+function scoreKey(step){return STORAGE_PREFIX_BASE + currentCourse + '-score-' + step;}
+
+function loadWeak(step){
+  try{return JSON.parse(localStorage.getItem(weakKey(step)) || '{}');}
+  catch(e){return {};}
+}
+function saveWeak(step, data){localStorage.setItem(weakKey(step), JSON.stringify(data));}
+
+function loadScore(step){
+  try{return JSON.parse(localStorage.getItem(scoreKey(step)) || 'null');}
+  catch(e){return null;}
+}
+function saveScore(step, correct, total){
+  localStorage.setItem(scoreKey(step), JSON.stringify({correct, total, date: Date.now()}));
+}
+
+function totalWeakCount(){
+  return STEP_ORDER.reduce((sum, s) => sum + Object.keys(loadWeak(s)).length, 0);
+}
+function updateWeakCountChip(){
+  const count = totalWeakCount();
+  const chip = document.getElementById('weak-count-chip');
+  if(count > 0){
+    chip.style.display = 'inline-block';
+    document.getElementById('weak-count').textContent = count;
+  }else{
+    chip.style.display = 'none';
+  }
+}
+
+function renderStepCards(){
+  const container = document.getElementById('step-cards');
+  let html = '';
+  STEP_ORDER.forEach(step => {
+    const info = STEP_INFO[step];
+    const score = loadScore(step);
+    const weakCount = Object.keys(loadWeak(step)).length;
+    
+    let metaHtml = '';
+    if(score){
+      const pct = Math.round(score.correct/score.total*100);
+      metaHtml += `<span class="meta-chip score">最高 ${score.correct}/${score.total} (${pct}%)</span>`;
+    }else{
+      metaHtml += `<span class="meta-chip">未挑戦</span>`;
+    }
+    if(weakCount > 0){
+      metaHtml += `<span class="meta-chip weak-chip">苦手 ${weakCount}件</span>`;
+    }
+    
+    html += `
+      <div class="step-card" data-step="${step}" onclick="startStep('${step}')">
+        <div class="step-head">
+          <div class="step-icon">${info.icon}</div>
+          <div>
+            <div class="step-title">ステップ${step}: ${info.title}</div>
+            <div class="step-sub">${info.sub}</div>
+          </div>
+        </div>
+        <div class="step-meta">${metaHtml}</div>
+        <span class="arrow">▶</span>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => switchTab(t.dataset.tab));
+});
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  if(name === 'weak') renderWeakPanel();
+  if(name === 'home'){renderStepCards(); updateWeakCountChip();}
+}
+
+function startStep(step){
+  currentStep = step;
+  isWeakMode = false;
+  currentQuestions = [...STEP_INFO[step].questions];
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function startWeakReview(step){
+  const weak = loadWeak(step);
+  const weakNos = Object.keys(weak).map(Number);
+  if(weakNos.length === 0){
+    alert('このステップの苦手カードはまだありません');
+    return;
+  }
+  currentStep = step;
+  isWeakMode = true;
+  currentQuestions = STEP_INFO[step].questions.filter(q => weakNos.includes(q.no));
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = currentQuestions[currentIndex];
+  const total = currentQuestions.length;
+  
+  document.getElementById('step-badge').textContent = currentStep + (isWeakMode ? ' (苦手復習)' : '');
+  document.getElementById('step-badge').className = 'step-badge ' + currentStep;
+  document.getElementById('progress-text').textContent = `問題 ${currentIndex+1} / ${total}`;
+  document.getElementById('progress-bar').style.width = (currentIndex/total*100) + '%';
+  
+  let mainDisplay = '';
+  let promptText = '';
+  let sentenceHTML = '';
+  
+  if(currentStep === 'A'){
+    promptText = '次の熟字訓の正しい読みを選びなさい';
+    mainDisplay = `<div class="question-kanji" style="font-size:56px">${q.kanji}</div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">この熟字の<strong style="color:#c1121f">読み</strong>は?</div>`;
+  }else if(currentStep === 'C'){
+    promptText = '次の読みに当てはまる熟字訓を選びなさい';
+    mainDisplay = `<div class="question-reading" style="font-size:42px">${q.kanji}<button class="speaker-btn" onclick="speak('${q.kanji}')">▶</button></div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">この読みを表す<strong style="color:#c1121f">熟字</strong>は?(逆方向)</div>`;
+  }
+  
+  const html = `
+    <div class="question-card">
+      <div class="question-num">第 ${currentIndex+1} 問</div>
+      <div class="question-prompt">${promptText}</div>
+      ${mainDisplay}
+      ${sentenceHTML}
+    </div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+  `;
+  document.getElementById('quiz-content').innerHTML = html;
+  
+  const optsDiv = document.getElementById('options');
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    const fontStyle = currentStep === 'C' ? 'font-size:28px;font-weight:bold;' : 'font-size:22px;font-weight:bold;';
+    btn.innerHTML = `<span class="label">${String.fromCharCode(65+i)}</span><span style="${fontStyle}">${opt}</span>`;
+    btn.addEventListener('click', () => answerQuestion(i));
+    optsDiv.appendChild(btn);
+  });
+}
+
+function answerQuestion(selectedIndex){
+  const q = currentQuestions[currentIndex];
+  const correct = selectedIndex === q.answer_index;
+  
+  document.querySelectorAll('.option').forEach((opt, i) => {
+    opt.disabled = true;
+    if(i === q.answer_index) opt.classList.add('correct');
+    else if(i === selectedIndex) opt.classList.add('wrong');
+  });
+  
+  const weak = loadWeak(currentStep);
+  if(correct){
+    correctCount++;
+    if(weak[q.no]){
+      weak[q.no].streak = (weak[q.no].streak || 0) + 1;
+      if(weak[q.no].streak >= 2){
+        delete weak[q.no];
+      }
+    }
+    confetti();
+  }else{
+    if(!weak[q.no]){
+      weak[q.no] = {missCount: 1, streak: 0};
+    }else{
+      weak[q.no].missCount += 1;
+      weak[q.no].streak = 0;
+    }
+  }
+  saveWeak(currentStep, weak);
+  
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback show ' + (correct ? 'correct' : 'wrong');
+  fb.innerHTML = `
+    <div class="feedback-title">${correct ? '⭕ 正解!' : '❌ 不正解'}</div>
+    <div class="feedback-content">
+      <div style="font-size:24px;text-align:center;padding:10px;background:#fff;border-radius:8px"><strong>${q.pair_w1}</strong> = <strong style="color:#c1121f">${q.pair_w2}</strong></div>
+    </div>
+    <button class="next-btn" id="next-btn">${currentIndex+1 === currentQuestions.length ? '結果を見る ▶' : '次の問題 ▶'}</button>
+  `;
+  document.getElementById('next-btn').addEventListener('click', nextQuestion);
+}
+
+function nextQuestion(){
+  currentIndex++;
+  if(currentIndex >= currentQuestions.length){
+    showResult();
+  }else{
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  const total = currentQuestions.length;
+  const pct = Math.round(correctCount/total*100);
+  const stepName = STEP_INFO[currentStep].title;
+  
+  if(!isWeakMode){
+    const prev = loadScore(currentStep);
+    if(!prev || correctCount/total > prev.correct/prev.total){
+      saveScore(currentStep, correctCount, total);
+    }
+  }
+  
+  let msg;
+  if(pct === 100) msg = '🎉 パーフェクト! 全問正解です!';
+  else if(pct >= 80) msg = '👍 よくできました!';
+  else if(pct >= 60) msg = '✏ あと少し!間違えた問題を復習しよう';
+  else msg = '💪 苦手カードでくり返し練習しよう';
+  
+  let nextStepHint = '';
+  const order = STEP_ORDER;
+  const idx = order.indexOf(currentStep);
+  if(!isWeakMode && pct >= 80 && idx < 2){
+    const next = order[idx+1];
+    nextStepHint = `<div style="margin-top:10px;padding:12px;background:#fef6e4;border-radius:8px;font-size:14px">🎯 次は <strong>ステップ${next}: ${STEP_INFO[next].title}</strong> に進みましょう!</div>`;
+  }
+  
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('progress-text').textContent = '完了';
+  document.getElementById('quiz-content').innerHTML = `
+    <div class="result-card">
+      <h2 style="border:none">ステップ${currentStep} ${isWeakMode ? '(苦手復習)' : ''} 結果</h2>
+      <div style="font-size:14px;color:#5e6472;margin-bottom:6px">${stepName}</div>
+      <div class="score-big">${correctCount}<span class="total"> / ${total}</span></div>
+      <div class="result-msg">${msg}</div>
+      <div style="font-size:14px;color:#5e6472">正答率: ${pct}%</div>
+      ${nextStepHint}
+      <div class="result-buttons">
+        <button class="start-btn" onclick="startStep('${currentStep}')">🔄 もう一度</button>
+        ${idx < 2 && !isWeakMode ? `<button class="start-btn secondary" onclick="startStep('${order[idx+1]}')">▶ ステップ${order[idx+1]}へ</button>` : ''}
+        <button class="start-btn gray" onclick="switchTab('home')">🏠 ホーム</button>
+      </div>
+    </div>
+  `;
+  if(pct === 100) bigConfetti();
+  updateWeakCountChip();
+}
+
+function renderWeakPanel(){
+  const container = document.getElementById('weak-content');
+  const totalCount = totalWeakCount();
+  
+  if(totalCount === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✨</div>
+        <div>苦手カードはまだありません</div>
+        <div style="font-size:13px;margin-top:6px">練習で間違えた問題が自動で集まります</div>
+      </div>
+    `;
+    document.getElementById('btn-clear-weak').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('btn-clear-weak').style.display = 'block';
+  
+  let html = '';
+  STEP_ORDER.forEach(step => {
+    const weak = loadWeak(step);
+    const nos = Object.keys(weak).map(Number).sort((a,b) => weak[b].missCount - weak[a].missCount);
+    if(nos.length === 0) return;
+    
+    const info = STEP_INFO[step];
+    html += `
+      <div class="weak-section">
+        <div class="weak-section-title">
+          <div class="step-mini ${step}">${step}</div>
+          <h3>ステップ${step}: ${info.title}</h3>
+          <span class="count">${nos.length}件</span>
+        </div>
+        <div class="weak-list">
+    `;
+    nos.forEach(no => {
+      const q = info.questions.find(x => x.no === no);
+      if(!q) return;
+      const w = weak[no];
+      html += `
+        <div class="weak-item">
+          <div>
+            <span class="kanji-text">${q.kanji}</span>
+            <span class="reading-text">(${q.reading})</span>
+          </div>
+          <div>
+            <span class="miss-count">×${w.missCount}</span>
+            ${w.streak > 0 ? `<span class="streak">連続${w.streak}</span>` : ''}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>
+        <button class="start-btn secondary" style="margin-top:10px" onclick="startWeakReview('${step}')">⚡ ステップ${step}の苦手を復習</button>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+document.getElementById('btn-clear-weak').addEventListener('click', () => {
+  if(confirm('全てのステップの苦手カードを消去しますか?')){
+    STEP_ORDER.forEach(s => saveWeak(s, {}));
+    renderWeakPanel();
+    updateWeakCountChip();
+  }
+});
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+let currentVwPop = null;
+function showVwPop(el, event){
+  event.stopPropagation();
+  closeVwPop();
+  
+  const word = el.textContent;
+  const pron = el.dataset.pron || '';
+  const mean = el.dataset.mean || '';
+  let opts = [];
+  try{opts = JSON.parse(el.dataset.opts || '[]');}catch(e){}
+  const ans = parseInt(el.dataset.ans || '0', 10);
+  
+  const pop = document.createElement('div');
+  pop.className = 'vw-pop';
+  let optsHtml = '';
+  opts.forEach((o, i) => {
+    optsHtml += `<button class="quiz-opt" data-i="${i}" data-ans="${ans}">${o}</button>`;
+  });
+  pop.innerHTML = `
+    <div class="word">${word}</div>
+    <div class="pron">[${pron}]</div>
+    <div class="meaning">${mean}</div>
+    ${opts.length > 0 ? `<div class="quiz-q">クイズ:正しい意味は?</div><div class="quiz-opts">${optsHtml}</div>` : ''}
+  `;
+  
+  document.body.appendChild(pop);
+  
+  const rect = el.getBoundingClientRect();
+  const popRect = pop.getBoundingClientRect();
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 6;
+  if(left + popRect.width > window.innerWidth - 10){
+    left = window.innerWidth - popRect.width - 10;
+  }
+  if(left < 10) left = 10;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  
+  pop.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const i = parseInt(btn.dataset.i, 10);
+      const a = parseInt(btn.dataset.ans, 10);
+      pop.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+      if(i === a){
+        btn.classList.add('correct');
+      }else{
+        btn.classList.add('wrong');
+        pop.querySelectorAll('.quiz-opt')[a].classList.add('correct');
+      }
+    });
+  });
+  
+  currentVwPop = pop;
+}
+function closeVwPop(){
+  if(currentVwPop){currentVwPop.remove();currentVwPop = null;}
+}
+document.addEventListener('click', closeVwPop);
+
+function confetti(){
+  const colors = ['#f582ae','#001858','#fef6e4','#10b981','#f3d2c1'];
+  for(let i = 0; i < 30; i++){
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.left = (50 + (Math.random()-0.5)*60) + '%';
+    p.style.top = '40%';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(p);
+    
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 3 + Math.random() * 4;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed - 4;
+    let x = 0, y = 0;
+    
+    const animate = () => {
+      vy += 0.3;
+      x += vx;
+      y += vy;
+      p.style.transform = `translate(${x}px, ${y}px) rotate(${x*4}deg)`;
+      p.style.opacity = Math.max(0, 1 - y/300);
+      if(y < 400){
+        requestAnimationFrame(animate);
+      }else{
+        p.remove();
+      }
+    };
+    requestAnimationFrame(animate);
+  }
+}
+function bigConfetti(){
+  for(let i = 0; i < 4; i++){
+    setTimeout(confetti, i * 200);
+  }
+}
+
+function renderCourseSelector(){
+  const lessons = ['L1','L2','L3','L4','L5','L6','L7','L8'];
+  let html = '';
+  lessons.forEach(l => {
+    const c = COURSES[l];
+    const isActive = l === currentCourse;
+    html += `<button class="course-btn ${isActive ? 'active' : ''}" onclick="switchCourse('${l}')">
+      <span class="label">Lesson ${l.substring(1)}</span>
+      <span class="sub">No.${c.range_start}〜${c.range_end} / ${c.count}問</span>
+    </button>`;
+  });
+  document.getElementById('course-selector').innerHTML = html;
+  
+  const chip = document.getElementById('course-info-chip');
+  if(chip){
+    const c = COURSES[currentCourse];
+    chip.textContent = `📚 Lesson ${currentCourse.substring(1)}: ${c.count}問 × 2ステップ`;
+  }
+}
+
+function switchCourse(c){
+  if(c === currentCourse) return;
+  currentCourse = c;
+  buildStepInfo();
+  renderCourseSelector();
+  renderStepCards();
+  updateWeakCountChip();
+}
+
+renderCourseSelector();
+renderStepCards();
+updateWeakCountChip();
+</script>
+</body>
+</html>

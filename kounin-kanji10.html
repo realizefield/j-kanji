@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高校入試 漢字四択 Unit 10 - 対義語</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    background:linear-gradient(135deg,#fef6e4 0%,#f3d2c1 100%);
+    color:#001858;
+    line-height:1.6;
+    min-height:100vh;
+    padding:16px;
+  }
+  .container{max-width:820px;margin:0 auto}
+  
+  header{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,24,88,0.08);
+    text-align:center;
+  }
+  header .badge{
+    display:inline-block;
+    background:#f582ae;
+    color:#fff;
+    padding:4px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  header h1{font-size:24px;color:#001858;margin-bottom:6px}
+  header .sub{font-size:14px;color:#5e6472}
+  header .stats{margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .stat-chip{
+    background:#fef6e4;
+    border:2px solid #f3d2c1;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .stat-chip.weak{background:#ffe5ec;border-color:#f582ae;color:#c1121f}
+  
+  .tabs{
+    display:flex;
+    gap:4px;
+    margin-bottom:16px;
+    background:#fff;
+    padding:6px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,24,88,0.06);
+  }
+  .tab{
+    flex:1;
+    padding:12px 8px;
+    border:none;
+    background:transparent;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#5e6472;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .tab.active{background:#001858;color:#fff}
+  .tab:hover:not(.active){background:#fef6e4}
+  
+  .panel{display:none;background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 12px rgba(0,24,88,0.08)}
+  .panel.active{display:block}
+  
+  h2{font-size:20px;margin-bottom:16px;color:#001858;border-bottom:3px solid #f582ae;padding-bottom:8px}
+  h3{font-size:16px;margin:18px 0 10px;color:#001858}
+  
+  .intro-card{background:#fef6e4;padding:18px;border-radius:12px;margin-bottom:16px}
+  .intro-card p{margin-bottom:10px;font-size:15px}
+  .intro-card p:last-child{margin-bottom:0}
+  
+  .step-cards{display:grid;gap:12px;margin-top:16px}
+  .step-card{
+    background:#fff;
+    border:2px solid #f3d2c1;
+    border-radius:14px;
+    padding:18px;
+    cursor:pointer;
+    transition:all 0.2s;
+    position:relative;
+  }
+  .step-card:hover{border-color:#f582ae;transform:translateY(-2px);box-shadow:0 6px 16px rgba(245,130,174,0.2)}
+  .step-card .step-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .step-card .step-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+  .step-card[data-step="C"] .step-icon{background:#f582ae}
+  .step-card[data-step="B"] .step-icon{background:#10b981}
+  .step-card .step-title{font-size:17px;font-weight:bold;color:#001858}
+  .step-card .step-sub{font-size:13px;color:#5e6472;margin-top:2px}
+  .step-card .step-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .step-card .meta-chip{
+    font-size:12px;
+    padding:3px 10px;
+    border-radius:12px;
+    background:#fef6e4;
+    color:#5e6472;
+    font-weight:bold;
+  }
+  .step-card .meta-chip.score{background:#d1fae5;color:#065f46}
+  .step-card .meta-chip.weak-chip{background:#ffe5ec;color:#c1121f}
+  .step-card .arrow{
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:20px;
+    color:#5e6472;
+  }
+  
+  .start-btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    margin-top:16px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .start-btn:hover{background:#172554;transform:translateY(-1px)}
+  .start-btn.secondary{background:#f582ae;margin-top:8px}
+  .start-btn.secondary:hover{background:#e26d97}
+  .start-btn.gray{background:#5e6472;margin-top:8px}
+  .start-btn.gray:hover{background:#475569}
+  
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .step-badge{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    background:#001858;
+    color:#fff;
+  }
+  .step-badge.C{background:#f582ae}
+  .step-badge.B{background:#10b981}
+  .progress{
+    flex:1;
+    min-width:140px;
+    background:#fef6e4;
+    border-radius:20px;
+    height:10px;
+    overflow:hidden;
+  }
+  .progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,#f582ae,#001858);
+    transition:width 0.3s;
+    width:0%;
+  }
+  .progress-text{font-size:13px;font-weight:bold;color:#5e6472;white-space:nowrap}
+  
+  .question-card{
+    background:linear-gradient(135deg,#fef6e4 0%,#fff 100%);
+    padding:24px;
+    border-radius:14px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .question-num{font-size:13px;color:#5e6472;margin-bottom:8px;font-weight:bold}
+  .question-prompt{font-size:14px;color:#5e6472;margin-bottom:14px}
+  .question-kanji{
+    font-size:56px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.05em;
+  }
+  .question-reading{
+    font-size:38px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.1em;
+  }
+  .question-sentence{
+    font-size:15px;
+    color:#5e6472;
+    margin-top:10px;
+    padding:10px;
+    background:#fff;
+    border-radius:8px;
+    display:inline-block;
+  }
+  .question-sentence .target{color:#c1121f;font-weight:bold}
+  .question-sentence .blank{
+    background:#fef6e4;
+    color:#5e6472;
+    padding:0 8px;
+    border-bottom:2px solid #001858;
+    font-weight:bold;
+  }
+  .speaker-btn{
+    background:#f582ae;
+    color:#fff;
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:13px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+  .speaker-btn:hover{background:#e26d97}
+  
+  .options{display:grid;gap:10px}
+  .option{
+    background:#fff;
+    border:2px solid #cbd5e1;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    transition:all 0.15s;
+    text-align:left;
+    color:#001858;
+    font-family:inherit;
+  }
+  .option:hover:not(:disabled){border-color:#f582ae;background:#fef6e4}
+  .option.correct{background:#d1fae5;border-color:#10b981;color:#065f46;font-weight:bold}
+  .option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+  .option:disabled{cursor:not-allowed}
+  .option .label{
+    display:inline-block;
+    background:#001858;
+    color:#fff;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    text-align:center;
+    line-height:24px;
+    font-size:13px;
+    margin-right:10px;
+    font-weight:bold;
+  }
+  .option.correct .label{background:#10b981}
+  .option.wrong .label{background:#ef4444}
+  
+  .feedback{margin-top:16px;padding:16px;border-radius:12px;display:none}
+  .feedback.show{display:block;animation:slideIn 0.3s}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .feedback.correct{background:#d1fae5;border-left:4px solid #10b981}
+  .feedback.wrong{background:#fee2e2;border-left:4px solid #ef4444}
+  .feedback-title{font-weight:bold;font-size:16px;margin-bottom:8px}
+  .feedback.correct .feedback-title{color:#065f46}
+  .feedback.wrong .feedback-title{color:#991b1b}
+  .feedback-content{font-size:14px;color:#001858;line-height:1.7}
+  .feedback-content .label{font-weight:bold;color:#5e6472;display:inline-block;width:60px}
+  .next-btn{
+    display:block;
+    margin:14px 0 0 auto;
+    padding:10px 28px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .next-btn:hover{background:#172554}
+  
+  .result-card{text-align:center;padding:30px 20px}
+  .result-card .score-big{
+    font-size:64px;
+    font-weight:bold;
+    color:#001858;
+    margin:20px 0;
+  }
+  .result-card .score-big .total{font-size:32px;color:#5e6472}
+  .result-msg{font-size:18px;margin-bottom:20px;color:#001858}
+  .result-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .result-buttons button{flex:1;min-width:140px}
+  
+  .empty-state{text-align:center;padding:40px 20px;color:#5e6472}
+  .empty-state .icon{font-size:48px;margin-bottom:12px}
+  
+  .weak-section{margin-bottom:20px}
+  .weak-section-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .weak-section-title .step-mini{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .weak-section-title .step-mini.C{background:#f582ae}
+  .weak-section-title .step-mini.B{background:#10b981}
+  .weak-section-title h3{margin:0;border:none;padding:0}
+  .weak-section-title .count{font-size:13px;color:#5e6472;margin-left:auto;font-weight:bold}
+  
+  .weak-list{display:grid;gap:8px}
+  .weak-item{
+    background:#fef6e4;
+    padding:12px 16px;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .weak-item .kanji-text{font-size:22px;font-weight:bold;color:#001858}
+  .weak-item .reading-text{font-size:14px;color:#5e6472;margin-left:10px}
+  .weak-item .miss-count{
+    background:#f582ae;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+  }
+  .weak-item .streak{
+    background:#10b981;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    margin-left:6px;
+  }
+  
+  vw{
+    color:#001858;
+    background:#fef6e4;
+    padding:1px 4px;
+    border-radius:4px;
+    cursor:pointer;
+    border-bottom:2px dotted #f582ae;
+  }
+  vw:hover{background:#f3d2c1}
+  .vw-pop{
+    position:absolute;
+    background:#fff;
+    border:2px solid #001858;
+    border-radius:10px;
+    padding:14px;
+    box-shadow:0 6px 20px rgba(0,24,88,0.2);
+    z-index:1000;
+    max-width:300px;
+    min-width:240px;
+  }
+  .vw-pop .word{font-size:18px;font-weight:bold;color:#001858;margin-bottom:4px}
+  .vw-pop .pron{font-size:13px;color:#5e6472;margin-bottom:8px}
+  .vw-pop .meaning{font-size:14px;margin-bottom:10px;color:#001858}
+  .vw-pop .quiz-q{font-size:13px;font-weight:bold;color:#5e6472;margin-bottom:6px}
+  .vw-pop .quiz-opts{display:grid;gap:4px}
+  .vw-pop .quiz-opt{
+    background:#fef6e4;
+    border:1px solid #f3d2c1;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:13px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+  }
+  .vw-pop .quiz-opt:hover{background:#f3d2c1}
+  .vw-pop .quiz-opt.correct{background:#d1fae5;border-color:#10b981}
+  .vw-pop .quiz-opt.wrong{background:#fee2e2;border-color:#ef4444}
+  
+  .confetti-piece{position:fixed;width:10px;height:10px;z-index:9999;pointer-events:none}
+  
+  @media(max-width:600px){
+    .question-kanji{font-size:44px}
+    .question-reading{font-size:30px}
+    header h1{font-size:18px}
+    .tab{font-size:12px;padding:10px 4px}
+  }
+
+  .course-selector{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin-top:8px;
+  }
+  @media(min-width:480px){
+    .course-selector{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(min-width:680px){
+    .course-selector{grid-template-columns:repeat(5,1fr);}
+  }
+  .course-btn{
+    padding:14px 8px;
+    border:2px solid #f3d2c1;
+    border-radius:12px;
+    background:#fff;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:bold;
+    color:#001858;
+    transition:all 0.2s;
+    text-align:center;
+  }
+  .course-btn:hover{border-color:#f582ae;background:#fef6e4}
+  .course-btn.active{
+    background:#001858;
+    color:#fff;
+    border-color:#001858;
+  }
+  .course-btn .label{font-size:14px;display:block}
+  .course-btn .sub{font-size:12px;display:block;margin-top:2px;opacity:0.8;font-weight:normal}
+  .course-btn.active .sub{color:#fef6e4}
+  
+  /* Highlight katakana in sentences */
+  .katakana-target{
+    background:#fef6e4;
+    color:#c1121f;
+    padding:0 4px;
+    border-radius:4px;
+    border-bottom:2px solid #c1121f;
+    font-weight:bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <span class="badge">江原予備校 高校入試対策</span>
+    <h1>漢字四択クイズ Unit 10</h1>
+    <div class="sub">対義語(全97問・10レッスン)</div>
+    <div class="stats">
+      <div class="stat-chip" id="course-info-chip">📚 Lesson 1: 10問 × 2ステップ</div>
+      <div class="stat-chip weak" id="weak-count-chip" style="display:none">⚠ 苦手 <span id="weak-count">0</span></div>
+    </div>
+  </header>
+  
+  <div class="tabs">
+    <button class="tab active" data-tab="home">🏠 ホーム</button>
+    <button class="tab" data-tab="quiz">📝 練習</button>
+    <button class="tab" data-tab="weak">⚡ 苦手復習</button>
+  </div>
+  
+  <div class="panel active" id="panel-home">
+    <h2>このユニットについて</h2>
+    
+    <div class="intro-card">
+      <p><strong>📖 対義語とは?</strong></p>
+      <p>意味が<strong>反対の関係</strong>にある語のペアです。「<strong>安全 ⇔ 危険</strong>」「<strong>具象 ⇔ 抽象</strong>」「<strong>需要 ⇔ 供給</strong>」のように、対比して使われます。</p>
+      <p>対義語を理解すると、文章の<strong>論理関係</strong>が見えやすくなります。論説文では「Aではなく、Bだ」という対比表現がよく使われるため、入試・高認の読解にも役立ちます。</p>
+    </div>
+    
+<h3 style="margin-top:20px">📚 レッスンを選ぶ</h3>
+    <div class="course-selector" id="course-selector"></div>
+    
+    <h3 style="margin-top:20px">📌 ステップ</h3>
+    <p style="font-size:14px;color:#5e6472;margin-bottom:6px">A → C と進めると、双方向で関係が定着します。</p>
+    <div class="step-cards" id="step-cards"></div>
+    
+    <h3 style="margin-top:24px">🎯 出題範囲</h3>
+    <div class="intro-card">
+      <p>「10_対義語」全97問を <strong>10レッスン</strong> に分けています(10問×7レッスン + 9問×3レッスン)。意味が<vw onclick="showVwPop(this,event)" data-pron="たいひ" data-mean="二つを比べてちがいをはっきりさせること" data-opts="[&quot;二つを比べてちがいをはっきりさせること&quot;,&quot;同じものを並べること&quot;,&quot;順番をつけること&quot;,&quot;数を数えること&quot;]" data-ans="0">対比</vw>される語のペアです。ステップAで「語1→対義語」、ステップCで「対義語→語1」と<vw onclick="showVwPop(this,event)" data-pron="そうほうこう" data-mean="両方の方向" data-opts="[&quot;両方の方向&quot;,&quot;一方向だけ&quot;,&quot;前後関係&quot;,&quot;上下関係&quot;]" data-ans="0">双方向</vw>で確認することで、しっかり定着します。</p>
+    </div>
+  </div>
+  
+  <div class="panel" id="panel-quiz">
+    <div class="quiz-header">
+      <span class="step-badge" id="step-badge">A</span>
+      <div class="progress-text" id="progress-text">問題 1 / 10</div>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+    <div id="quiz-content"></div>
+  </div>
+  
+  <div class="panel" id="panel-weak">
+    <h2>⚡ 苦手カード</h2>
+    <p style="margin-bottom:14px;color:#5e6472;font-size:14px">間違えた問題が自動で集まります。連続2回正解すると外れます。ステップごとに別々に管理されます。</p>
+    <div id="weak-content"></div>
+    <button class="start-btn gray" id="btn-clear-weak" style="margin-top:14px">🗑 全ての苦手カードを消去</button>
+  </div>
+  
+</div>
+
+<script>
+const COURSES = {"L1": {"A": [{"no": 1, "kanji": "安全", "reading": "", "sentence": "", "meaning": "危険", "pair_w1": "安全", "pair_w2": "危険", "options": ["否定", "抽象", "危険", "短縮"], "answer_index": 2}, {"no": 2, "kanji": "偶然", "reading": "", "sentence": "", "meaning": "必然", "pair_w1": "偶然", "pair_w2": "必然", "options": ["瞬間", "結果", "円熟", "必然"], "answer_index": 3}, {"no": 3, "kanji": "受動", "reading": "", "sentence": "", "meaning": "能動", "pair_w1": "受動", "pair_w2": "能動", "options": ["消費", "抽象", "能動", "積極"], "answer_index": 2}, {"no": 4, "kanji": "遺失", "reading": "", "sentence": "", "meaning": "拾得", "pair_w1": "遺失", "pair_w2": "拾得", "options": ["苦痛", "改悪", "拾得", "祖先"], "answer_index": 2}, {"no": 5, "kanji": "具象", "reading": "", "sentence": "", "meaning": "抽象", "pair_w1": "具象", "pair_w2": "抽象", "options": ["抽象", "危険", "慢性", "分散"], "answer_index": 0}, {"no": 6, "kanji": "消極", "reading": "", "sentence": "", "meaning": "積極", "pair_w1": "消極", "pair_w2": "積極", "options": ["慢性", "積極", "高慢", "増加"], "answer_index": 1}, {"no": 7, "kanji": "異常", "reading": "", "sentence": "", "meaning": "正常", "pair_w1": "異常", "pair_w2": "正常", "options": ["正常", "陽気", "消費", "複雑"], "answer_index": 0}, {"no": 8, "kanji": "軽視", "reading": "", "sentence": "", "meaning": "重視", "pair_w1": "軽視", "pair_w2": "重視", "options": ["敗北", "供給", "積極", "重視"], "answer_index": 3}, {"no": 9, "kanji": "真実", "reading": "", "sentence": "", "meaning": "虚偽", "pair_w1": "真実", "pair_w2": "虚偽", "options": ["守備", "虚偽", "被告", "容易"], "answer_index": 1}, {"no": 10, "kanji": "一般", "reading": "", "sentence": "", "meaning": "特殊", "pair_w1": "一般", "pair_w2": "特殊", "options": ["虚偽", "特殊", "積極", "離陸"], "answer_index": 1}], "C": [{"no": 1, "kanji": "危険", "reading": "", "sentence": "", "meaning": "安全", "pair_w1": "安全", "pair_w2": "危険", "options": ["義務", "安全", "軽視", "生産"], "answer_index": 1}, {"no": 2, "kanji": "必然", "reading": "", "sentence": "", "meaning": "偶然", "pair_w1": "偶然", "pair_w2": "必然", "options": ["悪意", "偶然", "消極", "単純"], "answer_index": 1}, {"no": 3, "kanji": "能動", "reading": "", "sentence": "", "meaning": "受動", "pair_w1": "受動", "pair_w2": "能動", "options": ["前進", "受動", "減少", "原因"], "answer_index": 1}, {"no": 4, "kanji": "拾得", "reading": "", "sentence": "", "meaning": "遺失", "pair_w1": "遺失", "pair_w2": "拾得", "options": ["主観", "前進", "安全", "遺失"], "answer_index": 3}, {"no": 5, "kanji": "抽象", "reading": "", "sentence": "", "meaning": "具象", "pair_w1": "具象", "pair_w2": "抽象", "options": ["一般", "安全", "具象", "自然"], "answer_index": 2}, {"no": 6, "kanji": "積極", "reading": "", "sentence": "", "meaning": "消極", "pair_w1": "消極", "pair_w2": "積極", "options": ["将来", "絶対", "消極", "生産"], "answer_index": 2}, {"no": 7, "kanji": "正常", "reading": "", "sentence": "", "meaning": "異常", "pair_w1": "異常", "pair_w2": "正常", "options": ["膨張", "異常", "主観", "覚悟"], "answer_index": 1}, {"no": 8, "kanji": "重視", "reading": "", "sentence": "", "meaning": "軽視", "pair_w1": "軽視", "pair_w2": "重視", "options": ["減少", "賛成", "軽視", "被害"], "answer_index": 2}, {"no": 9, "kanji": "虚偽", "reading": "", "sentence": "", "meaning": "真実", "pair_w1": "真実", "pair_w2": "虚偽", "options": ["真実", "偶然", "定例", "供給"], "answer_index": 0}, {"no": 10, "kanji": "特殊", "reading": "", "sentence": "", "meaning": "一般", "pair_w1": "一般", "pair_w2": "特殊", "options": ["被害", "一般", "非凡", "序論"], "answer_index": 1}], "count": 10, "range_start": 1, "range_end": 10, "first_pair": "安全⇔危険", "last_pair": "一般⇔特殊"}, "L2": {"A": [{"no": 11, "kanji": "内容", "reading": "", "sentence": "", "meaning": "形式", "pair_w1": "内容", "pair_w2": "形式", "options": ["形式", "禁止", "冷静", "抽象"], "answer_index": 0}, {"no": 12, "kanji": "親切", "reading": "", "sentence": "", "meaning": "冷淡", "pair_w1": "親切", "pair_w2": "冷淡", "options": ["冷淡", "結論", "冷静", "陽気"], "answer_index": 0}, {"no": 13, "kanji": "生産", "reading": "", "sentence": "", "meaning": "消費", "pair_w1": "生産", "pair_w2": "消費", "options": ["消費", "終点", "能動", "個人"], "answer_index": 0}, {"no": 14, "kanji": "陰気", "reading": "", "sentence": "", "meaning": "陽気", "pair_w1": "陰気", "pair_w2": "陽気", "options": ["長所", "守備", "陽気", "客観"], "answer_index": 2}, {"no": 15, "kanji": "永遠", "reading": "", "sentence": "", "meaning": "瞬間", "pair_w1": "永遠", "pair_w2": "瞬間", "options": ["複雑", "来信", "瞬間", "陽気"], "answer_index": 2}, {"no": 16, "kanji": "延長", "reading": "", "sentence": "", "meaning": "短縮", "pair_w1": "延長", "pair_w2": "短縮", "options": ["短縮", "個人", "緩慢", "慎重"], "answer_index": 0}, {"no": 17, "kanji": "返信", "reading": "", "sentence": "", "meaning": "来信", "pair_w1": "返信", "pair_w2": "来信", "options": ["決心", "理想", "複雑", "来信"], "answer_index": 3}, {"no": 18, "kanji": "軽率", "reading": "", "sentence": "", "meaning": "慎重", "pair_w1": "軽率", "pair_w2": "慎重", "options": ["平和", "慎重", "理想", "重視"], "answer_index": 1}, {"no": 19, "kanji": "原因", "reading": "", "sentence": "", "meaning": "結果", "pair_w1": "原因", "pair_w2": "結果", "options": ["長所", "加害", "陽気", "結果"], "answer_index": 3}, {"no": 20, "kanji": "絶対", "reading": "", "sentence": "", "meaning": "相対", "pair_w1": "絶対", "pair_w2": "相対", "options": ["相対", "需要", "支出", "可決"], "answer_index": 0}], "C": [{"no": 11, "kanji": "形式", "reading": "", "sentence": "", "meaning": "内容", "pair_w1": "内容", "pair_w2": "形式", "options": ["攻撃", "安全", "内容", "急性"], "answer_index": 2}, {"no": 12, "kanji": "冷淡", "reading": "", "sentence": "", "meaning": "親切", "pair_w1": "親切", "pair_w2": "冷淡", "options": ["具象", "急性", "親切", "粗野"], "answer_index": 2}, {"no": 13, "kanji": "消費", "reading": "", "sentence": "", "meaning": "生産", "pair_w1": "生産", "pair_w2": "消費", "options": ["生産", "賛成", "非凡", "受動"], "answer_index": 0}, {"no": 14, "kanji": "陽気", "reading": "", "sentence": "", "meaning": "陰気", "pair_w1": "陰気", "pair_w2": "陽気", "options": ["拡大", "過去", "受動", "陰気"], "answer_index": 3}, {"no": 15, "kanji": "瞬間", "reading": "", "sentence": "", "meaning": "永遠", "pair_w1": "永遠", "pair_w2": "瞬間", "options": ["永遠", "長所", "絶対", "革新"], "answer_index": 0}, {"no": 16, "kanji": "短縮", "reading": "", "sentence": "", "meaning": "延長", "pair_w1": "延長", "pair_w2": "短縮", "options": ["困難", "鈍感", "延長", "悪意"], "answer_index": 2}, {"no": 17, "kanji": "来信", "reading": "", "sentence": "", "meaning": "返信", "pair_w1": "返信", "pair_w2": "来信", "options": ["起点", "集団", "着陸", "返信"], "answer_index": 3}, {"no": 18, "kanji": "慎重", "reading": "", "sentence": "", "meaning": "軽率", "pair_w1": "軽率", "pair_w2": "慎重", "options": ["起点", "永遠", "上昇", "軽率"], "answer_index": 3}, {"no": 19, "kanji": "結果", "reading": "", "sentence": "", "meaning": "原因", "pair_w1": "原因", "pair_w2": "結果", "options": ["需要", "間接", "現実", "原因"], "answer_index": 3}, {"no": 20, "kanji": "相対", "reading": "", "sentence": "", "meaning": "絶対", "pair_w1": "絶対", "pair_w2": "相対", "options": ["絶対", "肯定", "未熟", "鈍感"], "answer_index": 0}], "count": 10, "range_start": 11, "range_end": 20, "first_pair": "内容⇔形式", "last_pair": "絶対⇔相対"}, "L3": {"A": [{"no": 21, "kanji": "謙虚", "reading": "", "sentence": "", "meaning": "高慢", "pair_w1": "謙虚", "pair_w2": "高慢", "options": ["加害", "楽観", "好評", "高慢"], "answer_index": 3}, {"no": 22, "kanji": "前進", "reading": "", "sentence": "", "meaning": "後退", "pair_w1": "前進", "pair_w2": "後退", "options": ["拾得", "容易", "後退", "否決"], "answer_index": 2}, {"no": 23, "kanji": "戦争", "reading": "", "sentence": "", "meaning": "平和", "pair_w1": "戦争", "pair_w2": "平和", "options": ["平和", "消費", "個人", "高慢"], "answer_index": 0}, {"no": 24, "kanji": "得意", "reading": "", "sentence": "", "meaning": "不得意", "pair_w1": "得意", "pair_w2": "不得意", "options": ["受信", "不得意", "分散", "敏感"], "answer_index": 1}, {"no": 25, "kanji": "現実", "reading": "", "sentence": "", "meaning": "理想", "pair_w1": "現実", "pair_w2": "理想", "options": ["長所", "禁止", "理想", "増加"], "answer_index": 2}, {"no": 26, "kanji": "全体", "reading": "", "sentence": "", "meaning": "部分", "pair_w1": "全体", "pair_w2": "部分", "options": ["権利", "分散", "部分", "消費"], "answer_index": 2}, {"no": 27, "kanji": "快楽", "reading": "", "sentence": "", "meaning": "苦痛", "pair_w1": "快楽", "pair_w2": "苦痛", "options": ["短所", "破壊", "抽象", "苦痛"], "answer_index": 3}, {"no": 28, "kanji": "革新", "reading": "", "sentence": "", "meaning": "保守", "pair_w1": "革新", "pair_w2": "保守", "options": ["就寝", "来信", "保守", "理想"], "answer_index": 2}, {"no": 29, "kanji": "拡大", "reading": "", "sentence": "", "meaning": "縮小", "pair_w1": "拡大", "pair_w2": "縮小", "options": ["客観", "過去", "濁流", "縮小"], "answer_index": 3}, {"no": 30, "kanji": "可決", "reading": "", "sentence": "", "meaning": "否決", "pair_w1": "可決", "pair_w2": "否決", "options": ["利益", "否決", "劣勢", "被告"], "answer_index": 1}], "C": [{"no": 21, "kanji": "高慢", "reading": "", "sentence": "", "meaning": "謙虚", "pair_w1": "謙虚", "pair_w2": "高慢", "options": ["間接", "謙虚", "希望", "可決"], "answer_index": 1}, {"no": 22, "kanji": "後退", "reading": "", "sentence": "", "meaning": "前進", "pair_w1": "前進", "pair_w2": "後退", "options": ["建設", "前進", "起点", "絶対"], "answer_index": 1}, {"no": 23, "kanji": "平和", "reading": "", "sentence": "", "meaning": "戦争", "pair_w1": "戦争", "pair_w2": "平和", "options": ["戦争", "着陸", "肯定", "一般"], "answer_index": 0}, {"no": 24, "kanji": "不得意", "reading": "", "sentence": "", "meaning": "得意", "pair_w1": "得意", "pair_w2": "不得意", "options": ["既決", "肯定", "得意", "生産"], "answer_index": 2}, {"no": 25, "kanji": "理想", "reading": "", "sentence": "", "meaning": "現実", "pair_w1": "現実", "pair_w2": "理想", "options": ["原因", "敗北", "得意", "現実"], "answer_index": 3}, {"no": 26, "kanji": "部分", "reading": "", "sentence": "", "meaning": "全体", "pair_w1": "全体", "pair_w2": "部分", "options": ["肯定", "集中", "全体", "遺失"], "answer_index": 2}, {"no": 27, "kanji": "苦痛", "reading": "", "sentence": "", "meaning": "快楽", "pair_w1": "快楽", "pair_w2": "苦痛", "options": ["集中", "服従", "軽視", "快楽"], "answer_index": 3}, {"no": 28, "kanji": "保守", "reading": "", "sentence": "", "meaning": "革新", "pair_w1": "革新", "pair_w2": "保守", "options": ["肯定", "被害", "革新", "具象"], "answer_index": 2}, {"no": 29, "kanji": "縮小", "reading": "", "sentence": "", "meaning": "拡大", "pair_w1": "拡大", "pair_w2": "縮小", "options": ["否決", "損失", "拡大", "鋭角"], "answer_index": 2}, {"no": 30, "kanji": "否決", "reading": "", "sentence": "", "meaning": "可決", "pair_w1": "可決", "pair_w2": "否決", "options": ["可決", "服従", "間接", "悪評"], "answer_index": 0}], "count": 10, "range_start": 21, "range_end": 30, "first_pair": "謙虚⇔高慢", "last_pair": "可決⇔否決"}, "L4": {"A": [{"no": 31, "kanji": "過去", "reading": "", "sentence": "", "meaning": "未来", "pair_w1": "過去", "pair_w2": "未来", "options": ["勝利", "権利", "未来", "平凡"], "answer_index": 2}, {"no": 32, "kanji": "感情", "reading": "", "sentence": "", "meaning": "理性", "pair_w1": "感情", "pair_w2": "理性", "options": ["増加", "能動", "理性", "特殊"], "answer_index": 2}, {"no": 33, "kanji": "間接", "reading": "", "sentence": "", "meaning": "直接", "pair_w1": "間接", "pair_w2": "直接", "options": ["禁止", "反対", "短縮", "直接"], "answer_index": 3}, {"no": 34, "kanji": "既決", "reading": "", "sentence": "", "meaning": "未決", "pair_w1": "既決", "pair_w2": "未決", "options": ["権利", "円熟", "未決", "慎重"], "answer_index": 2}, {"no": 35, "kanji": "起床", "reading": "", "sentence": "", "meaning": "就寝", "pair_w1": "起床", "pair_w2": "就寝", "options": ["楽観", "就寝", "出発", "特殊"], "answer_index": 1}, {"no": 36, "kanji": "義務", "reading": "", "sentence": "", "meaning": "権利", "pair_w1": "義務", "pair_w2": "権利", "options": ["権利", "成功", "抽象", "平和"], "answer_index": 0}, {"no": 37, "kanji": "急性", "reading": "", "sentence": "", "meaning": "慢性", "pair_w1": "急性", "pair_w2": "慢性", "options": ["冷淡", "楽観", "消費", "慢性"], "answer_index": 3}, {"no": 38, "kanji": "許可", "reading": "", "sentence": "", "meaning": "禁止", "pair_w1": "許可", "pair_w2": "禁止", "options": ["短所", "禁止", "固定", "冷静"], "answer_index": 1}, {"no": 39, "kanji": "困難", "reading": "", "sentence": "", "meaning": "容易", "pair_w1": "困難", "pair_w2": "容易", "options": ["緩慢", "苦痛", "容易", "利益"], "answer_index": 2}, {"no": 40, "kanji": "差別", "reading": "", "sentence": "", "meaning": "平等", "pair_w1": "差別", "pair_w2": "平等", "options": ["緩慢", "平等", "理性", "祖先"], "answer_index": 1}], "C": [{"no": 31, "kanji": "未来", "reading": "", "sentence": "", "meaning": "過去", "pair_w1": "過去", "pair_w2": "未来", "options": ["覚悟", "軽視", "過去", "希望"], "answer_index": 2}, {"no": 32, "kanji": "理性", "reading": "", "sentence": "", "meaning": "感情", "pair_w1": "感情", "pair_w2": "理性", "options": ["感情", "謙虚", "可決", "優勢"], "answer_index": 0}, {"no": 33, "kanji": "直接", "reading": "", "sentence": "", "meaning": "間接", "pair_w1": "間接", "pair_w2": "直接", "options": ["親切", "間接", "将来", "未熟"], "answer_index": 1}, {"no": 34, "kanji": "未決", "reading": "", "sentence": "", "meaning": "既決", "pair_w1": "既決", "pair_w2": "未決", "options": ["全体", "創造", "既決", "迅速"], "answer_index": 2}, {"no": 35, "kanji": "就寝", "reading": "", "sentence": "", "meaning": "起床", "pair_w1": "起床", "pair_w2": "就寝", "options": ["悲観", "起床", "急性", "膨張"], "answer_index": 1}, {"no": 36, "kanji": "権利", "reading": "", "sentence": "", "meaning": "義務", "pair_w1": "義務", "pair_w2": "権利", "options": ["差別", "真実", "義務", "原告"], "answer_index": 2}, {"no": 37, "kanji": "慢性", "reading": "", "sentence": "", "meaning": "急性", "pair_w1": "急性", "pair_w2": "慢性", "options": ["鈍感", "単純", "急性", "感情"], "answer_index": 2}, {"no": 38, "kanji": "禁止", "reading": "", "sentence": "", "meaning": "許可", "pair_w1": "許可", "pair_w2": "禁止", "options": ["悲観", "未熟", "快楽", "許可"], "answer_index": 3}, {"no": 39, "kanji": "容易", "reading": "", "sentence": "", "meaning": "困難", "pair_w1": "困難", "pair_w2": "容易", "options": ["肯定", "困難", "現実", "絶対"], "answer_index": 1}, {"no": 40, "kanji": "平等", "reading": "", "sentence": "", "meaning": "差別", "pair_w1": "差別", "pair_w2": "平等", "options": ["興奮", "鋭角", "損失", "差別"], "answer_index": 3}], "count": 10, "range_start": 31, "range_end": 40, "first_pair": "過去⇔未来", "last_pair": "差別⇔平等"}, "L5": {"A": [{"no": 41, "kanji": "賛成", "reading": "", "sentence": "", "meaning": "反対", "pair_w1": "賛成", "pair_w2": "反対", "options": ["積極", "反対", "敏感", "特殊"], "answer_index": 1}, {"no": 42, "kanji": "自然", "reading": "", "sentence": "", "meaning": "人工", "pair_w1": "自然", "pair_w2": "人工", "options": ["善意", "縦断", "抽象", "人工"], "answer_index": 3}, {"no": 43, "kanji": "失敗", "reading": "", "sentence": "", "meaning": "成功", "pair_w1": "失敗", "pair_w2": "成功", "options": ["成功", "拾得", "正常", "被告"], "answer_index": 0}, {"no": 44, "kanji": "収入", "reading": "", "sentence": "", "meaning": "支出", "pair_w1": "収入", "pair_w2": "支出", "options": ["祖先", "成功", "寒冷", "支出"], "answer_index": 3}, {"no": 45, "kanji": "減少", "reading": "", "sentence": "", "meaning": "増加", "pair_w1": "減少", "pair_w2": "増加", "options": ["相対", "優雅", "増加", "劣勢"], "answer_index": 2}, {"no": 46, "kanji": "建設", "reading": "", "sentence": "", "meaning": "破壊", "pair_w1": "建設", "pair_w2": "破壊", "options": ["冷静", "好評", "固定", "破壊"], "answer_index": 3}, {"no": 47, "kanji": "創造", "reading": "", "sentence": "", "meaning": "模倣", "pair_w1": "創造", "pair_w2": "模倣", "options": ["支出", "下降", "模倣", "応答"], "answer_index": 2}, {"no": 48, "kanji": "粗野", "reading": "", "sentence": "", "meaning": "優雅", "pair_w1": "粗野", "pair_w2": "優雅", "options": ["優雅", "虚偽", "絶望", "破壊"], "answer_index": 0}, {"no": 49, "kanji": "損失", "reading": "", "sentence": "", "meaning": "利益", "pair_w1": "損失", "pair_w2": "利益", "options": ["不得意", "容易", "利益", "短所"], "answer_index": 2}, {"no": 50, "kanji": "単純", "reading": "", "sentence": "", "meaning": "複雑", "pair_w1": "単純", "pair_w2": "複雑", "options": ["出発", "縦断", "複雑", "理性"], "answer_index": 2}], "C": [{"no": 41, "kanji": "反対", "reading": "", "sentence": "", "meaning": "賛成", "pair_w1": "賛成", "pair_w2": "反対", "options": ["消極", "欠点", "横断", "賛成"], "answer_index": 3}, {"no": 42, "kanji": "人工", "reading": "", "sentence": "", "meaning": "自然", "pair_w1": "自然", "pair_w2": "人工", "options": ["自然", "全体", "悲観", "起床"], "answer_index": 0}, {"no": 43, "kanji": "成功", "reading": "", "sentence": "", "meaning": "失敗", "pair_w1": "失敗", "pair_w2": "成功", "options": ["単純", "失敗", "賛成", "軽視"], "answer_index": 1}, {"no": 44, "kanji": "支出", "reading": "", "sentence": "", "meaning": "収入", "pair_w1": "収入", "pair_w2": "支出", "options": ["親切", "収入", "単純", "陰気"], "answer_index": 1}, {"no": 45, "kanji": "増加", "reading": "", "sentence": "", "meaning": "減少", "pair_w1": "減少", "pair_w2": "増加", "options": ["減少", "勝利", "優勢", "戦争"], "answer_index": 0}, {"no": 46, "kanji": "破壊", "reading": "", "sentence": "", "meaning": "建設", "pair_w1": "建設", "pair_w2": "破壊", "options": ["永遠", "建設", "延長", "質疑"], "answer_index": 1}, {"no": 47, "kanji": "模倣", "reading": "", "sentence": "", "meaning": "創造", "pair_w1": "創造", "pair_w2": "模倣", "options": ["損失", "温暖", "間接", "創造"], "answer_index": 3}, {"no": 48, "kanji": "優雅", "reading": "", "sentence": "", "meaning": "粗野", "pair_w1": "粗野", "pair_w2": "優雅", "options": ["服従", "急性", "粗野", "移動"], "answer_index": 2}, {"no": 49, "kanji": "利益", "reading": "", "sentence": "", "meaning": "損失", "pair_w1": "損失", "pair_w2": "利益", "options": ["謙虚", "覚悟", "損失", "間接"], "answer_index": 2}, {"no": 50, "kanji": "複雑", "reading": "", "sentence": "", "meaning": "単純", "pair_w1": "単純", "pair_w2": "複雑", "options": ["鈍感", "移動", "単純", "全体"], "answer_index": 2}], "count": 10, "range_start": 41, "range_end": 50, "first_pair": "賛成⇔反対", "last_pair": "単純⇔複雑"}, "L6": {"A": [{"no": 51, "kanji": "長所", "reading": "", "sentence": "", "meaning": "短所", "pair_w1": "長所", "pair_w2": "短所", "options": ["短所", "破壊", "虚偽", "客観"], "answer_index": 0}, {"no": 52, "kanji": "定例", "reading": "", "sentence": "", "meaning": "臨時", "pair_w1": "定例", "pair_w2": "臨時", "options": ["直接", "臨時", "個人", "複雑"], "answer_index": 1}, {"no": 53, "kanji": "鈍感", "reading": "", "sentence": "", "meaning": "敏感", "pair_w1": "鈍感", "pair_w2": "敏感", "options": ["互角", "平凡", "拾得", "敏感"], "answer_index": 3}, {"no": 54, "kanji": "悲観", "reading": "", "sentence": "", "meaning": "楽観", "pair_w1": "悲観", "pair_w2": "楽観", "options": ["好評", "可決", "収縮", "楽観"], "answer_index": 3}, {"no": 55, "kanji": "非凡", "reading": "", "sentence": "", "meaning": "平凡", "pair_w1": "非凡", "pair_w2": "平凡", "options": ["加害", "平凡", "否決", "未来"], "answer_index": 1}, {"no": 56, "kanji": "服従", "reading": "", "sentence": "", "meaning": "反抗", "pair_w1": "服従", "pair_w2": "反抗", "options": ["反抗", "抽象", "優雅", "改悪"], "answer_index": 0}, {"no": 57, "kanji": "主観", "reading": "", "sentence": "", "meaning": "客観", "pair_w1": "主観", "pair_w2": "客観", "options": ["部分", "客観", "決心", "改悪"], "answer_index": 1}, {"no": 58, "kanji": "上昇", "reading": "", "sentence": "", "meaning": "下降", "pair_w1": "上昇", "pair_w2": "下降", "options": ["下降", "来信", "消費", "成功"], "answer_index": 0}, {"no": 59, "kanji": "同意", "reading": "", "sentence": "", "meaning": "反対", "pair_w1": "同意", "pair_w2": "反対", "options": ["加害", "直接", "守備", "反対"], "answer_index": 3}, {"no": 60, "kanji": "需要", "reading": "", "sentence": "", "meaning": "供給", "pair_w1": "需要", "pair_w2": "供給", "options": ["冷静", "供給", "成功", "保守"], "answer_index": 1}], "C": [{"no": 51, "kanji": "短所", "reading": "", "sentence": "", "meaning": "長所", "pair_w1": "長所", "pair_w2": "短所", "options": ["集団", "過去", "長所", "鈍感"], "answer_index": 2}, {"no": 52, "kanji": "臨時", "reading": "", "sentence": "", "meaning": "定例", "pair_w1": "定例", "pair_w2": "臨時", "options": ["定例", "遺失", "賛成", "絶対"], "answer_index": 0}, {"no": 53, "kanji": "敏感", "reading": "", "sentence": "", "meaning": "鈍感", "pair_w1": "鈍感", "pair_w2": "敏感", "options": ["遺失", "鈍感", "真実", "永遠"], "answer_index": 1}, {"no": 54, "kanji": "楽観", "reading": "", "sentence": "", "meaning": "悲観", "pair_w1": "悲観", "pair_w2": "楽観", "options": ["悲観", "供給", "上昇", "子孫"], "answer_index": 0}, {"no": 55, "kanji": "平凡", "reading": "", "sentence": "", "meaning": "非凡", "pair_w1": "非凡", "pair_w2": "平凡", "options": ["非凡", "優勢", "迅速", "自然"], "answer_index": 0}, {"no": 56, "kanji": "反抗", "reading": "", "sentence": "", "meaning": "服従", "pair_w1": "服従", "pair_w2": "反抗", "options": ["鈍感", "差別", "服従", "将来"], "answer_index": 2}, {"no": 57, "kanji": "客観", "reading": "", "sentence": "", "meaning": "主観", "pair_w1": "主観", "pair_w2": "客観", "options": ["鋭角", "原因", "絶対", "主観"], "answer_index": 3}, {"no": 58, "kanji": "下降", "reading": "", "sentence": "", "meaning": "上昇", "pair_w1": "上昇", "pair_w2": "下降", "options": ["上昇", "同意", "起床", "質疑"], "answer_index": 0}, {"no": 59, "kanji": "反対", "reading": "", "sentence": "", "meaning": "同意", "pair_w1": "同意", "pair_w2": "反対", "options": ["消極", "同意", "定例", "収入"], "answer_index": 1}, {"no": 60, "kanji": "供給", "reading": "", "sentence": "", "meaning": "需要", "pair_w1": "需要", "pair_w2": "供給", "options": ["需要", "温暖", "服従", "上昇"], "answer_index": 0}], "count": 10, "range_start": 51, "range_end": 60, "first_pair": "長所⇔短所", "last_pair": "需要⇔供給"}, "L7": {"A": [{"no": 61, "kanji": "華美", "reading": "", "sentence": "", "meaning": "質素", "pair_w1": "華美", "pair_w2": "質素", "options": ["守備", "質素", "来信", "反対"], "answer_index": 1}, {"no": 62, "kanji": "優勢", "reading": "", "sentence": "", "meaning": "劣勢", "pair_w1": "優勢", "pair_w2": "劣勢", "options": ["後退", "劣勢", "反抗", "祖先"], "answer_index": 1}, {"no": 63, "kanji": "膨張", "reading": "", "sentence": "", "meaning": "収縮", "pair_w1": "膨張", "pair_w2": "収縮", "options": ["縮小", "収縮", "積極", "緩慢"], "answer_index": 1}, {"no": 64, "kanji": "敗北", "reading": "", "sentence": "", "meaning": "勝利", "pair_w1": "敗北", "pair_w2": "勝利", "options": ["保守", "拾得", "質素", "勝利"], "answer_index": 3}, {"no": 65, "kanji": "迅速", "reading": "", "sentence": "", "meaning": "緩慢", "pair_w1": "迅速", "pair_w2": "緩慢", "options": ["過去", "勝利", "緩慢", "来信"], "answer_index": 2}, {"no": 66, "kanji": "質疑", "reading": "", "sentence": "", "meaning": "応答", "pair_w1": "質疑", "pair_w2": "応答", "options": ["応答", "冷静", "禁止", "守備"], "answer_index": 0}, {"no": 67, "kanji": "集団", "reading": "", "sentence": "", "meaning": "個人", "pair_w1": "集団", "pair_w2": "個人", "options": ["消費", "個人", "就寝", "未来"], "answer_index": 1}, {"no": 68, "kanji": "被害", "reading": "", "sentence": "", "meaning": "加害", "pair_w1": "被害", "pair_w2": "加害", "options": ["加害", "慢性", "被告", "決心"], "answer_index": 0}, {"no": 69, "kanji": "温暖", "reading": "", "sentence": "", "meaning": "寒冷", "pair_w1": "温暖", "pair_w2": "寒冷", "options": ["臨時", "平和", "寒冷", "部分"], "answer_index": 2}, {"no": 70, "kanji": "悪意", "reading": "", "sentence": "", "meaning": "善意", "pair_w1": "悪意", "pair_w2": "善意", "options": ["善意", "消費", "決心", "慢性"], "answer_index": 0}], "C": [{"no": 61, "kanji": "質素", "reading": "", "sentence": "", "meaning": "華美", "pair_w1": "華美", "pair_w2": "質素", "options": ["起床", "集中", "被害", "華美"], "answer_index": 3}, {"no": 62, "kanji": "劣勢", "reading": "", "sentence": "", "meaning": "優勢", "pair_w1": "優勢", "pair_w2": "劣勢", "options": ["失敗", "拡大", "優勢", "原告"], "answer_index": 2}, {"no": 63, "kanji": "収縮", "reading": "", "sentence": "", "meaning": "膨張", "pair_w1": "膨張", "pair_w2": "収縮", "options": ["将来", "義務", "膨張", "軽率"], "answer_index": 2}, {"no": 64, "kanji": "勝利", "reading": "", "sentence": "", "meaning": "敗北", "pair_w1": "敗北", "pair_w2": "勝利", "options": ["希望", "同意", "敗北", "勝利"], "answer_index": 2}, {"no": 65, "kanji": "緩慢", "reading": "", "sentence": "", "meaning": "迅速", "pair_w1": "迅速", "pair_w2": "緩慢", "options": ["既決", "移動", "一般", "迅速"], "answer_index": 3}, {"no": 66, "kanji": "応答", "reading": "", "sentence": "", "meaning": "質疑", "pair_w1": "質疑", "pair_w2": "応答", "options": ["横断", "過去", "戦争", "質疑"], "answer_index": 3}, {"no": 67, "kanji": "個人", "reading": "", "sentence": "", "meaning": "集団", "pair_w1": "集団", "pair_w2": "個人", "options": ["欠点", "集団", "異常", "間接"], "answer_index": 1}, {"no": 68, "kanji": "加害", "reading": "", "sentence": "", "meaning": "被害", "pair_w1": "被害", "pair_w2": "加害", "options": ["賛成", "質疑", "優勢", "被害"], "answer_index": 3}, {"no": 69, "kanji": "寒冷", "reading": "", "sentence": "", "meaning": "温暖", "pair_w1": "温暖", "pair_w2": "寒冷", "options": ["謙虚", "現実", "温暖", "迅速"], "answer_index": 2}, {"no": 70, "kanji": "善意", "reading": "", "sentence": "", "meaning": "悪意", "pair_w1": "悪意", "pair_w2": "善意", "options": ["悪意", "起点", "急性", "創造"], "answer_index": 0}], "count": 10, "range_start": 61, "range_end": 70, "first_pair": "華美⇔質素", "last_pair": "悪意⇔善意"}, "L8": {"A": [{"no": 71, "kanji": "悪評", "reading": "", "sentence": "", "meaning": "好評", "pair_w1": "悪評", "pair_w2": "好評", "options": ["増加", "敏感", "虚偽", "好評"], "answer_index": 3}, {"no": 72, "kanji": "攻撃", "reading": "", "sentence": "", "meaning": "守備", "pair_w1": "攻撃", "pair_w2": "守備", "options": ["円熟", "濁流", "守備", "積極"], "answer_index": 2}, {"no": 73, "kanji": "改善", "reading": "", "sentence": "", "meaning": "改悪", "pair_w1": "改善", "pair_w2": "改悪", "options": ["改悪", "被告", "積極", "敗北"], "answer_index": 0}, {"no": 74, "kanji": "鋭角", "reading": "", "sentence": "", "meaning": "鈍角", "pair_w1": "鋭角", "pair_w2": "鈍角", "options": ["決心", "優雅", "臨時", "鈍角"], "answer_index": 3}, {"no": 75, "kanji": "覚悟", "reading": "", "sentence": "", "meaning": "決心", "pair_w1": "覚悟", "pair_w2": "決心", "options": ["決心", "平凡", "消費", "敗北"], "answer_index": 0}, {"no": 76, "kanji": "横断", "reading": "", "sentence": "", "meaning": "縦断", "pair_w1": "横断", "pair_w2": "縦断", "options": ["臨時", "就寝", "積極", "縦断"], "answer_index": 3}, {"no": 77, "kanji": "集中", "reading": "", "sentence": "", "meaning": "分散", "pair_w1": "集中", "pair_w2": "分散", "options": ["出発", "分散", "善意", "受信"], "answer_index": 1}, {"no": 78, "kanji": "希望", "reading": "", "sentence": "", "meaning": "絶望", "pair_w1": "希望", "pair_w2": "絶望", "options": ["善意", "改悪", "絶望", "直接"], "answer_index": 2}, {"no": 79, "kanji": "起点", "reading": "", "sentence": "", "meaning": "終点", "pair_w1": "起点", "pair_w2": "終点", "options": ["終点", "縮小", "人工", "直接"], "answer_index": 0}], "C": [{"no": 71, "kanji": "好評", "reading": "", "sentence": "", "meaning": "悪評", "pair_w1": "悪評", "pair_w2": "好評", "options": ["悪評", "集団", "非凡", "起床"], "answer_index": 0}, {"no": 72, "kanji": "守備", "reading": "", "sentence": "", "meaning": "攻撃", "pair_w1": "攻撃", "pair_w2": "守備", "options": ["過去", "受動", "攻撃", "建設"], "answer_index": 2}, {"no": 73, "kanji": "改悪", "reading": "", "sentence": "", "meaning": "改善", "pair_w1": "改善", "pair_w2": "改悪", "options": ["対等", "序論", "被害", "改善"], "answer_index": 3}, {"no": 74, "kanji": "鈍角", "reading": "", "sentence": "", "meaning": "鋭角", "pair_w1": "鋭角", "pair_w2": "鈍角", "options": ["受動", "悲観", "建設", "鋭角"], "answer_index": 3}, {"no": 75, "kanji": "決心", "reading": "", "sentence": "", "meaning": "覚悟", "pair_w1": "覚悟", "pair_w2": "決心", "options": ["覚悟", "消極", "遺失", "敗北"], "answer_index": 0}, {"no": 76, "kanji": "縦断", "reading": "", "sentence": "", "meaning": "横断", "pair_w1": "横断", "pair_w2": "縦断", "options": ["否決", "長所", "損失", "横断"], "answer_index": 3}, {"no": 77, "kanji": "分散", "reading": "", "sentence": "", "meaning": "集中", "pair_w1": "集中", "pair_w2": "分散", "options": ["温暖", "集中", "被害", "悪評"], "answer_index": 1}, {"no": 78, "kanji": "絶望", "reading": "", "sentence": "", "meaning": "希望", "pair_w1": "希望", "pair_w2": "絶望", "options": ["永遠", "困難", "希望", "欠点"], "answer_index": 2}, {"no": 79, "kanji": "終点", "reading": "", "sentence": "", "meaning": "起点", "pair_w1": "起点", "pair_w2": "終点", "options": ["起点", "陰気", "主観", "定例"], "answer_index": 0}], "count": 9, "range_start": 71, "range_end": 79, "first_pair": "悪評⇔好評", "last_pair": "起点⇔終点"}, "L9": {"A": [{"no": 80, "kanji": "到着", "reading": "", "sentence": "", "meaning": "出発", "pair_w1": "到着", "pair_w2": "出発", "options": ["出発", "模倣", "就寝", "勝利"], "answer_index": 0}, {"no": 81, "kanji": "欠点", "reading": "", "sentence": "", "meaning": "長所", "pair_w1": "欠点", "pair_w2": "長所", "options": ["成功", "寒冷", "長所", "形式"], "answer_index": 2}, {"no": 82, "kanji": "原告", "reading": "", "sentence": "", "meaning": "被告", "pair_w1": "原告", "pair_w2": "被告", "options": ["消費", "被告", "相対", "増加"], "answer_index": 1}, {"no": 83, "kanji": "肯定", "reading": "", "sentence": "", "meaning": "否定", "pair_w1": "肯定", "pair_w2": "否定", "options": ["理想", "否定", "虚偽", "成功"], "answer_index": 1}, {"no": 84, "kanji": "供給", "reading": "", "sentence": "", "meaning": "需要", "pair_w1": "供給", "pair_w2": "需要", "options": ["需要", "虚偽", "絶望", "受信"], "answer_index": 0}, {"no": 85, "kanji": "消極", "reading": "", "sentence": "", "meaning": "積極", "pair_w1": "消極", "pair_w2": "積極", "options": ["増加", "積極", "危険", "未来"], "answer_index": 1}, {"no": 86, "kanji": "対等", "reading": "", "sentence": "", "meaning": "互角", "pair_w1": "対等", "pair_w2": "互角", "options": ["客観", "部分", "互角", "就寝"], "answer_index": 2}, {"no": 87, "kanji": "序論", "reading": "", "sentence": "", "meaning": "結論", "pair_w1": "序論", "pair_w2": "結論", "options": ["苦痛", "寒冷", "出発", "結論"], "answer_index": 3}, {"no": 88, "kanji": "将来", "reading": "", "sentence": "", "meaning": "過去", "pair_w1": "将来", "pair_w2": "過去", "options": ["長所", "過去", "善意", "勝利"], "answer_index": 1}], "C": [{"no": 80, "kanji": "出発", "reading": "", "sentence": "", "meaning": "到着", "pair_w1": "到着", "pair_w2": "出発", "options": ["質疑", "粗野", "賛成", "到着"], "answer_index": 3}, {"no": 81, "kanji": "長所", "reading": "", "sentence": "", "meaning": "欠点", "pair_w1": "欠点", "pair_w2": "長所", "options": ["受動", "欠点", "延長", "単純"], "answer_index": 1}, {"no": 82, "kanji": "被告", "reading": "", "sentence": "", "meaning": "原告", "pair_w1": "原告", "pair_w2": "被告", "options": ["前進", "原告", "着陸", "拡大"], "answer_index": 1}, {"no": 83, "kanji": "否定", "reading": "", "sentence": "", "meaning": "肯定", "pair_w1": "肯定", "pair_w2": "否定", "options": ["悪意", "肯定", "異常", "拡大"], "answer_index": 1}, {"no": 84, "kanji": "需要", "reading": "", "sentence": "", "meaning": "供給", "pair_w1": "供給", "pair_w2": "需要", "options": ["服従", "肯定", "未熟", "供給"], "answer_index": 3}, {"no": 85, "kanji": "積極", "reading": "", "sentence": "", "meaning": "消極", "pair_w1": "消極", "pair_w2": "積極", "options": ["起床", "主観", "供給", "消極"], "answer_index": 3}, {"no": 86, "kanji": "互角", "reading": "", "sentence": "", "meaning": "対等", "pair_w1": "対等", "pair_w2": "互角", "options": ["集中", "前進", "対等", "親切"], "answer_index": 2}, {"no": 87, "kanji": "結論", "reading": "", "sentence": "", "meaning": "序論", "pair_w1": "序論", "pair_w2": "結論", "options": ["謙虚", "序論", "快楽", "到着"], "answer_index": 1}, {"no": 88, "kanji": "過去", "reading": "", "sentence": "", "meaning": "将来", "pair_w1": "将来", "pair_w2": "過去", "options": ["勝利", "同意", "将来", "前進"], "answer_index": 2}], "count": 9, "range_start": 80, "range_end": 88, "first_pair": "到着⇔出発", "last_pair": "将来⇔過去"}, "L10": {"A": [{"no": 89, "kanji": "清流", "reading": "", "sentence": "", "meaning": "濁流", "pair_w1": "清流", "pair_w2": "濁流", "options": ["好評", "緩慢", "濁流", "理性"], "answer_index": 2}, {"no": 90, "kanji": "送信", "reading": "", "sentence": "", "meaning": "受信", "pair_w1": "送信", "pair_w2": "受信", "options": ["受信", "好評", "直接", "短所"], "answer_index": 0}, {"no": 91, "kanji": "興奮", "reading": "", "sentence": "", "meaning": "冷静", "pair_w1": "興奮", "pair_w2": "冷静", "options": ["冷静", "積極", "縦断", "模倣"], "answer_index": 0}, {"no": 92, "kanji": "着陸", "reading": "", "sentence": "", "meaning": "離陸", "pair_w1": "着陸", "pair_w2": "離陸", "options": ["瞬間", "受信", "危険", "離陸"], "answer_index": 3}, {"no": 93, "kanji": "子孫", "reading": "", "sentence": "", "meaning": "祖先", "pair_w1": "子孫", "pair_w2": "祖先", "options": ["祖先", "劣勢", "結論", "抽象"], "answer_index": 0}, {"no": 94, "kanji": "否決", "reading": "", "sentence": "", "meaning": "可決", "pair_w1": "否決", "pair_w2": "可決", "options": ["下降", "需要", "可決", "優雅"], "answer_index": 2}, {"no": 95, "kanji": "勝利", "reading": "", "sentence": "", "meaning": "敗北", "pair_w1": "勝利", "pair_w2": "敗北", "options": ["後退", "質素", "必然", "敗北"], "answer_index": 3}, {"no": 96, "kanji": "未熟", "reading": "", "sentence": "", "meaning": "円熟", "pair_w1": "未熟", "pair_w2": "円熟", "options": ["供給", "平和", "好評", "円熟"], "answer_index": 3}, {"no": 97, "kanji": "移動", "reading": "", "sentence": "", "meaning": "固定", "pair_w1": "移動", "pair_w2": "固定", "options": ["部分", "優雅", "楽観", "固定"], "answer_index": 3}], "C": [{"no": 89, "kanji": "濁流", "reading": "", "sentence": "", "meaning": "清流", "pair_w1": "清流", "pair_w2": "濁流", "options": ["絶対", "軽視", "清流", "鈍感"], "answer_index": 2}, {"no": 90, "kanji": "受信", "reading": "", "sentence": "", "meaning": "送信", "pair_w1": "送信", "pair_w2": "受信", "options": ["送信", "悪意", "遺失", "延長"], "answer_index": 0}, {"no": 91, "kanji": "冷静", "reading": "", "sentence": "", "meaning": "興奮", "pair_w1": "興奮", "pair_w2": "冷静", "options": ["上昇", "全体", "興奮", "前進"], "answer_index": 2}, {"no": 92, "kanji": "離陸", "reading": "", "sentence": "", "meaning": "着陸", "pair_w1": "着陸", "pair_w2": "離陸", "options": ["着陸", "攻撃", "到着", "温暖"], "answer_index": 0}, {"no": 93, "kanji": "祖先", "reading": "", "sentence": "", "meaning": "子孫", "pair_w1": "子孫", "pair_w2": "祖先", "options": ["真実", "全体", "清流", "子孫"], "answer_index": 3}, {"no": 94, "kanji": "可決", "reading": "", "sentence": "", "meaning": "否決", "pair_w1": "否決", "pair_w2": "可決", "options": ["序論", "対等", "被害", "否決"], "answer_index": 3}, {"no": 95, "kanji": "敗北", "reading": "", "sentence": "", "meaning": "勝利", "pair_w1": "勝利", "pair_w2": "敗北", "options": ["急性", "勝利", "建設", "真実"], "answer_index": 1}, {"no": 96, "kanji": "円熟", "reading": "", "sentence": "", "meaning": "未熟", "pair_w1": "未熟", "pair_w2": "円熟", "options": ["原告", "消極", "未熟", "移動"], "answer_index": 2}, {"no": 97, "kanji": "固定", "reading": "", "sentence": "", "meaning": "移動", "pair_w1": "移動", "pair_w2": "固定", "options": ["全体", "返信", "同意", "移動"], "answer_index": 3}], "count": 9, "range_start": 89, "range_end": 97, "first_pair": "清流⇔濁流", "last_pair": "移動⇔固定"}};
+let currentCourse = 'L1';  // current lesson: 'L1' through 'L6'
+let QUESTIONS_A = COURSES[currentCourse].A;
+let QUESTIONS_C = COURSES[currentCourse].C;
+let QUESTIONS_B = COURSES[currentCourse].B;
+
+let STEP_INFO = {};
+function buildStepInfo(){
+  STEP_INFO = {
+    A: {title: '語1 → 対義語', sub: '左の語の反対の意味の語を選びます', icon: 'A', questions: COURSES[currentCourse].A},
+    C: {title: '対義語 → 語1', sub: '右の語の反対の意味の語を選びます(逆方向)', icon: 'C', questions: COURSES[currentCourse].C}
+  };
+}
+const STEP_ORDER = ['A','C'];
+buildStepInfo();
+
+const STORAGE_PREFIX_BASE = 'kounin-kanji10-';
+let currentStep = 'A';
+let currentQuestions = [];
+let currentIndex = 0;
+let correctCount = 0;
+let isWeakMode = false;
+
+function weakKey(step){return STORAGE_PREFIX_BASE + currentCourse + '-weak-' + step;}
+function scoreKey(step){return STORAGE_PREFIX_BASE + currentCourse + '-score-' + step;}
+
+function loadWeak(step){
+  try{return JSON.parse(localStorage.getItem(weakKey(step)) || '{}');}
+  catch(e){return {};}
+}
+function saveWeak(step, data){localStorage.setItem(weakKey(step), JSON.stringify(data));}
+
+function loadScore(step){
+  try{return JSON.parse(localStorage.getItem(scoreKey(step)) || 'null');}
+  catch(e){return null;}
+}
+function saveScore(step, correct, total){
+  localStorage.setItem(scoreKey(step), JSON.stringify({correct, total, date: Date.now()}));
+}
+
+function totalWeakCount(){
+  return STEP_ORDER.reduce((sum, s) => sum + Object.keys(loadWeak(s)).length, 0);
+}
+function updateWeakCountChip(){
+  const count = totalWeakCount();
+  const chip = document.getElementById('weak-count-chip');
+  if(count > 0){
+    chip.style.display = 'inline-block';
+    document.getElementById('weak-count').textContent = count;
+  }else{
+    chip.style.display = 'none';
+  }
+}
+
+function renderStepCards(){
+  const container = document.getElementById('step-cards');
+  let html = '';
+  STEP_ORDER.forEach(step => {
+    const info = STEP_INFO[step];
+    const score = loadScore(step);
+    const weakCount = Object.keys(loadWeak(step)).length;
+    
+    let metaHtml = '';
+    if(score){
+      const pct = Math.round(score.correct/score.total*100);
+      metaHtml += `<span class="meta-chip score">最高 ${score.correct}/${score.total} (${pct}%)</span>`;
+    }else{
+      metaHtml += `<span class="meta-chip">未挑戦</span>`;
+    }
+    if(weakCount > 0){
+      metaHtml += `<span class="meta-chip weak-chip">苦手 ${weakCount}件</span>`;
+    }
+    
+    html += `
+      <div class="step-card" data-step="${step}" onclick="startStep('${step}')">
+        <div class="step-head">
+          <div class="step-icon">${info.icon}</div>
+          <div>
+            <div class="step-title">ステップ${step}: ${info.title}</div>
+            <div class="step-sub">${info.sub}</div>
+          </div>
+        </div>
+        <div class="step-meta">${metaHtml}</div>
+        <span class="arrow">▶</span>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => switchTab(t.dataset.tab));
+});
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  if(name === 'weak') renderWeakPanel();
+  if(name === 'home'){renderStepCards(); updateWeakCountChip();}
+}
+
+function startStep(step){
+  currentStep = step;
+  isWeakMode = false;
+  currentQuestions = [...STEP_INFO[step].questions];
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function startWeakReview(step){
+  const weak = loadWeak(step);
+  const weakNos = Object.keys(weak).map(Number);
+  if(weakNos.length === 0){
+    alert('このステップの苦手カードはまだありません');
+    return;
+  }
+  currentStep = step;
+  isWeakMode = true;
+  currentQuestions = STEP_INFO[step].questions.filter(q => weakNos.includes(q.no));
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = currentQuestions[currentIndex];
+  const total = currentQuestions.length;
+  
+  document.getElementById('step-badge').textContent = currentStep + (isWeakMode ? ' (苦手復習)' : '');
+  document.getElementById('step-badge').className = 'step-badge ' + currentStep;
+  document.getElementById('progress-text').textContent = `問題 ${currentIndex+1} / ${total}`;
+  document.getElementById('progress-bar').style.width = (currentIndex/total*100) + '%';
+  
+  let mainDisplay = '';
+  let promptText = '';
+  let sentenceHTML = '';
+  
+  if(currentStep === 'A'){
+    promptText = '次の語の対義語(反対の意味の語)として最も適切なものを選びなさい';
+    mainDisplay = `<div class="question-kanji" style="font-size:48px">${q.kanji}<button class="speaker-btn" onclick="speak('${q.kanji}')">▶</button></div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">この語と<strong style="color:#c1121f">反対の意味</strong>を持つ語は?</div>`;
+  }else if(currentStep === 'C'){
+    promptText = '次の語の対義語(反対の意味の語)として最も適切なものを選びなさい';
+    mainDisplay = `<div class="question-kanji" style="font-size:48px">${q.kanji}<button class="speaker-btn" onclick="speak('${q.kanji}')">▶</button></div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">この語と<strong style="color:#c1121f">反対の意味</strong>を持つ語は?(逆方向)</div>`;
+  }
+  
+  const html = `
+    <div class="question-card">
+      <div class="question-num">第 ${currentIndex+1} 問</div>
+      <div class="question-prompt">${promptText}</div>
+      ${mainDisplay}
+      ${sentenceHTML}
+    </div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+  `;
+  document.getElementById('quiz-content').innerHTML = html;
+  
+  const optsDiv = document.getElementById('options');
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    const fontStyle = 'font-size:24px;font-weight:bold;';
+    btn.innerHTML = `<span class="label">${String.fromCharCode(65+i)}</span><span style="${fontStyle}">${opt}</span>`;
+    btn.addEventListener('click', () => answerQuestion(i));
+    optsDiv.appendChild(btn);
+  });
+}
+
+function answerQuestion(selectedIndex){
+  const q = currentQuestions[currentIndex];
+  const correct = selectedIndex === q.answer_index;
+  
+  document.querySelectorAll('.option').forEach((opt, i) => {
+    opt.disabled = true;
+    if(i === q.answer_index) opt.classList.add('correct');
+    else if(i === selectedIndex) opt.classList.add('wrong');
+  });
+  
+  const weak = loadWeak(currentStep);
+  if(correct){
+    correctCount++;
+    if(weak[q.no]){
+      weak[q.no].streak = (weak[q.no].streak || 0) + 1;
+      if(weak[q.no].streak >= 2){
+        delete weak[q.no];
+      }
+    }
+    confetti();
+  }else{
+    if(!weak[q.no]){
+      weak[q.no] = {missCount: 1, streak: 0};
+    }else{
+      weak[q.no].missCount += 1;
+      weak[q.no].streak = 0;
+    }
+  }
+  saveWeak(currentStep, weak);
+  
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback show ' + (correct ? 'correct' : 'wrong');
+  fb.innerHTML = `
+    <div class="feedback-title">${correct ? '⭕ 正解!' : '❌ 不正解'}</div>
+    <div class="feedback-content">
+      <div style="font-size:18px;text-align:center;padding:8px;background:#fff;border-radius:8px"><strong>${q.pair_w1}</strong> ⇔ <strong style="color:#c1121f">${q.pair_w2}</strong></div>
+    </div>
+    <button class="next-btn" id="next-btn">${currentIndex+1 === currentQuestions.length ? '結果を見る ▶' : '次の問題 ▶'}</button>
+  `;
+  document.getElementById('next-btn').addEventListener('click', nextQuestion);
+}
+
+function nextQuestion(){
+  currentIndex++;
+  if(currentIndex >= currentQuestions.length){
+    showResult();
+  }else{
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  const total = currentQuestions.length;
+  const pct = Math.round(correctCount/total*100);
+  const stepName = STEP_INFO[currentStep].title;
+  
+  if(!isWeakMode){
+    const prev = loadScore(currentStep);
+    if(!prev || correctCount/total > prev.correct/prev.total){
+      saveScore(currentStep, correctCount, total);
+    }
+  }
+  
+  let msg;
+  if(pct === 100) msg = '🎉 パーフェクト! 全問正解です!';
+  else if(pct >= 80) msg = '👍 よくできました!';
+  else if(pct >= 60) msg = '✏ あと少し!間違えた問題を復習しよう';
+  else msg = '💪 苦手カードでくり返し練習しよう';
+  
+  let nextStepHint = '';
+  const order = STEP_ORDER;
+  const idx = order.indexOf(currentStep);
+  if(!isWeakMode && pct >= 80 && idx < 2){
+    const next = order[idx+1];
+    nextStepHint = `<div style="margin-top:10px;padding:12px;background:#fef6e4;border-radius:8px;font-size:14px">🎯 次は <strong>ステップ${next}: ${STEP_INFO[next].title}</strong> に進みましょう!</div>`;
+  }
+  
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('progress-text').textContent = '完了';
+  document.getElementById('quiz-content').innerHTML = `
+    <div class="result-card">
+      <h2 style="border:none">ステップ${currentStep} ${isWeakMode ? '(苦手復習)' : ''} 結果</h2>
+      <div style="font-size:14px;color:#5e6472;margin-bottom:6px">${stepName}</div>
+      <div class="score-big">${correctCount}<span class="total"> / ${total}</span></div>
+      <div class="result-msg">${msg}</div>
+      <div style="font-size:14px;color:#5e6472">正答率: ${pct}%</div>
+      ${nextStepHint}
+      <div class="result-buttons">
+        <button class="start-btn" onclick="startStep('${currentStep}')">🔄 もう一度</button>
+        ${idx < 2 && !isWeakMode ? `<button class="start-btn secondary" onclick="startStep('${order[idx+1]}')">▶ ステップ${order[idx+1]}へ</button>` : ''}
+        <button class="start-btn gray" onclick="switchTab('home')">🏠 ホーム</button>
+      </div>
+    </div>
+  `;
+  if(pct === 100) bigConfetti();
+  updateWeakCountChip();
+}
+
+function renderWeakPanel(){
+  const container = document.getElementById('weak-content');
+  const totalCount = totalWeakCount();
+  
+  if(totalCount === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✨</div>
+        <div>苦手カードはまだありません</div>
+        <div style="font-size:13px;margin-top:6px">練習で間違えた問題が自動で集まります</div>
+      </div>
+    `;
+    document.getElementById('btn-clear-weak').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('btn-clear-weak').style.display = 'block';
+  
+  let html = '';
+  STEP_ORDER.forEach(step => {
+    const weak = loadWeak(step);
+    const nos = Object.keys(weak).map(Number).sort((a,b) => weak[b].missCount - weak[a].missCount);
+    if(nos.length === 0) return;
+    
+    const info = STEP_INFO[step];
+    html += `
+      <div class="weak-section">
+        <div class="weak-section-title">
+          <div class="step-mini ${step}">${step}</div>
+          <h3>ステップ${step}: ${info.title}</h3>
+          <span class="count">${nos.length}件</span>
+        </div>
+        <div class="weak-list">
+    `;
+    nos.forEach(no => {
+      const q = info.questions.find(x => x.no === no);
+      if(!q) return;
+      const w = weak[no];
+      html += `
+        <div class="weak-item">
+          <div>
+            <span class="kanji-text">${q.kanji}</span>
+            <span class="reading-text">(${q.reading})</span>
+          </div>
+          <div>
+            <span class="miss-count">×${w.missCount}</span>
+            ${w.streak > 0 ? `<span class="streak">連続${w.streak}</span>` : ''}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>
+        <button class="start-btn secondary" style="margin-top:10px" onclick="startWeakReview('${step}')">⚡ ステップ${step}の苦手を復習</button>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+document.getElementById('btn-clear-weak').addEventListener('click', () => {
+  if(confirm('全てのステップの苦手カードを消去しますか?')){
+    STEP_ORDER.forEach(s => saveWeak(s, {}));
+    renderWeakPanel();
+    updateWeakCountChip();
+  }
+});
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+let currentVwPop = null;
+function showVwPop(el, event){
+  event.stopPropagation();
+  closeVwPop();
+  
+  const word = el.textContent;
+  const pron = el.dataset.pron || '';
+  const mean = el.dataset.mean || '';
+  let opts = [];
+  try{opts = JSON.parse(el.dataset.opts || '[]');}catch(e){}
+  const ans = parseInt(el.dataset.ans || '0', 10);
+  
+  const pop = document.createElement('div');
+  pop.className = 'vw-pop';
+  let optsHtml = '';
+  opts.forEach((o, i) => {
+    optsHtml += `<button class="quiz-opt" data-i="${i}" data-ans="${ans}">${o}</button>`;
+  });
+  pop.innerHTML = `
+    <div class="word">${word}</div>
+    <div class="pron">[${pron}]</div>
+    <div class="meaning">${mean}</div>
+    ${opts.length > 0 ? `<div class="quiz-q">クイズ:正しい意味は?</div><div class="quiz-opts">${optsHtml}</div>` : ''}
+  `;
+  
+  document.body.appendChild(pop);
+  
+  const rect = el.getBoundingClientRect();
+  const popRect = pop.getBoundingClientRect();
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 6;
+  if(left + popRect.width > window.innerWidth - 10){
+    left = window.innerWidth - popRect.width - 10;
+  }
+  if(left < 10) left = 10;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  
+  pop.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const i = parseInt(btn.dataset.i, 10);
+      const a = parseInt(btn.dataset.ans, 10);
+      pop.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+      if(i === a){
+        btn.classList.add('correct');
+      }else{
+        btn.classList.add('wrong');
+        pop.querySelectorAll('.quiz-opt')[a].classList.add('correct');
+      }
+    });
+  });
+  
+  currentVwPop = pop;
+}
+function closeVwPop(){
+  if(currentVwPop){currentVwPop.remove();currentVwPop = null;}
+}
+document.addEventListener('click', closeVwPop);
+
+function confetti(){
+  const colors = ['#f582ae','#001858','#fef6e4','#10b981','#f3d2c1'];
+  for(let i = 0; i < 30; i++){
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.left = (50 + (Math.random()-0.5)*60) + '%';
+    p.style.top = '40%';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(p);
+    
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 3 + Math.random() * 4;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed - 4;
+    let x = 0, y = 0;
+    
+    const animate = () => {
+      vy += 0.3;
+      x += vx;
+      y += vy;
+      p.style.transform = `translate(${x}px, ${y}px) rotate(${x*4}deg)`;
+      p.style.opacity = Math.max(0, 1 - y/300);
+      if(y < 400){
+        requestAnimationFrame(animate);
+      }else{
+        p.remove();
+      }
+    };
+    requestAnimationFrame(animate);
+  }
+}
+function bigConfetti(){
+  for(let i = 0; i < 4; i++){
+    setTimeout(confetti, i * 200);
+  }
+}
+
+function renderCourseSelector(){
+  const lessons = ['L1','L2','L3','L4','L5','L6','L7','L8','L9','L10'];
+  let html = '';
+  lessons.forEach(l => {
+    const c = COURSES[l];
+    const isActive = l === currentCourse;
+    html += `<button class="course-btn ${isActive ? 'active' : ''}" onclick="switchCourse('${l}')">
+      <span class="label">Lesson ${l.substring(1)}</span>
+      <span class="sub">No.${c.range_start}〜${c.range_end} / ${c.count}問</span>
+    </button>`;
+  });
+  document.getElementById('course-selector').innerHTML = html;
+  
+  const chip = document.getElementById('course-info-chip');
+  if(chip){
+    const c = COURSES[currentCourse];
+    chip.textContent = `📚 Lesson ${currentCourse.substring(1)}: ${c.count}問 × 2ステップ`;
+  }
+}
+
+function switchCourse(c){
+  if(c === currentCourse) return;
+  currentCourse = c;
+  buildStepInfo();
+  renderCourseSelector();
+  renderStepCards();
+  updateWeakCountChip();
+}
+
+renderCourseSelector();
+renderStepCards();
+updateWeakCountChip();
+</script>
+</body>
+</html>

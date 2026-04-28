@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高校入試 漢字四択 Unit 7 - 書き取り(必修語)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+    background:linear-gradient(135deg,#fef6e4 0%,#f3d2c1 100%);
+    color:#001858;
+    line-height:1.6;
+    min-height:100vh;
+    padding:16px;
+  }
+  .container{max-width:820px;margin:0 auto}
+  
+  header{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,24,88,0.08);
+    text-align:center;
+  }
+  header .badge{
+    display:inline-block;
+    background:#f582ae;
+    color:#fff;
+    padding:4px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  header h1{font-size:24px;color:#001858;margin-bottom:6px}
+  header .sub{font-size:14px;color:#5e6472}
+  header .stats{margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .stat-chip{
+    background:#fef6e4;
+    border:2px solid #f3d2c1;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .stat-chip.weak{background:#ffe5ec;border-color:#f582ae;color:#c1121f}
+  
+  .tabs{
+    display:flex;
+    gap:4px;
+    margin-bottom:16px;
+    background:#fff;
+    padding:6px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,24,88,0.06);
+  }
+  .tab{
+    flex:1;
+    padding:12px 8px;
+    border:none;
+    background:transparent;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#5e6472;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .tab.active{background:#001858;color:#fff}
+  .tab:hover:not(.active){background:#fef6e4}
+  
+  .panel{display:none;background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 12px rgba(0,24,88,0.08)}
+  .panel.active{display:block}
+  
+  h2{font-size:20px;margin-bottom:16px;color:#001858;border-bottom:3px solid #f582ae;padding-bottom:8px}
+  h3{font-size:16px;margin:18px 0 10px;color:#001858}
+  
+  .intro-card{background:#fef6e4;padding:18px;border-radius:12px;margin-bottom:16px}
+  .intro-card p{margin-bottom:10px;font-size:15px}
+  .intro-card p:last-child{margin-bottom:0}
+  
+  .step-cards{display:grid;gap:12px;margin-top:16px}
+  .step-card{
+    background:#fff;
+    border:2px solid #f3d2c1;
+    border-radius:14px;
+    padding:18px;
+    cursor:pointer;
+    transition:all 0.2s;
+    position:relative;
+  }
+  .step-card:hover{border-color:#f582ae;transform:translateY(-2px);box-shadow:0 6px 16px rgba(245,130,174,0.2)}
+  .step-card .step-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+  .step-card .step-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    flex-shrink:0;
+  }
+  .step-card[data-step="C"] .step-icon{background:#f582ae}
+  .step-card[data-step="B"] .step-icon{background:#10b981}
+  .step-card .step-title{font-size:17px;font-weight:bold;color:#001858}
+  .step-card .step-sub{font-size:13px;color:#5e6472;margin-top:2px}
+  .step-card .step-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .step-card .meta-chip{
+    font-size:12px;
+    padding:3px 10px;
+    border-radius:12px;
+    background:#fef6e4;
+    color:#5e6472;
+    font-weight:bold;
+  }
+  .step-card .meta-chip.score{background:#d1fae5;color:#065f46}
+  .step-card .meta-chip.weak-chip{background:#ffe5ec;color:#c1121f}
+  .step-card .arrow{
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:20px;
+    color:#5e6472;
+  }
+  
+  .start-btn{
+    display:block;
+    width:100%;
+    padding:16px;
+    margin-top:16px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-family:inherit;
+  }
+  .start-btn:hover{background:#172554;transform:translateY(-1px)}
+  .start-btn.secondary{background:#f582ae;margin-top:8px}
+  .start-btn.secondary:hover{background:#e26d97}
+  .start-btn.gray{background:#5e6472;margin-top:8px}
+  .start-btn.gray:hover{background:#475569}
+  
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .step-badge{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    background:#001858;
+    color:#fff;
+  }
+  .step-badge.C{background:#f582ae}
+  .step-badge.B{background:#10b981}
+  .progress{
+    flex:1;
+    min-width:140px;
+    background:#fef6e4;
+    border-radius:20px;
+    height:10px;
+    overflow:hidden;
+  }
+  .progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,#f582ae,#001858);
+    transition:width 0.3s;
+    width:0%;
+  }
+  .progress-text{font-size:13px;font-weight:bold;color:#5e6472;white-space:nowrap}
+  
+  .question-card{
+    background:linear-gradient(135deg,#fef6e4 0%,#fff 100%);
+    padding:24px;
+    border-radius:14px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .question-num{font-size:13px;color:#5e6472;margin-bottom:8px;font-weight:bold}
+  .question-prompt{font-size:14px;color:#5e6472;margin-bottom:14px}
+  .question-kanji{
+    font-size:56px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.05em;
+  }
+  .question-reading{
+    font-size:38px;
+    font-weight:bold;
+    color:#001858;
+    margin:14px 0;
+    letter-spacing:0.1em;
+  }
+  .question-sentence{
+    font-size:15px;
+    color:#5e6472;
+    margin-top:10px;
+    padding:10px;
+    background:#fff;
+    border-radius:8px;
+    display:inline-block;
+  }
+  .question-sentence .target{color:#c1121f;font-weight:bold}
+  .question-sentence .blank{
+    background:#fef6e4;
+    color:#5e6472;
+    padding:0 8px;
+    border-bottom:2px solid #001858;
+    font-weight:bold;
+  }
+  .speaker-btn{
+    background:#f582ae;
+    color:#fff;
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:13px;
+    margin-left:6px;
+    vertical-align:middle;
+  }
+  .speaker-btn:hover{background:#e26d97}
+  
+  .options{display:grid;gap:10px}
+  .option{
+    background:#fff;
+    border:2px solid #cbd5e1;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    transition:all 0.15s;
+    text-align:left;
+    color:#001858;
+    font-family:inherit;
+  }
+  .option:hover:not(:disabled){border-color:#f582ae;background:#fef6e4}
+  .option.correct{background:#d1fae5;border-color:#10b981;color:#065f46;font-weight:bold}
+  .option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+  .option:disabled{cursor:not-allowed}
+  .option .label{
+    display:inline-block;
+    background:#001858;
+    color:#fff;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    text-align:center;
+    line-height:24px;
+    font-size:13px;
+    margin-right:10px;
+    font-weight:bold;
+  }
+  .option.correct .label{background:#10b981}
+  .option.wrong .label{background:#ef4444}
+  
+  .feedback{margin-top:16px;padding:16px;border-radius:12px;display:none}
+  .feedback.show{display:block;animation:slideIn 0.3s}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .feedback.correct{background:#d1fae5;border-left:4px solid #10b981}
+  .feedback.wrong{background:#fee2e2;border-left:4px solid #ef4444}
+  .feedback-title{font-weight:bold;font-size:16px;margin-bottom:8px}
+  .feedback.correct .feedback-title{color:#065f46}
+  .feedback.wrong .feedback-title{color:#991b1b}
+  .feedback-content{font-size:14px;color:#001858;line-height:1.7}
+  .feedback-content .label{font-weight:bold;color:#5e6472;display:inline-block;width:60px}
+  .next-btn{
+    display:block;
+    margin:14px 0 0 auto;
+    padding:10px 28px;
+    background:#001858;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  .next-btn:hover{background:#172554}
+  
+  .result-card{text-align:center;padding:30px 20px}
+  .result-card .score-big{
+    font-size:64px;
+    font-weight:bold;
+    color:#001858;
+    margin:20px 0;
+  }
+  .result-card .score-big .total{font-size:32px;color:#5e6472}
+  .result-msg{font-size:18px;margin-bottom:20px;color:#001858}
+  .result-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .result-buttons button{flex:1;min-width:140px}
+  
+  .empty-state{text-align:center;padding:40px 20px;color:#5e6472}
+  .empty-state .icon{font-size:48px;margin-bottom:12px}
+  
+  .weak-section{margin-bottom:20px}
+  .weak-section-title{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .weak-section-title .step-mini{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#001858;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:bold;
+  }
+  .weak-section-title .step-mini.C{background:#f582ae}
+  .weak-section-title .step-mini.B{background:#10b981}
+  .weak-section-title h3{margin:0;border:none;padding:0}
+  .weak-section-title .count{font-size:13px;color:#5e6472;margin-left:auto;font-weight:bold}
+  
+  .weak-list{display:grid;gap:8px}
+  .weak-item{
+    background:#fef6e4;
+    padding:12px 16px;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .weak-item .kanji-text{font-size:22px;font-weight:bold;color:#001858}
+  .weak-item .reading-text{font-size:14px;color:#5e6472;margin-left:10px}
+  .weak-item .miss-count{
+    background:#f582ae;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+  }
+  .weak-item .streak{
+    background:#10b981;
+    color:#fff;
+    padding:2px 10px;
+    border-radius:12px;
+    font-size:12px;
+    font-weight:bold;
+    margin-left:6px;
+  }
+  
+  vw{
+    color:#001858;
+    background:#fef6e4;
+    padding:1px 4px;
+    border-radius:4px;
+    cursor:pointer;
+    border-bottom:2px dotted #f582ae;
+  }
+  vw:hover{background:#f3d2c1}
+  .vw-pop{
+    position:absolute;
+    background:#fff;
+    border:2px solid #001858;
+    border-radius:10px;
+    padding:14px;
+    box-shadow:0 6px 20px rgba(0,24,88,0.2);
+    z-index:1000;
+    max-width:300px;
+    min-width:240px;
+  }
+  .vw-pop .word{font-size:18px;font-weight:bold;color:#001858;margin-bottom:4px}
+  .vw-pop .pron{font-size:13px;color:#5e6472;margin-bottom:8px}
+  .vw-pop .meaning{font-size:14px;margin-bottom:10px;color:#001858}
+  .vw-pop .quiz-q{font-size:13px;font-weight:bold;color:#5e6472;margin-bottom:6px}
+  .vw-pop .quiz-opts{display:grid;gap:4px}
+  .vw-pop .quiz-opt{
+    background:#fef6e4;
+    border:1px solid #f3d2c1;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:13px;
+    cursor:pointer;
+    text-align:left;
+    font-family:inherit;
+  }
+  .vw-pop .quiz-opt:hover{background:#f3d2c1}
+  .vw-pop .quiz-opt.correct{background:#d1fae5;border-color:#10b981}
+  .vw-pop .quiz-opt.wrong{background:#fee2e2;border-color:#ef4444}
+  
+  .confetti-piece{position:fixed;width:10px;height:10px;z-index:9999;pointer-events:none}
+  
+  @media(max-width:600px){
+    .question-kanji{font-size:44px}
+    .question-reading{font-size:30px}
+    header h1{font-size:18px}
+    .tab{font-size:12px;padding:10px 4px}
+  }
+
+  .course-selector{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:8px;
+  }
+  .course-btn{
+    padding:14px 8px;
+    border:2px solid #f3d2c1;
+    border-radius:12px;
+    background:#fff;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:bold;
+    color:#001858;
+    transition:all 0.2s;
+    text-align:center;
+  }
+  .course-btn:hover{border-color:#f582ae;background:#fef6e4}
+  .course-btn.active{
+    background:#001858;
+    color:#fff;
+    border-color:#001858;
+  }
+  .course-btn .label{font-size:14px;display:block}
+  .course-btn .sub{font-size:12px;display:block;margin-top:2px;opacity:0.8;font-weight:normal}
+  .course-btn.active .sub{color:#fef6e4}
+  
+  /* Highlight katakana in sentences */
+  .katakana-target{
+    background:#fef6e4;
+    color:#c1121f;
+    padding:0 4px;
+    border-radius:4px;
+    border-bottom:2px solid #c1121f;
+    font-weight:bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <span class="badge">江原予備校 高校入試対策</span>
+    <h1>漢字四択クイズ Unit 7</h1>
+    <div class="sub">書き取り(必修語・全185問)</div>
+    <div class="stats">
+      <div class="stat-chip" id="course-info-chip">📚 ランクA: 62問 × 3ステップ</div>
+      <div class="stat-chip weak" id="weak-count-chip" style="display:none">⚠ 苦手 <span id="weak-count">0</span></div>
+    </div>
+  </header>
+  
+  <div class="tabs">
+    <button class="tab active" data-tab="home">🏠 ホーム</button>
+    <button class="tab" data-tab="quiz">📝 練習</button>
+    <button class="tab" data-tab="weak">⚡ 苦手復習</button>
+  </div>
+  
+  <div class="panel active" id="panel-home">
+    <h2>このユニットについて</h2>
+    
+    <div class="intro-card">
+      <p><strong>📖 書き取りとは?</strong></p>
+      <p>例文中の<strong>カタカナで書かれた部分</strong>を、正しい<strong>漢字</strong>に直して書く問題です。「光を<strong>アビ</strong>る → 光を<strong>浴び</strong>る」のように、読みから漢字を思い出して書く力を鍛えます。</p>
+      <p>入試・高認の国語で必ず出題される定番問題で、多くの語をくり返し練習することで定着します。</p>
+    </div>
+    
+<h3 style="margin-top:20px">📚 コースを選ぶ</h3>
+    <div class="course-selector" id="course-selector"></div>
+    
+    <h3 style="margin-top:20px">📌 ステップ</h3>
+    <p style="font-size:14px;color:#5e6472;margin-bottom:6px">A → C → B の順で進むと、書き取りが定着しやすくなります。</p>
+    <div class="step-cards" id="step-cards"></div>
+    
+    <h3 style="margin-top:24px">🎯 出題範囲</h3>
+    <div class="intro-card">
+      <p>「7_書き取り」全185問を、<strong>ランクA(基礎・62問)・ランクB(応用・60問)・ランクC(発展・63問)</strong>の3コースに分けています。下のコース選択ボタンで切り替えられます。<vw onclick="showVwPop(this,event)" data-pron="ひっしゅう" data-mean="必ず学ばなければならないこと" data-opts="[&quot;必ず学ばなければならないこと&quot;,&quot;むずかしいこと&quot;,&quot;新しいこと&quot;,&quot;古いこと&quot;]" data-ans="0">必修</vw>の語ばかりで、入試で頻繁に問われます。</p>
+    </div>
+  </div>
+  
+  <div class="panel" id="panel-quiz">
+    <div class="quiz-header">
+      <span class="step-badge" id="step-badge">A</span>
+      <div class="progress-text" id="progress-text">問題 1 / 62</div>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+    <div id="quiz-content"></div>
+  </div>
+  
+  <div class="panel" id="panel-weak">
+    <h2>⚡ 苦手カード</h2>
+    <p style="margin-bottom:14px;color:#5e6472;font-size:14px">間違えた問題が自動で集まります。連続2回正解すると外れます。ステップごとに別々に管理されます。</p>
+    <div id="weak-content"></div>
+    <button class="start-btn gray" id="btn-clear-weak" style="margin-top:14px">🗑 全ての苦手カードを消去</button>
+  </div>
+  
+</div>
+
+<script>
+const COURSES = {"A": {"A": [{"no": 1, "kanji": "浴びる", "reading": "あびる", "sentence": "光をアびる。", "meaning": "全身に受ける", "options": ["あびる", "こえる", "こまる", "すてる"], "answer_index": 0}, {"no": 2, "kanji": "拾う", "reading": "ひろう", "sentence": "ゴミをヒロう。", "meaning": "落ちているものを取る", "options": ["よゆう", "とうじょう", "くろう", "ひろう"], "answer_index": 3}, {"no": 3, "kanji": "価値", "reading": "かち", "sentence": "独自のカチ。", "meaning": "ねうち", "options": ["きょくたん", "かち", "あそぶ", "おぎなう"], "answer_index": 1}, {"no": 4, "kanji": "試みる", "reading": "こころみる", "sentence": "実験をココロみる。", "meaning": "ためしにやってみる", "options": ["たれる", "こころみる", "すてる", "あずける"], "answer_index": 1}, {"no": 5, "kanji": "容易", "reading": "ようい", "sentence": "ヨウイに解く。", "meaning": "やさしい", "options": ["しゅうい", "しょうめい", "しせい", "ようい"], "answer_index": 3}, {"no": 6, "kanji": "支える", "reading": "ささえる", "sentence": "倒れないようにササえる。", "meaning": "下から押さえる", "options": ["こえる", "そなえる", "ささえる", "もる"], "answer_index": 2}, {"no": 7, "kanji": "激しい", "reading": "はげしい", "sentence": "ハゲしい雨。", "meaning": "強くはげしい", "options": ["はげしい", "なつかしい", "きびしい", "むずかしい"], "answer_index": 0}, {"no": 8, "kanji": "盛る", "reading": "もる", "sentence": "皿一杯にモる。", "meaning": "上に積み上げる", "options": ["もる", "ささえる", "ならべる", "こまる"], "answer_index": 0}, {"no": 9, "kanji": "編む", "reading": "あむ", "sentence": "毛糸の帽子をアむ。", "meaning": "編み物をする", "options": ["いとなむ", "きざむ", "あむ", "かこむ"], "answer_index": 2}, {"no": 10, "kanji": "補う", "reading": "おぎなう", "sentence": "栄養をオギナう。", "meaning": "足りないところを足す", "options": ["よゆう", "おぎなう", "ひひょう", "したがう"], "answer_index": 1}, {"no": 11, "kanji": "降る", "reading": "ふる", "sentence": "ブってわいた災難。", "meaning": "上から落ちてくる", "options": ["ふる", "なげる", "つげる", "みとめる"], "answer_index": 0}, {"no": 12, "kanji": "往復", "reading": "おうふく", "sentence": "オウフク乗車券。", "meaning": "行き帰り", "options": ["みりょく", "とどく", "きそく", "おうふく"], "answer_index": 3}, {"no": 13, "kanji": "功績", "reading": "こうせき", "sentence": "コウセキをたたえる。", "meaning": "りっぱな仕事のあと", "options": ["みき", "ぼうえき", "してき", "こうせき"], "answer_index": 3}, {"no": 14, "kanji": "貿易", "reading": "ぼうえき", "sentence": "海外ボウエキ。", "meaning": "国と国との取引", "options": ["ぼうえき", "みき", "はっき", "してき"], "answer_index": 0}, {"no": 15, "kanji": "厳しい", "reading": "きびしい", "sentence": "キビしい現実。", "meaning": "つらい", "options": ["はげしい", "きびしい", "なつかしい", "むずかしい"], "answer_index": 1}, {"no": 16, "kanji": "専門", "reading": "せんもん", "sentence": "センモン分野。", "meaning": "ある分野に絞った", "options": ["いさん", "せんもん", "せきにん", "きょくたん"], "answer_index": 1}, {"no": 17, "kanji": "貯蔵", "reading": "ちょぞう", "sentence": "食糧をチョゾウ。", "meaning": "ためておく", "options": ["とうじょう", "ていしょう", "ちょぞう", "そうぞう"], "answer_index": 2}, {"no": 18, "kanji": "便利", "reading": "べんり", "sentence": "ベンリな土地。", "meaning": "都合がよい", "options": ["しょり", "べんり", "あやまり", "やくわり"], "answer_index": 1}, {"no": 19, "kanji": "囲む", "reading": "かこむ", "sentence": "敵にカコまれる。", "meaning": "周りを取りまく", "options": ["おがむ", "いたむ", "かこむ", "あむ"], "answer_index": 2}, {"no": 20, "kanji": "清潔", "reading": "せいけつ", "sentence": "セイケツ感。", "meaning": "きれい", "options": ["かんけつ", "めんみつ", "しょうとつ", "せいけつ"], "answer_index": 3}, {"no": 21, "kanji": "届く", "reading": "とどく", "sentence": "贈りものがトドく。", "meaning": "とどく、行きつく", "options": ["やくそく", "さんさく", "とどく", "けっきょく"], "answer_index": 2}, {"no": 22, "kanji": "寄せる", "reading": "よせる", "sentence": "思いをヨせる。", "meaning": "近づける、向ける", "options": ["よせる", "ひきいる", "ささえる", "すませる"], "answer_index": 0}, {"no": 23, "kanji": "観察", "reading": "かんさつ", "sentence": "昆虫のカンサツ日記。", "meaning": "よく見て調べる", "options": ["みっせつ", "せいけつ", "かんさつ", "ふくざつ"], "answer_index": 2}, {"no": 24, "kanji": "刻む", "reading": "きざむ", "sentence": "石にキザまれた文字。", "meaning": "細かく切る、ほる", "options": ["いとなむ", "いたむ", "きざむ", "おがむ"], "answer_index": 2}, {"no": 25, "kanji": "確か", "reading": "たしか", "sentence": "タシかな情報。", "meaning": "まちがいない", "options": ["こうか", "たしか", "すこやか", "ひょうか"], "answer_index": 1}, {"no": 26, "kanji": "額", "reading": "ひたい", "sentence": "ヒタイに前髪。", "meaning": "おでこ", "options": ["しょうたい", "ぜったい", "ひたい", "かたい"], "answer_index": 2}, {"no": 27, "kanji": "招く", "reading": "まねく", "sentence": "友人をマネく。", "meaning": "よびよせる", "options": ["まねく", "へいまく", "しかく", "けっきょく"], "answer_index": 0}, {"no": 28, "kanji": "預ける", "reading": "あずける", "sentence": "荷物をアズける。", "meaning": "保管をたのむ", "options": ["ふる", "たれる", "あずける", "さける"], "answer_index": 2}, {"no": 29, "kanji": "胸", "reading": "むね", "sentence": "ムネやけ。", "meaning": "胸のあたり", "options": ["ひきいる", "むね", "してき", "きびしい"], "answer_index": 1}, {"no": 30, "kanji": "危ない", "reading": "あぶない", "sentence": "アブない橋をわたる。", "meaning": "あぶない", "options": ["はげしい", "おさない", "あぶない", "ひたい"], "answer_index": 2}, {"no": 31, "kanji": "操縦", "reading": "そうじゅう", "sentence": "飛行機のソウジュウ。", "meaning": "あやつる", "options": ["ていこう", "そうじゅう", "ふきゅう", "こきゅう"], "answer_index": 1}, {"no": 32, "kanji": "営む", "reading": "いとなむ", "sentence": "大地のイトナみ。", "meaning": "おこなう", "options": ["いとなむ", "あむ", "きざむ", "おがむ"], "answer_index": 0}, {"no": 33, "kanji": "幼い", "reading": "おさない", "sentence": "オサナい頃。", "meaning": "小さい、子どもの", "options": ["あぶない", "おさない", "ひたい", "きかい"], "answer_index": 1}, {"no": 34, "kanji": "垂れる", "reading": "たれる", "sentence": "頭をタれる。", "meaning": "下にさげる", "options": ["あずける", "おとずれる", "たれる", "こまる"], "answer_index": 2}, {"no": 35, "kanji": "興味", "reading": "きょうみ", "sentence": "キョウミ深い。", "meaning": "おもしろさへの関心", "options": ["ふる", "きょうみ", "かがみ", "きびしい"], "answer_index": 1}, {"no": 36, "kanji": "蒸発", "reading": "じょうはつ", "sentence": "水分がジョウハツ。", "meaning": "気体になる", "options": ["じょうはつ", "しょうとつ", "めんみつ", "ふくざつ"], "answer_index": 0}, {"no": 37, "kanji": "健やか", "reading": "すこやか", "sentence": "スコやかに育つ。", "meaning": "じょうぶで元気", "options": ["すこやか", "たしか", "ひょうか", "こうか"], "answer_index": 0}, {"no": 38, "kanji": "予測", "reading": "よそく", "sentence": "売り上げをヨソク。", "meaning": "前もって考える", "options": ["よそく", "きそく", "やくそく", "じしゃく"], "answer_index": 0}, {"no": 39, "kanji": "痛む", "reading": "いたむ", "sentence": "虫歯がイタむ。", "meaning": "いたみを感じる", "options": ["あむ", "いたむ", "おがむ", "かこむ"], "answer_index": 1}, {"no": 40, "kanji": "疑う", "reading": "うたがう", "sentence": "ウタガう余地がない。", "meaning": "あやしむ", "options": ["したがう", "おう", "ちょぞう", "うたがう"], "answer_index": 3}, {"no": 41, "kanji": "負う", "reading": "おう", "sentence": "始末にオえない。", "meaning": "せおう、ひきうける", "options": ["ひりょう", "おう", "ちょぞう", "たいしょう"], "answer_index": 1}, {"no": 42, "kanji": "経験", "reading": "けいけん", "sentence": "ケイケンを積む。", "meaning": "実際にしてみたこと", "options": ["けいけん", "きけん", "じょうけん", "かんたん"], "answer_index": 0}, {"no": 43, "kanji": "困る", "reading": "こまる", "sentence": "聞き分けがなくてコマる。", "meaning": "こまる", "options": ["ならべる", "よせる", "えんじる", "こまる"], "answer_index": 3}, {"no": 44, "kanji": "伝統", "reading": "でんとう", "sentence": "デントウを重んじる。", "meaning": "古くからのならわし", "options": ["ねんしょう", "はんのう", "こしょう", "でんとう"], "answer_index": 3}, {"no": 45, "kanji": "綿密", "reading": "めんみつ", "sentence": "メンミツに計画。", "meaning": "ていねいでくわしい", "options": ["しょうとつ", "かんけつ", "めんみつ", "みっせつ"], "answer_index": 2}, {"no": 46, "kanji": "朗らか", "reading": "ほがらか", "sentence": "ホガらかに笑う。", "meaning": "明るくほがらか", "options": ["ほがらか", "すこやか", "こうか", "ひょうか"], "answer_index": 0}, {"no": 47, "kanji": "衛星", "reading": "えいせい", "sentence": "エイセイ放送。", "meaning": "惑星をまわるもの", "options": ["しせい", "しょうたい", "えいせい", "しっぱい"], "answer_index": 2}, {"no": 48, "kanji": "看護", "reading": "かんご", "sentence": "カンゴ学校。", "meaning": "病人の世話", "options": ["えいせい", "かち", "けいけん", "かんご"], "answer_index": 3}, {"no": 49, "kanji": "温暖", "reading": "おんだん", "sentence": "オンダンな気候。", "meaning": "あたたかい", "options": ["おんだん", "はんだん", "こんらん", "きんべん"], "answer_index": 0}, {"no": 50, "kanji": "済ませる", "reading": "すませる", "sentence": "手配をスませる。", "meaning": "終わらせる", "options": ["すませる", "よせる", "もる", "ならべる"], "answer_index": 0}, {"no": 51, "kanji": "耕す", "reading": "たがやす", "sentence": "農地をタガヤす。", "meaning": "土を掘り返す", "options": ["くらす", "ついやす", "たがやす", "そらす"], "answer_index": 2}, {"no": 52, "kanji": "導く", "reading": "みちびく", "sentence": "正しい方向へミチビく。", "meaning": "教えて連れていく", "options": ["へいまく", "こころよく", "みちびく", "さんさく"], "answer_index": 2}, {"no": 53, "kanji": "群れ", "reading": "むれ", "sentence": "鳥たちのムれ。", "meaning": "集まり", "options": ["おさない", "おう", "したがう", "むれ"], "answer_index": 3}, {"no": 54, "kanji": "散策", "reading": "さんさく", "sentence": "野山をサンサクする。", "meaning": "ぶらぶら歩く", "options": ["しかく", "とどく", "さんさく", "なっとく"], "answer_index": 2}, {"no": 55, "kanji": "費やす", "reading": "ついやす", "sentence": "金をツイやす。", "meaning": "使ってなくす", "options": ["たがやす", "そらす", "くらす", "ついやす"], "answer_index": 3}, {"no": 56, "kanji": "批評", "reading": "ひひょう", "sentence": "作品をヒヒョウ。", "meaning": "良し悪しをいう", "options": ["かんきょう", "ひひょう", "かくちょう", "ていきょう"], "answer_index": 1}, {"no": 57, "kanji": "告げる", "reading": "つげる", "sentence": "別れをツげる。", "meaning": "知らせる", "options": ["あやつる", "なげる", "つげる", "こえる"], "answer_index": 2}, {"no": 58, "kanji": "築く", "reading": "きずく", "sentence": "信頼をキズく。", "meaning": "つくりあげる", "options": ["きずく", "のぞく", "よそく", "みりょく"], "answer_index": 0}, {"no": 59, "kanji": "納得", "reading": "なっとく", "sentence": "ナットクがいく。", "meaning": "理解する", "options": ["なっとく", "みちびく", "のぞく", "おうふく"], "answer_index": 0}, {"no": 60, "kanji": "率いる", "reading": "ひきいる", "sentence": "チームをヒキいる。", "meaning": "引き連れる", "options": ["ひきいる", "たれる", "こころみる", "ふる"], "answer_index": 0}, {"no": 61, "kanji": "対象", "reading": "たいしょう", "sentence": "タイショウをしぼる。", "meaning": "目標とするもの", "options": ["ひりょう", "たいしょう", "かくちょう", "ていきょう"], "answer_index": 1}, {"no": 62, "kanji": "拝む", "reading": "おがむ", "sentence": "ひたすらオガむ。", "meaning": "手を合わせる", "options": ["おがむ", "いとなむ", "いたむ", "かこむ"], "answer_index": 0}], "C": [{"no": 1, "kanji": "浴びる", "reading": "あびる", "sentence": "光をアびる。", "meaning": "全身に受ける", "options": ["チャンス", "受けつがれた財産", "全身に受ける", "せおう、ひきうける"], "answer_index": 2}, {"no": 2, "kanji": "拾う", "reading": "ひろう", "sentence": "ゴミをヒロう。", "meaning": "落ちているものを取る", "options": ["あぶないこと", "落ちているものを取る", "片寄っている", "チャンス"], "answer_index": 1}, {"no": 3, "kanji": "価値", "reading": "かち", "sentence": "独自のカチ。", "meaning": "ねうち", "options": ["ねうち", "あぶない", "木の幹", "おでこ"], "answer_index": 0}, {"no": 4, "kanji": "試みる", "reading": "こころみる", "sentence": "実験をココロみる。", "meaning": "ためしにやってみる", "options": ["都合がよい", "ほんの一瞬", "やってくる", "ためしにやってみる"], "answer_index": 3}, {"no": 5, "kanji": "容易", "reading": "ようい", "sentence": "ヨウイに解く。", "meaning": "やさしい", "options": ["ていねいでくわしい", "広まる", "息を中に入れる", "やさしい"], "answer_index": 3}, {"no": 6, "kanji": "支える", "reading": "ささえる", "sentence": "倒れないようにササえる。", "meaning": "下から押さえる", "options": ["下から押さえる", "急にわきおこる気持ち", "さからう", "明かり"], "answer_index": 0}, {"no": 7, "kanji": "激しい", "reading": "はげしい", "sentence": "ハゲしい雨。", "meaning": "強くはげしい", "options": ["よける", "良し悪しをいう", "強くはげしい", "ていねいでくわしい"], "answer_index": 2}, {"no": 8, "kanji": "盛る", "reading": "もる", "sentence": "皿一杯にモる。", "meaning": "上に積み上げる", "options": ["きれい", "候補者", "上に積み上げる", "数えあげる"], "answer_index": 2}, {"no": 9, "kanji": "編む", "reading": "あむ", "sentence": "毛糸の帽子をアむ。", "meaning": "編み物をする", "options": ["植物を育てる", "編み物をする", "ゆとり", "ある身分・条件"], "answer_index": 1}, {"no": 10, "kanji": "補う", "reading": "おぎなう", "sentence": "栄養をオギナう。", "meaning": "足りないところを足す", "options": ["足りないところを足す", "まちがいない", "深さや経験が少ない", "手紙を送るしくみ"], "answer_index": 0}, {"no": 11, "kanji": "降る", "reading": "ふる", "sentence": "ブってわいた災難。", "meaning": "上から落ちてくる", "options": ["落ちているものを取る", "知らせる", "上から落ちてくる", "思いがけず"], "answer_index": 2}, {"no": 12, "kanji": "往復", "reading": "おうふく", "sentence": "オウフク乗車券。", "meaning": "行き帰り", "options": ["明るくほがらか", "うまくいかないこと", "とどく、行きつく", "行き帰り"], "answer_index": 3}, {"no": 13, "kanji": "功績", "reading": "こうせき", "sentence": "コウセキをたたえる。", "meaning": "りっぱな仕事のあと", "options": ["りっぱな仕事のあと", "問題点を示す", "うまく動かす", "胸のあたり"], "answer_index": 0}, {"no": 14, "kanji": "貿易", "reading": "ぼうえき", "sentence": "海外ボウエキ。", "meaning": "国と国との取引", "options": ["国と国との取引", "周りを取りまく", "りっぱな仕事のあと", "ぶつかる"], "answer_index": 0}, {"no": 15, "kanji": "厳しい", "reading": "きびしい", "sentence": "キビしい現実。", "meaning": "つらい", "options": ["ためておく", "つらい", "気持ちよく", "入りみだれる"], "answer_index": 1}, {"no": 16, "kanji": "専門", "reading": "せんもん", "sentence": "センモン分野。", "meaning": "ある分野に絞った", "options": ["ゆとり", "あぶない", "あること", "ある分野に絞った"], "answer_index": 3}, {"no": 17, "kanji": "貯蔵", "reading": "ちょぞう", "sentence": "食糧をチョゾウ。", "meaning": "ためておく", "options": ["良し悪しをいう", "ためしにやってみる", "問題点を示す", "ためておく"], "answer_index": 3}, {"no": 18, "kanji": "便利", "reading": "べんり", "sentence": "ベンリな土地。", "meaning": "都合がよい", "options": ["良し悪しをいう", "見はり", "都合がよい", "足りないところを足す"], "answer_index": 2}, {"no": 19, "kanji": "囲む", "reading": "かこむ", "sentence": "敵にカコまれる。", "meaning": "周りを取りまく", "options": ["落ちているものを取る", "心ひかれる力", "国と国との取引", "周りを取りまく"], "answer_index": 3}, {"no": 20, "kanji": "清潔", "reading": "せいけつ", "sentence": "セイケツ感。", "meaning": "きれい", "options": ["前もって考える", "きれい", "広まる", "ある身分・条件"], "answer_index": 1}, {"no": 21, "kanji": "届く", "reading": "とどく", "sentence": "贈りものがトドく。", "meaning": "とどく、行きつく", "options": ["とどく、行きつく", "行き帰り", "植物を育てる", "深いつながり"], "answer_index": 0}, {"no": 22, "kanji": "寄せる", "reading": "よせる", "sentence": "思いをヨせる。", "meaning": "近づける、向ける", "options": ["近づける、向ける", "とどまる", "保ちつづける", "見はり"], "answer_index": 0}, {"no": 23, "kanji": "観察", "reading": "かんさつ", "sentence": "昆虫のカンサツ日記。", "meaning": "よく見て調べる", "options": ["保管をたのむ", "うれしく思う", "よく見て調べる", "気持ちよく"], "answer_index": 2}, {"no": 24, "kanji": "刻む", "reading": "きざむ", "sentence": "石にキザまれた文字。", "meaning": "細かく切る、ほる", "options": ["候補者", "曲げる、向きをかえる", "よく見て調べる", "細かく切る、ほる"], "answer_index": 3}, {"no": 25, "kanji": "確か", "reading": "たしか", "sentence": "タシかな情報。", "meaning": "まちがいない", "options": ["編み物をする", "うまくいかないこと", "まちがいない", "とどく、行きつく"], "answer_index": 2}, {"no": 26, "kanji": "額", "reading": "ひたい", "sentence": "ヒタイに前髪。", "meaning": "おでこ", "options": ["あとを追って、順に", "おでこ", "古くからのならわし", "中心となる重要な部分"], "answer_index": 1}, {"no": 27, "kanji": "招く", "reading": "まねく", "sentence": "友人をマネく。", "meaning": "よびよせる", "options": ["こわれる", "目をさまさせる", "ちがい", "よびよせる"], "answer_index": 3}, {"no": 28, "kanji": "預ける", "reading": "あずける", "sentence": "荷物をアズける。", "meaning": "保管をたのむ", "options": ["入りくんでいる", "古くからのならわし", "鏡(かがみ)", "保管をたのむ"], "answer_index": 3}, {"no": 29, "kanji": "胸", "reading": "むね", "sentence": "ムネやけ。", "meaning": "胸のあたり", "options": ["あやしむ", "胸のあたり", "まわりの状況", "あたたかい"], "answer_index": 1}, {"no": 30, "kanji": "危ない", "reading": "あぶない", "sentence": "アブない橋をわたる。", "meaning": "あぶない", "options": ["引き連れる", "深さや経験が少ない", "あぶない", "うまく動かす"], "answer_index": 2}, {"no": 31, "kanji": "操縦", "reading": "そうじゅう", "sentence": "飛行機のソウジュウ。", "meaning": "あやつる", "options": ["あやつる", "決まり、必要なこと", "あやしむ", "事実を示すしるし"], "answer_index": 0}, {"no": 32, "kanji": "営む", "reading": "いとなむ", "sentence": "大地のイトナみ。", "meaning": "おこなう", "options": ["おこなう", "急にわきおこる気持ち", "うまくいかないこと", "チャンス"], "answer_index": 0}, {"no": 33, "kanji": "幼い", "reading": "おさない", "sentence": "オサナい頃。", "meaning": "小さい、子どもの", "options": ["目標とするもの", "手を合わせる", "小さい、子どもの", "行き帰り"], "answer_index": 2}, {"no": 34, "kanji": "垂れる", "reading": "たれる", "sentence": "頭をタれる。", "meaning": "下にさげる", "options": ["つくりあげる", "張りつめる", "下にさげる", "決まり、必要なこと"], "answer_index": 2}, {"no": 35, "kanji": "興味", "reading": "きょうみ", "sentence": "キョウミ深い。", "meaning": "おもしろさへの関心", "options": ["おもしろさへの関心", "熱が下がる", "あやしむ", "決めること"], "answer_index": 0}, {"no": 36, "kanji": "蒸発", "reading": "じょうはつ", "sentence": "水分がジョウハツ。", "meaning": "気体になる", "options": ["植物を育てる", "手を合わせる", "気体になる", "材料となるもの"], "answer_index": 2}, {"no": 37, "kanji": "健やか", "reading": "すこやか", "sentence": "スコやかに育つ。", "meaning": "じょうぶで元気", "options": ["決まり", "見事な", "じょうぶで元気", "鏡(かがみ)"], "answer_index": 2}, {"no": 38, "kanji": "予測", "reading": "よそく", "sentence": "売り上げをヨソク。", "meaning": "前もって考える", "options": ["前もって考える", "心からよろこんで迎える", "気持ちよく", "むずかしい"], "answer_index": 0}, {"no": 39, "kanji": "痛む", "reading": "いたむ", "sentence": "虫歯がイタむ。", "meaning": "いたみを感じる", "options": ["ゆとり", "いたみを感じる", "うれしく思う", "ぜいたくに慣れる"], "answer_index": 1}, {"no": 40, "kanji": "疑う", "reading": "うたがう", "sentence": "ウタガう余地がない。", "meaning": "あやしむ", "options": ["あやしむ", "あやつる", "息をすること", "いたみを感じる"], "answer_index": 0}, {"no": 41, "kanji": "負う", "reading": "おう", "sentence": "始末にオえない。", "meaning": "せおう、ひきうける", "options": ["近づける、向ける", "ねがい、ねむっている時の景色", "話のつながり", "せおう、ひきうける"], "answer_index": 3}, {"no": 42, "kanji": "経験", "reading": "けいけん", "sentence": "ケイケンを積む。", "meaning": "実際にしてみたこと", "options": ["きれいにする", "目標とするもの", "うまくいかないこと", "実際にしてみたこと"], "answer_index": 3}, {"no": 43, "kanji": "困る", "reading": "こまる", "sentence": "聞き分けがなくてコマる。", "meaning": "こまる", "options": ["ねうちを判断する", "こまる", "土を掘り返す", "とどまる"], "answer_index": 1}, {"no": 44, "kanji": "伝統", "reading": "でんとう", "sentence": "デントウを重んじる。", "meaning": "古くからのならわし", "options": ["古くからのならわし", "片寄っている", "心からよろこんで迎える", "言うとおりにする"], "answer_index": 0}, {"no": 45, "kanji": "綿密", "reading": "めんみつ", "sentence": "メンミツに計画。", "meaning": "ていねいでくわしい", "options": ["あやしむ", "古くからのならわし", "行き帰り", "ていねいでくわしい"], "answer_index": 3}, {"no": 46, "kanji": "朗らか", "reading": "ほがらか", "sentence": "ホガらかに笑う。", "meaning": "明るくほがらか", "options": ["ためておく", "明るくほがらか", "ぶつかる", "必ず"], "answer_index": 1}, {"no": 47, "kanji": "衛星", "reading": "えいせい", "sentence": "エイセイ放送。", "meaning": "惑星をまわるもの", "options": ["落ちているものを取る", "事実を示すしるし", "ちがう", "惑星をまわるもの"], "answer_index": 3}, {"no": 48, "kanji": "看護", "reading": "かんご", "sentence": "カンゴ学校。", "meaning": "病人の世話", "options": ["とりさる", "とどまる", "病人の世話", "さからう"], "answer_index": 2}, {"no": 49, "kanji": "温暖", "reading": "おんだん", "sentence": "オンダンな気候。", "meaning": "あたたかい", "options": ["胸のあたり", "あたたかい", "土の栄養", "保管をたのむ"], "answer_index": 1}, {"no": 50, "kanji": "済ませる", "reading": "すませる", "sentence": "手配をスませる。", "meaning": "終わらせる", "options": ["手を合わせる", "やってくる", "あること", "終わらせる"], "answer_index": 3}, {"no": 51, "kanji": "耕す", "reading": "たがやす", "sentence": "農地をタガヤす。", "meaning": "土を掘り返す", "options": ["編み物をする", "土を掘り返す", "問題点を示す", "前もって決めること"], "answer_index": 1}, {"no": 52, "kanji": "導く", "reading": "みちびく", "sentence": "正しい方向へミチビく。", "meaning": "教えて連れていく", "options": ["ねがい、ねむっている時の景色", "落ちているものを取る", "教えて連れていく", "ぶらぶら歩く"], "answer_index": 2}, {"no": 53, "kanji": "群れ", "reading": "むれ", "sentence": "鳥たちのムれ。", "meaning": "集まり", "options": ["よびよせる", "数えあげる", "決まり、必要なこと", "集まり"], "answer_index": 3}, {"no": 54, "kanji": "散策", "reading": "さんさく", "sentence": "野山をサンサクする。", "meaning": "ぶらぶら歩く", "options": ["あそぶ", "ぶらぶら歩く", "強くはげしい", "やさしい"], "answer_index": 1}, {"no": 55, "kanji": "費やす", "reading": "ついやす", "sentence": "金をツイやす。", "meaning": "使ってなくす", "options": ["ゆとり", "使ってなくす", "あとを追って、順に", "落ちているものを取る"], "answer_index": 1}, {"no": 56, "kanji": "批評", "reading": "ひひょう", "sentence": "作品をヒヒョウ。", "meaning": "良し悪しをいう", "options": ["なかま分け", "良し悪しをいう", "気体になる", "前もって考える"], "answer_index": 1}, {"no": 57, "kanji": "告げる", "reading": "つげる", "sentence": "別れをツげる。", "meaning": "知らせる", "options": ["ていねいでくわしい", "教えて連れていく", "目をさまさせる", "知らせる"], "answer_index": 3}, {"no": 58, "kanji": "築く", "reading": "きずく", "sentence": "信頼をキズく。", "meaning": "つくりあげる", "options": ["つくりあげる", "受け入れる", "きれい", "そっくりである"], "answer_index": 0}, {"no": 59, "kanji": "納得", "reading": "なっとく", "sentence": "ナットクがいく。", "meaning": "理解する", "options": ["まわりの状況", "決めること", "用意する", "理解する"], "answer_index": 3}, {"no": 60, "kanji": "率いる", "reading": "ひきいる", "sentence": "チームをヒキいる。", "meaning": "引き連れる", "options": ["うれしく思う", "引き連れる", "磁気のある物", "招き入れる"], "answer_index": 1}, {"no": 61, "kanji": "対象", "reading": "たいしょう", "sentence": "タイショウをしぼる。", "meaning": "目標とするもの", "options": ["深いつながり", "心からよろこんで迎える", "目標とするもの", "用意する"], "answer_index": 2}, {"no": 62, "kanji": "拝む", "reading": "おがむ", "sentence": "ひたすらオガむ。", "meaning": "手を合わせる", "options": ["手を合わせる", "目をさまさせる", "つらい", "きれい"], "answer_index": 0}], "B": [{"no": 1, "kanji": "浴びる", "reading": "あびる", "sentence": "光をアびる。", "meaning": "全身に受ける", "options": ["浴びる", "冷める", "厳しい", "試みる"], "answer_index": 0}, {"no": 2, "kanji": "拾う", "reading": "ひろう", "sentence": "ゴミをヒロう。", "meaning": "落ちているものを取る", "options": ["疑う", "拾う", "洗う", "漂う"], "answer_index": 1}, {"no": 3, "kanji": "価値", "reading": "かち", "sentence": "独自のカチ。", "meaning": "ねうち", "options": ["根幹", "苦い", "価値", "周囲"], "answer_index": 2}, {"no": 4, "kanji": "試みる", "reading": "こころみる", "sentence": "実験をココロみる。", "meaning": "ためしにやってみる", "options": ["預ける", "費やす", "試みる", "備える"], "answer_index": 2}, {"no": 5, "kanji": "容易", "reading": "ようい", "sentence": "ヨウイに解く。", "meaning": "やさしい", "options": ["簡潔", "吸う", "領域", "容易"], "answer_index": 3}, {"no": 6, "kanji": "支える", "reading": "ささえる", "sentence": "倒れないようにササえる。", "meaning": "下から押さえる", "options": ["肥える", "支える", "演じる", "備える"], "answer_index": 1}, {"no": 7, "kanji": "激しい", "reading": "はげしい", "sentence": "ハゲしい雨。", "meaning": "強くはげしい", "options": ["厳しい", "難しい", "投げる", "激しい"], "answer_index": 3}, {"no": 8, "kanji": "盛る", "reading": "もる", "sentence": "皿一杯にモる。", "meaning": "上に積み上げる", "options": ["残る", "似る", "降る", "盛る"], "answer_index": 3}, {"no": 9, "kanji": "編む", "reading": "あむ", "sentence": "毛糸の帽子をアむ。", "meaning": "編み物をする", "options": ["編む", "拝む", "痛む", "営む"], "answer_index": 0}, {"no": 10, "kanji": "補う", "reading": "おぎなう", "sentence": "栄養をオギナう。", "meaning": "足りないところを足す", "options": ["漂う", "疑う", "補う", "拾う"], "answer_index": 2}, {"no": 11, "kanji": "降る", "reading": "ふる", "sentence": "ブってわいた災難。", "meaning": "上から落ちてくる", "options": ["降る", "残る", "操る", "似る"], "answer_index": 0}, {"no": 12, "kanji": "往復", "reading": "おうふく", "sentence": "オウフク乗車券。", "meaning": "行き帰り", "options": ["往復", "発展", "招く", "予測"], "answer_index": 0}, {"no": 13, "kanji": "功績", "reading": "こうせき", "sentence": "コウセキをたたえる。", "meaning": "りっぱな仕事のあと", "options": ["偶然", "功績", "固い", "極端"], "answer_index": 1}, {"no": 14, "kanji": "貿易", "reading": "ぼうえき", "sentence": "海外ボウエキ。", "meaning": "国と国との取引", "options": ["貯蔵", "刻む", "貿易", "省く"], "answer_index": 2}, {"no": 15, "kanji": "厳しい", "reading": "きびしい", "sentence": "キビしい現実。", "meaning": "つらい", "options": ["厳しい", "費やす", "激しい", "難しい"], "answer_index": 0}, {"no": 16, "kanji": "専門", "reading": "せんもん", "sentence": "センモン分野。", "meaning": "ある分野に絞った", "options": ["専門", "従う", "照明", "絶対"], "answer_index": 0}, {"no": 17, "kanji": "貯蔵", "reading": "ちょぞう", "sentence": "食糧をチョゾウ。", "meaning": "ためておく", "options": ["環境", "対照", "勤勉", "貯蔵"], "answer_index": 3}, {"no": 18, "kanji": "便利", "reading": "べんり", "sentence": "ベンリな土地。", "meaning": "都合がよい", "options": ["便利", "衝突", "環境", "貯蔵"], "answer_index": 0}, {"no": 19, "kanji": "囲む", "reading": "かこむ", "sentence": "敵にカコまれる。", "meaning": "周りを取りまく", "options": ["囲む", "痛む", "営む", "刻む"], "answer_index": 0}, {"no": 20, "kanji": "清潔", "reading": "せいけつ", "sentence": "セイケツ感。", "meaning": "きれい", "options": ["喜ぶ", "清潔", "魅力", "省く"], "answer_index": 1}, {"no": 21, "kanji": "届く", "reading": "とどく", "sentence": "贈りものがトドく。", "meaning": "とどく、行きつく", "options": ["届く", "築く", "省く", "除く"], "answer_index": 0}, {"no": 22, "kanji": "寄せる", "reading": "よせる", "sentence": "思いをヨせる。", "meaning": "近づける、向ける", "options": ["肥える", "訪れる", "寄せる", "起こす"], "answer_index": 2}, {"no": 23, "kanji": "観察", "reading": "かんさつ", "sentence": "昆虫のカンサツ日記。", "meaning": "よく見て調べる", "options": ["降る", "予想", "維持", "観察"], "answer_index": 3}, {"no": 24, "kanji": "刻む", "reading": "きざむ", "sentence": "石にキザまれた文字。", "meaning": "細かく切る、ほる", "options": ["刻む", "営む", "拝む", "囲む"], "answer_index": 0}, {"no": 25, "kanji": "確か", "reading": "たしか", "sentence": "タシかな情報。", "meaning": "まちがいない", "options": ["刻む", "磁石", "確か", "栽培"], "answer_index": 2}, {"no": 26, "kanji": "額", "reading": "ひたい", "sentence": "ヒタイに前髪。", "meaning": "おでこ", "options": ["仮", "鏡", "昔", "額"], "answer_index": 3}, {"no": 27, "kanji": "招く", "reading": "まねく", "sentence": "友人をマネく。", "meaning": "よびよせる", "options": ["除く", "築く", "導く", "招く"], "answer_index": 3}, {"no": 28, "kanji": "預ける", "reading": "あずける", "sentence": "荷物をアズける。", "meaning": "保管をたのむ", "options": ["健やか", "避ける", "試みる", "預ける"], "answer_index": 3}, {"no": 29, "kanji": "胸", "reading": "むね", "sentence": "ムネやけ。", "meaning": "胸のあたり", "options": ["夢", "鏡", "胸", "昔"], "answer_index": 2}, {"no": 30, "kanji": "危ない", "reading": "あぶない", "sentence": "アブない橋をわたる。", "meaning": "あぶない", "options": ["垂れる", "捨てる", "危ない", "認める"], "answer_index": 2}, {"no": 31, "kanji": "操縦", "reading": "そうじゅう", "sentence": "飛行機のソウジュウ。", "meaning": "あやつる", "options": ["蒸発", "負う", "就職", "操縦"], "answer_index": 3}, {"no": 32, "kanji": "営む", "reading": "いとなむ", "sentence": "大地のイトナみ。", "meaning": "おこなう", "options": ["痛む", "囲む", "営む", "編む"], "answer_index": 2}, {"no": 33, "kanji": "幼い", "reading": "おさない", "sentence": "オサナい頃。", "meaning": "小さい、子どもの", "options": ["幼い", "浅い", "固い", "苦い"], "answer_index": 0}, {"no": 34, "kanji": "垂れる", "reading": "たれる", "sentence": "頭をタれる。", "meaning": "下にさげる", "options": ["垂れる", "訪れる", "冷める", "肥える"], "answer_index": 0}, {"no": 35, "kanji": "興味", "reading": "きょうみ", "sentence": "キョウミ深い。", "meaning": "おもしろさへの関心", "options": ["興味", "簡潔", "周囲", "喜ぶ"], "answer_index": 0}, {"no": 36, "kanji": "蒸発", "reading": "じょうはつ", "sentence": "水分がジョウハツ。", "meaning": "気体になる", "options": ["従う", "歓迎", "蒸発", "魅力"], "answer_index": 2}, {"no": 37, "kanji": "健やか", "reading": "すこやか", "sentence": "スコやかに育つ。", "meaning": "じょうぶで元気", "options": ["備える", "追って", "演じる", "健やか"], "answer_index": 3}, {"no": 38, "kanji": "予測", "reading": "よそく", "sentence": "売り上げをヨソク。", "meaning": "前もって考える", "options": ["予測", "批評", "貯蔵", "似る"], "answer_index": 0}, {"no": 39, "kanji": "痛む", "reading": "いたむ", "sentence": "虫歯がイタむ。", "meaning": "いたみを感じる", "options": ["拝む", "営む", "囲む", "痛む"], "answer_index": 3}, {"no": 40, "kanji": "疑う", "reading": "うたがう", "sentence": "ウタガう余地がない。", "meaning": "あやしむ", "options": ["吸う", "拾う", "負う", "疑う"], "answer_index": 3}, {"no": 41, "kanji": "負う", "reading": "おう", "sentence": "始末にオえない。", "meaning": "せおう、ひきうける", "options": ["負う", "吸う", "疑う", "補う"], "answer_index": 0}, {"no": 42, "kanji": "経験", "reading": "けいけん", "sentence": "ケイケンを積む。", "meaning": "実際にしてみたこと", "options": ["経験", "証拠", "操る", "効果"], "answer_index": 0}, {"no": 43, "kanji": "困る", "reading": "こまる", "sentence": "聞き分けがなくてコマる。", "meaning": "こまる", "options": ["似る", "盛る", "操る", "困る"], "answer_index": 3}, {"no": 44, "kanji": "伝統", "reading": "でんとう", "sentence": "デントウを重んじる。", "meaning": "古くからのならわし", "options": ["根幹", "快く", "伝統", "往復"], "answer_index": 2}, {"no": 45, "kanji": "綿密", "reading": "めんみつ", "sentence": "メンミツに計画。", "meaning": "ていねいでくわしい", "options": ["普及", "蒸発", "綿密", "洗う"], "answer_index": 2}, {"no": 46, "kanji": "朗らか", "reading": "ほがらか", "sentence": "ホガらかに笑う。", "meaning": "明るくほがらか", "options": ["捨てる", "試みる", "朗らか", "率いる"], "answer_index": 2}, {"no": 47, "kanji": "衛星", "reading": "えいせい", "sentence": "エイセイ放送。", "meaning": "惑星をまわるもの", "options": ["操る", "衛星", "演奏", "雑誌"], "answer_index": 1}, {"no": 48, "kanji": "看護", "reading": "かんご", "sentence": "カンゴ学校。", "meaning": "病人の世話", "options": ["浅い", "幼い", "根幹", "看護"], "answer_index": 3}, {"no": 49, "kanji": "温暖", "reading": "おんだん", "sentence": "オンダンな気候。", "meaning": "あたたかい", "options": ["温暖", "操作", "悲鳴", "簡潔"], "answer_index": 0}, {"no": 50, "kanji": "済ませる", "reading": "すませる", "sentence": "手配をスませる。", "meaning": "終わらせる", "options": ["懐かしい", "築く", "済ませる", "故障"], "answer_index": 2}, {"no": 51, "kanji": "耕す", "reading": "たがやす", "sentence": "農地をタガヤす。", "meaning": "土を掘り返す", "options": ["負う", "許す", "発展", "耕す"], "answer_index": 3}, {"no": 52, "kanji": "導く", "reading": "みちびく", "sentence": "正しい方向へミチビく。", "meaning": "教えて連れていく", "options": ["届く", "築く", "省く", "導く"], "answer_index": 3}, {"no": 53, "kanji": "群れ", "reading": "むれ", "sentence": "鳥たちのムれ。", "meaning": "集まり", "options": ["群れ", "故障", "反応", "遊ぶ"], "answer_index": 0}, {"no": 54, "kanji": "散策", "reading": "さんさく", "sentence": "野山をサンサクする。", "meaning": "ぶらぶら歩く", "options": ["裁判", "散策", "悲鳴", "簡単"], "answer_index": 1}, {"no": 55, "kanji": "費やす", "reading": "ついやす", "sentence": "金をツイやす。", "meaning": "使ってなくす", "options": ["並べる", "費やす", "告げる", "備える"], "answer_index": 1}, {"no": 56, "kanji": "批評", "reading": "ひひょう", "sentence": "作品をヒヒョウ。", "meaning": "良し悪しをいう", "options": ["看護", "批評", "漂う", "周囲"], "answer_index": 1}, {"no": 57, "kanji": "告げる", "reading": "つげる", "sentence": "別れをツげる。", "meaning": "知らせる", "options": ["冷める", "投げる", "告げる", "肥える"], "answer_index": 2}, {"no": 58, "kanji": "築く", "reading": "きずく", "sentence": "信頼をキズく。", "meaning": "つくりあげる", "options": ["導く", "招く", "快く", "築く"], "answer_index": 3}, {"no": 59, "kanji": "納得", "reading": "なっとく", "sentence": "ナットクがいく。", "meaning": "理解する", "options": ["想像", "漂う", "納得", "混乱"], "answer_index": 2}, {"no": 60, "kanji": "率いる", "reading": "ひきいる", "sentence": "チームをヒキいる。", "meaning": "引き連れる", "options": ["避ける", "費やす", "寄せる", "率いる"], "answer_index": 3}, {"no": 61, "kanji": "対象", "reading": "たいしょう", "sentence": "タイショウをしぼる。", "meaning": "目標とするもの", "options": ["対象", "責任", "滞在", "専門"], "answer_index": 0}, {"no": 62, "kanji": "拝む", "reading": "おがむ", "sentence": "ひたすらオガむ。", "meaning": "手を合わせる", "options": ["編む", "拝む", "刻む", "痛む"], "answer_index": 1}], "count": 62}, "B": {"A": [{"no": 63, "kanji": "雑誌", "reading": "ざっし", "sentence": "本屋でザッシ。", "meaning": "週刊・月刊の本", "options": ["ざっし", "むかし", "たれる", "よせる"], "answer_index": 0}, {"no": 64, "kanji": "存在", "reading": "そんざい", "sentence": "ソンザイ感。", "meaning": "あること", "options": ["しせい", "えいせい", "たいざい", "そんざい"], "answer_index": 3}, {"no": 65, "kanji": "操る", "reading": "あやつる", "sentence": "巧みにアヤツる。", "meaning": "うまく動かす", "options": ["よせる", "そなえる", "あやつる", "あずける"], "answer_index": 2}, {"no": 66, "kanji": "鏡", "reading": "かがみ", "sentence": "カガミに姿を映す。", "meaning": "鏡(かがみ)", "options": ["すませる", "きょうみ", "かがみ", "よせる"], "answer_index": 2}, {"no": 67, "kanji": "登場", "reading": "とうじょう", "sentence": "トウジョウ人物。", "meaning": "現れる、出てくる", "options": ["ていしょう", "かんきょう", "ひりょう", "とうじょう"], "answer_index": 3}, {"no": 68, "kanji": "防ぐ", "reading": "ふせぐ", "sentence": "事故をフセぐ。", "meaning": "おさえとめる", "options": ["ゆるす", "こうか", "ふせぐ", "あむ"], "answer_index": 2}, {"no": 69, "kanji": "郵便", "reading": "ゆうびん", "sentence": "ユウビンを配達。", "meaning": "手紙を送るしくみ", "options": ["こんかん", "ゆうびん", "せんもん", "おんだん"], "answer_index": 1}, {"no": 70, "kanji": "想像", "reading": "そうぞう", "sentence": "ソウゾウをめぐらす。", "meaning": "頭の中で思いえがく", "options": ["ていきょう", "ちょぞう", "そうぞう", "ねんしょう"], "answer_index": 2}, {"no": 71, "kanji": "異なる", "reading": "ことなる", "sentence": "事実とコトなる。", "meaning": "ちがう", "options": ["さめる", "あびる", "ことなる", "おとずれる"], "answer_index": 2}, {"no": 72, "kanji": "判断", "reading": "はんだん", "sentence": "ハンダン力。", "meaning": "決めること", "options": ["ぐうぜん", "さいばん", "はんだん", "おんだん"], "answer_index": 2}, {"no": 73, "kanji": "誤り", "reading": "あやまり", "sentence": "アヤマりを正す。", "meaning": "まちがい", "options": ["しょり", "べんり", "やくわり", "あやまり"], "answer_index": 3}, {"no": 74, "kanji": "警備", "reading": "けいび", "sentence": "厳重なケイビ。", "meaning": "見はり", "options": ["けいび", "じしゃく", "えいせい", "せんもん"], "answer_index": 0}, {"no": 75, "kanji": "資源", "reading": "しげん", "sentence": "シゲンを大切に。", "meaning": "材料となるもの", "options": ["おんだん", "しげん", "こんらん", "せんもん"], "answer_index": 1}, {"no": 76, "kanji": "照明", "reading": "しょうめい", "sentence": "ショウメイをともす。", "meaning": "明かり", "options": ["しょうめい", "むずかしい", "ひめい", "たいざい"], "answer_index": 0}, {"no": 77, "kanji": "立派", "reading": "りっぱ", "sentence": "リッパな老人。", "meaning": "見事な", "options": ["りっぱ", "かくちょう", "べんり", "あさい"], "answer_index": 0}, {"no": 78, "kanji": "並べる", "reading": "ならべる", "sentence": "肩をナラベる。", "meaning": "ならべて置く", "options": ["にる", "あやつる", "ならべる", "こころみる"], "answer_index": 2}, {"no": 79, "kanji": "候補", "reading": "こうほ", "sentence": "次期会長コウホ。", "meaning": "候補者", "options": ["そなえる", "こうほ", "こきゅう", "すませる"], "answer_index": 1}, {"no": 80, "kanji": "役割", "reading": "やくわり", "sentence": "果たすべきヤクワリ。", "meaning": "受け持つ仕事", "options": ["やくわり", "べんり", "しょり", "あやまり"], "answer_index": 0}, {"no": 81, "kanji": "除く", "reading": "のぞく", "sentence": "不安を取りノゾく。", "meaning": "とりさる", "options": ["まねく", "けっきょく", "のぞく", "よそく"], "answer_index": 2}, {"no": 82, "kanji": "苦労", "reading": "くろう", "sentence": "クロウした甲斐。", "meaning": "つらい思い", "options": ["くろう", "おう", "ひろう", "ひひょう"], "answer_index": 0}, {"no": 83, "kanji": "悲鳴", "reading": "ひめい", "sentence": "ヒメイをあげる。", "meaning": "おどろきの声", "options": ["しょうめい", "しょうたい", "ひめい", "あさい"], "answer_index": 2}, {"no": 84, "kanji": "条件", "reading": "じょうけん", "sentence": "ジョウケンを示す。", "meaning": "決まり、必要なこと", "options": ["きけん", "けいけん", "じょうけん", "きょくたん"], "answer_index": 2}, {"no": 85, "kanji": "快く", "reading": "こころよく", "sentence": "ココロヨく受け入れる。", "meaning": "気持ちよく", "options": ["みちびく", "こころよく", "やくそく", "よそく"], "answer_index": 1}, {"no": 86, "kanji": "効果", "reading": "こうか", "sentence": "コウカが期待される。", "meaning": "ききめ", "options": ["すこやか", "こうか", "たしか", "ひょうか"], "answer_index": 1}, {"no": 87, "kanji": "喜ぶ", "reading": "よろこぶ", "sentence": "勝利をヨロコぶ。", "meaning": "うれしく思う", "options": ["はこぶ", "よろこぶ", "あそぶ", "ゆめ"], "answer_index": 1}, {"no": 88, "kanji": "筋", "reading": "すじ", "sentence": "スジの通った話。", "meaning": "話のつながり", "options": ["いじ", "すじ", "かんけつ", "あそぶ"], "answer_index": 1}, {"no": 89, "kanji": "枚挙", "reading": "まいきょ", "sentence": "マイキョにいとまがない。", "meaning": "数えあげる", "options": ["さ", "しょうたい", "りょういき", "まいきょ"], "answer_index": 3}, {"no": 90, "kanji": "許す", "reading": "ゆるす", "sentence": "時間のユルす限り。", "meaning": "認める", "options": ["ゆるす", "おこす", "たがやす", "くらす"], "answer_index": 0}, {"no": 91, "kanji": "似る", "reading": "にる", "sentence": "顔がニる。", "meaning": "そっくりである", "options": ["こころみる", "なげる", "よせる", "にる"], "answer_index": 3}, {"no": 92, "kanji": "根幹", "reading": "こんかん", "sentence": "計画のコンカン。", "meaning": "中心となる重要な部分", "options": ["しゅんかん", "けいけん", "こんかん", "かんたん"], "answer_index": 2}, {"no": 93, "kanji": "吸う", "reading": "すう", "sentence": "息をスいこむ。", "meaning": "息を中に入れる", "options": ["ちょぞう", "よゆう", "すう", "あらう"], "answer_index": 2}, {"no": 94, "kanji": "提供", "reading": "ていきょう", "sentence": "情報をテイキョウ。", "meaning": "差し出す", "options": ["ていきょう", "ひひょう", "ひりょう", "ていしょう"], "answer_index": 0}, {"no": 95, "kanji": "密接", "reading": "みっせつ", "sentence": "ミッセツな関係。", "meaning": "深いつながり", "options": ["じょうはつ", "かんけつ", "しょうとつ", "みっせつ"], "answer_index": 3}, {"no": 96, "kanji": "就職", "reading": "しゅうしょく", "sentence": "シュウショク先。", "meaning": "仕事につく", "options": ["けっきょく", "しゅうしょく", "おうふく", "みりょく"], "answer_index": 1}, {"no": 97, "kanji": "可能", "reading": "かのう", "sentence": "カノウ性を探る。", "meaning": "できること", "options": ["かのう", "ひろう", "はんのう", "そうぞう"], "answer_index": 0}, {"no": 98, "kanji": "規則", "reading": "きそく", "sentence": "キソク正しい生活。", "meaning": "決まり", "options": ["やくそく", "よそく", "きそく", "へいまく"], "answer_index": 2}, {"no": 99, "kanji": "笑顔", "reading": "えがお", "sentence": "彼はエガオだ。", "meaning": "笑った顔", "options": ["こうか", "えがお", "むね", "やくわり"], "answer_index": 1}, {"no": 100, "kanji": "指摘", "reading": "してき", "sentence": "欠点をシテキ。", "meaning": "問題点を示す", "options": ["してき", "りょういき", "こうせき", "みき"], "answer_index": 0}, {"no": 101, "kanji": "省く", "reading": "はぶく", "sentence": "極力ハブく。", "meaning": "とりのぞく", "options": ["まねく", "やくそく", "はぶく", "こころよく"], "answer_index": 2}, {"no": 102, "kanji": "苦い", "reading": "にがい", "sentence": "ニガい薬。", "meaning": "苦い味", "options": ["しっぱい", "さいばい", "にがい", "しょうたい"], "answer_index": 2}, {"no": 103, "kanji": "認める", "reading": "みとめる", "sentence": "やったことをミトめる。", "meaning": "受け入れる", "options": ["みとめる", "ならべる", "さける", "さめる"], "answer_index": 0}, {"no": 104, "kanji": "種類", "reading": "しゅるい", "sentence": "シュルイ別。", "meaning": "なかま分け", "options": ["なつかしい", "しゅるい", "たいざい", "きかい"], "answer_index": 1}, {"no": 105, "kanji": "簡潔", "reading": "かんけつ", "sentence": "カンケツに述べる。", "meaning": "短くまとまっている", "options": ["みっせつ", "かんけつ", "せいけつ", "めんみつ"], "answer_index": 1}, {"no": 106, "kanji": "周囲", "reading": "しゅうい", "sentence": "シュウイが騒がしい。", "meaning": "まわり", "options": ["しゅうい", "ようい", "ぜったい", "あさい"], "answer_index": 0}, {"no": 107, "kanji": "夢", "reading": "ゆめ", "sentence": "ユメをかなえる。", "meaning": "ねがい、ねむっている時の景色", "options": ["ぜったい", "べんり", "むね", "ゆめ"], "answer_index": 3}, {"no": 108, "kanji": "演じる", "reading": "えんじる", "sentence": "重要な役をエンじる。", "meaning": "役を行う", "options": ["のこる", "あびる", "こえる", "えんじる"], "answer_index": 3}, {"no": 109, "kanji": "従う", "reading": "したがう", "sentence": "規則にシタガう。", "meaning": "言うとおりにする", "options": ["したがう", "たいしょう", "ただよう", "うたがう"], "answer_index": 0}, {"no": 110, "kanji": "残る", "reading": "のこる", "sentence": "耳にノコる。", "meaning": "あとまで残る", "options": ["つげる", "ならべる", "おとずれる", "のこる"], "answer_index": 3}, {"no": 111, "kanji": "漂う", "reading": "ただよう", "sentence": "不穏な空気がタダヨう。", "meaning": "ふわふわ浮かぶ", "options": ["ていきょう", "あらう", "ただよう", "しょうどう"], "answer_index": 2}, {"no": 112, "kanji": "評価", "reading": "ひょうか", "sentence": "ヒョウカされる。", "meaning": "ねうちを判断する", "options": ["ひょうか", "たしか", "こうか", "すこやか"], "answer_index": 0}, {"no": 113, "kanji": "捨てる", "reading": "すてる", "sentence": "ゴミはステよう。", "meaning": "いらなくして手ばなす", "options": ["もる", "すてる", "あずける", "こころみる"], "answer_index": 1}, {"no": 114, "kanji": "姿勢", "reading": "しせい", "sentence": "シセイを正す。", "meaning": "体の構え", "options": ["そんざい", "しせい", "えいせい", "ようい"], "answer_index": 1}, {"no": 115, "kanji": "肥える", "reading": "こえる", "sentence": "舌がコえている。", "meaning": "ぜいたくに慣れる", "options": ["そなえる", "こえる", "なげる", "ささえる"], "answer_index": 1}, {"no": 116, "kanji": "訪れる", "reading": "おとずれる", "sentence": "チャンスがオトズれる。", "meaning": "やってくる", "options": ["おとずれる", "たれる", "よせる", "すてる"], "answer_index": 0}, {"no": 117, "kanji": "招待", "reading": "しょうたい", "sentence": "ショウタイする。", "meaning": "招き入れる", "options": ["ぜったい", "しょうたい", "ひたい", "かたい"], "answer_index": 1}, {"no": 118, "kanji": "投げる", "reading": "なげる", "sentence": "途中でナげだす。", "meaning": "ほうり出す", "options": ["にる", "すませる", "つげる", "なげる"], "answer_index": 3}, {"no": 119, "kanji": "提案", "reading": "ていあん", "sentence": "テイアンする。", "meaning": "考えを出す", "options": ["しげん", "よういん", "ていあん", "はんだん"], "answer_index": 2}, {"no": 120, "kanji": "洗う", "reading": "あらう", "sentence": "靴をアラう。", "meaning": "きれいにする", "options": ["あらう", "そうぞう", "かんきょう", "ちょぞう"], "answer_index": 0}, {"no": 121, "kanji": "仮", "reading": "かり", "sentence": "カリの話。", "meaning": "正式でない", "options": ["かり", "べんり", "やくわり", "しょり"], "answer_index": 0}, {"no": 122, "kanji": "証拠", "reading": "しょうこ", "sentence": "決定的なショウコ。", "meaning": "事実を示すしるし", "options": ["じょうはつ", "たいしょう", "しょうこ", "おう"], "answer_index": 2}], "C": [{"no": 63, "kanji": "雑誌", "reading": "ざっし", "sentence": "本屋でザッシ。", "meaning": "週刊・月刊の本", "options": ["ちがい", "始末する", "うまく動かす", "週刊・月刊の本"], "answer_index": 3}, {"no": 64, "kanji": "存在", "reading": "そんざい", "sentence": "ソンザイ感。", "meaning": "あること", "options": ["決まり、必要なこと", "つらい思い", "落ちているものを取る", "あること"], "answer_index": 3}, {"no": 65, "kanji": "操る", "reading": "あやつる", "sentence": "巧みにアヤツる。", "meaning": "うまく動かす", "options": ["前もって考える", "決まり、必要なこと", "うまくいかないこと", "うまく動かす"], "answer_index": 3}, {"no": 66, "kanji": "鏡", "reading": "かがみ", "sentence": "カガミに姿を映す。", "meaning": "鏡(かがみ)", "options": ["よびよせる", "入りくんでいる", "鏡(かがみ)", "ねうち"], "answer_index": 2}, {"no": 67, "kanji": "登場", "reading": "とうじょう", "sentence": "トウジョウ人物。", "meaning": "現れる、出てくる", "options": ["ぶらぶら歩く", "現れる、出てくる", "むずかしい", "上から落ちてくる"], "answer_index": 1}, {"no": 68, "kanji": "防ぐ", "reading": "ふせぐ", "sentence": "事故をフセぐ。", "meaning": "おさえとめる", "options": ["土を掘り返す", "下から押さえる", "つらい", "おさえとめる"], "answer_index": 3}, {"no": 69, "kanji": "郵便", "reading": "ゆうびん", "sentence": "ユウビンを配達。", "meaning": "手紙を送るしくみ", "options": ["入りみだれる", "事実を示すしるし", "木の幹", "手紙を送るしくみ"], "answer_index": 3}, {"no": 70, "kanji": "想像", "reading": "そうぞう", "sentence": "ソウゾウをめぐらす。", "meaning": "頭の中で思いえがく", "options": ["あそぶ", "つらい思い", "りっぱな仕事のあと", "頭の中で思いえがく"], "answer_index": 3}, {"no": 71, "kanji": "異なる", "reading": "ことなる", "sentence": "事実とコトなる。", "meaning": "ちがう", "options": ["広まる", "まちがいない", "いたみを感じる", "ちがう"], "answer_index": 3}, {"no": 72, "kanji": "判断", "reading": "はんだん", "sentence": "ハンダン力。", "meaning": "決めること", "options": ["差し出す", "決めること", "曲げる、向きをかえる", "息をすること"], "answer_index": 1}, {"no": 73, "kanji": "誤り", "reading": "あやまり", "sentence": "アヤマりを正す。", "meaning": "まちがい", "options": ["チャンス", "病人の世話", "ねがい、ねむっている時の景色", "まちがい"], "answer_index": 3}, {"no": 74, "kanji": "警備", "reading": "けいび", "sentence": "厳重なケイビ。", "meaning": "見はり", "options": ["見はり", "理解する", "広げる", "深さや経験が少ない"], "answer_index": 0}, {"no": 75, "kanji": "資源", "reading": "しげん", "sentence": "シゲンを大切に。", "meaning": "材料となるもの", "options": ["目標とするもの", "ほうり出す", "材料となるもの", "役を行う"], "answer_index": 2}, {"no": 76, "kanji": "照明", "reading": "しょうめい", "sentence": "ショウメイをともす。", "meaning": "明かり", "options": ["明かり", "うまくいかないこと", "考えを出す", "しっかりしている"], "answer_index": 0}, {"no": 77, "kanji": "立派", "reading": "りっぱ", "sentence": "リッパな老人。", "meaning": "見事な", "options": ["楽器をならす", "見事な", "国と国との取引", "植物を育てる"], "answer_index": 1}, {"no": 78, "kanji": "並べる", "reading": "ならべる", "sentence": "肩をナラベる。", "meaning": "ならべて置く", "options": ["きれい", "ならべて置く", "楽器をならす", "問題点を示す"], "answer_index": 1}, {"no": 79, "kanji": "候補", "reading": "こうほ", "sentence": "次期会長コウホ。", "meaning": "候補者", "options": ["惑星をまわるもの", "候補者", "生活する", "むずかしい"], "answer_index": 1}, {"no": 80, "kanji": "役割", "reading": "やくわり", "sentence": "果たすべきヤクワリ。", "meaning": "受け持つ仕事", "options": ["決まり", "あとを追って、順に", "りっぱな仕事のあと", "受け持つ仕事"], "answer_index": 3}, {"no": 81, "kanji": "除く", "reading": "のぞく", "sentence": "不安を取りノゾく。", "meaning": "とりさる", "options": ["まわり", "つくりあげる", "ゆとり", "とりさる"], "answer_index": 3}, {"no": 82, "kanji": "苦労", "reading": "くろう", "sentence": "クロウした甲斐。", "meaning": "つらい思い", "options": ["小さい、子どもの", "終わる", "つらい思い", "頭の中で思いえがく"], "answer_index": 2}, {"no": 83, "kanji": "悲鳴", "reading": "ひめい", "sentence": "ヒメイをあげる。", "meaning": "おどろきの声", "options": ["体の構え", "おどろきの声", "まわり", "招き入れる"], "answer_index": 1}, {"no": 84, "kanji": "条件", "reading": "じょうけん", "sentence": "ジョウケンを示す。", "meaning": "決まり、必要なこと", "options": ["保管をたのむ", "やってくる", "決まり、必要なこと", "決まり"], "answer_index": 2}, {"no": 85, "kanji": "快く", "reading": "こころよく", "sentence": "ココロヨく受け入れる。", "meaning": "気持ちよく", "options": ["集まり", "気持ちよく", "急にわきおこる気持ち", "あとまで残る"], "answer_index": 1}, {"no": 86, "kanji": "効果", "reading": "こうか", "sentence": "コウカが期待される。", "meaning": "ききめ", "options": ["考えを出す", "落ちているものを取る", "使ってなくす", "ききめ"], "answer_index": 3}, {"no": 87, "kanji": "喜ぶ", "reading": "よろこぶ", "sentence": "勝利をヨロコぶ。", "meaning": "うれしく思う", "options": ["ふわふわ浮かぶ", "手紙を送るしくみ", "土を掘り返す", "うれしく思う"], "answer_index": 3}, {"no": 88, "kanji": "筋", "reading": "すじ", "sentence": "スジの通った話。", "meaning": "話のつながり", "options": ["国と国との取引", "終わる", "話のつながり", "理解する"], "answer_index": 2}, {"no": 89, "kanji": "枚挙", "reading": "まいきょ", "sentence": "マイキョにいとまがない。", "meaning": "数えあげる", "options": ["上に積み上げる", "ちがい", "数えあげる", "思いがけず"], "answer_index": 2}, {"no": 90, "kanji": "許す", "reading": "ゆるす", "sentence": "時間のユルす限り。", "meaning": "認める", "options": ["認める", "手紙を送るしくみ", "決めること", "最終的に"], "answer_index": 0}, {"no": 91, "kanji": "似る", "reading": "にる", "sentence": "顔がニる。", "meaning": "そっくりである", "options": ["木の幹", "見事な", "そっくりである", "磁気のある物"], "answer_index": 2}, {"no": 92, "kanji": "根幹", "reading": "こんかん", "sentence": "計画のコンカン。", "meaning": "中心となる重要な部分", "options": ["気持ちよく", "生活する", "材料となるもの", "中心となる重要な部分"], "answer_index": 3}, {"no": 93, "kanji": "吸う", "reading": "すう", "sentence": "息をスいこむ。", "meaning": "息を中に入れる", "options": ["息を中に入れる", "とりのぞく", "そっくりである", "招き入れる"], "answer_index": 0}, {"no": 94, "kanji": "提供", "reading": "ていきょう", "sentence": "情報をテイキョウ。", "meaning": "差し出す", "options": ["ほうり出す", "上に積み上げる", "話のつながり", "差し出す"], "answer_index": 3}, {"no": 95, "kanji": "密接", "reading": "みっせつ", "sentence": "ミッセツな関係。", "meaning": "深いつながり", "options": ["役を行う", "木の幹", "深いつながり", "細かく切る、ほる"], "answer_index": 2}, {"no": 96, "kanji": "就職", "reading": "しゅうしょく", "sentence": "シュウショク先。", "meaning": "仕事につく", "options": ["受け持つ仕事", "ならべて置く", "仕事につく", "ていねいでくわしい"], "answer_index": 2}, {"no": 97, "kanji": "可能", "reading": "かのう", "sentence": "カノウ性を探る。", "meaning": "できること", "options": ["燃えること", "話のつながり", "できること", "終わらせる"], "answer_index": 2}, {"no": 98, "kanji": "規則", "reading": "きそく", "sentence": "キソク正しい生活。", "meaning": "決まり", "options": ["決まり", "集まり", "必ず", "ゆとり"], "answer_index": 0}, {"no": 99, "kanji": "笑顔", "reading": "えがお", "sentence": "彼はエガオだ。", "meaning": "笑った顔", "options": ["ある分野に絞った", "笑った顔", "ぜいたくに慣れる", "よびよせる"], "answer_index": 1}, {"no": 100, "kanji": "指摘", "reading": "してき", "sentence": "欠点をシテキ。", "meaning": "問題点を示す", "options": ["考えを出す", "問題点を示す", "事実を示すしるし", "果たすべき務め"], "answer_index": 1}, {"no": 101, "kanji": "省く", "reading": "はぶく", "sentence": "極力ハブく。", "meaning": "とりのぞく", "options": ["あつかう", "のびひろがる", "ゆとり", "とりのぞく"], "answer_index": 3}, {"no": 102, "kanji": "苦い", "reading": "にがい", "sentence": "ニガい薬。", "meaning": "苦い味", "options": ["張りつめる", "苦い味", "気体になる", "惑星をまわるもの"], "answer_index": 1}, {"no": 103, "kanji": "認める", "reading": "みとめる", "sentence": "やったことをミトめる。", "meaning": "受け入れる", "options": ["入りみだれる", "足りないところを足す", "受け入れる", "惑星をまわるもの"], "answer_index": 2}, {"no": 104, "kanji": "種類", "reading": "しゅるい", "sentence": "シュルイ別。", "meaning": "なかま分け", "options": ["あること", "やさしい", "なかま分け", "じょうぶで元気"], "answer_index": 2}, {"no": 105, "kanji": "簡潔", "reading": "かんけつ", "sentence": "カンケツに述べる。", "meaning": "短くまとまっている", "options": ["短くまとまっている", "よびよせる", "ねがい、ねむっている時の景色", "あぶない"], "answer_index": 0}, {"no": 106, "kanji": "周囲", "reading": "しゅうい", "sentence": "シュウイが騒がしい。", "meaning": "まわり", "options": ["とりさる", "うまくいかないこと", "惑星をまわるもの", "まわり"], "answer_index": 3}, {"no": 107, "kanji": "夢", "reading": "ゆめ", "sentence": "ユメをかなえる。", "meaning": "ねがい、ねむっている時の景色", "options": ["おどろきの声", "ねがい、ねむっている時の景色", "鏡(かがみ)", "短くまとまっている"], "answer_index": 1}, {"no": 108, "kanji": "演じる", "reading": "えんじる", "sentence": "重要な役をエンじる。", "meaning": "役を行う", "options": ["深さや経験が少ない", "苦い味", "じょうぶで元気", "役を行う"], "answer_index": 3}, {"no": 109, "kanji": "従う", "reading": "したがう", "sentence": "規則にシタガう。", "meaning": "言うとおりにする", "options": ["きれいにする", "言うとおりにする", "編み物をする", "曲げる、向きをかえる"], "answer_index": 1}, {"no": 110, "kanji": "残る", "reading": "のこる", "sentence": "耳にノコる。", "meaning": "あとまで残る", "options": ["りっぱな仕事のあと", "あとまで残る", "鏡(かがみ)", "ていねいでくわしい"], "answer_index": 1}, {"no": 111, "kanji": "漂う", "reading": "ただよう", "sentence": "不穏な空気がタダヨう。", "meaning": "ふわふわ浮かぶ", "options": ["木の幹", "問題点を示す", "引き連れる", "ふわふわ浮かぶ"], "answer_index": 3}, {"no": 112, "kanji": "評価", "reading": "ひょうか", "sentence": "ヒョウカされる。", "meaning": "ねうちを判断する", "options": ["始末する", "磁気のある物", "ねうちを判断する", "とりさる"], "answer_index": 2}, {"no": 113, "kanji": "捨てる", "reading": "すてる", "sentence": "ゴミはステよう。", "meaning": "いらなくして手ばなす", "options": ["認める", "しっかりしている", "いらなくして手ばなす", "反応すること"], "answer_index": 2}, {"no": 114, "kanji": "姿勢", "reading": "しせい", "sentence": "シセイを正す。", "meaning": "体の構え", "options": ["思いがけず", "とどまる", "体の構え", "事実を示すしるし"], "answer_index": 2}, {"no": 115, "kanji": "肥える", "reading": "こえる", "sentence": "舌がコえている。", "meaning": "ぜいたくに慣れる", "options": ["ぶらぶら歩く", "ぜいたくに慣れる", "集まり", "心ひかれる力"], "answer_index": 1}, {"no": 116, "kanji": "訪れる", "reading": "おとずれる", "sentence": "チャンスがオトズれる。", "meaning": "やってくる", "options": ["数えあげる", "やってくる", "上から落ちてくる", "終わる"], "answer_index": 1}, {"no": 117, "kanji": "招待", "reading": "しょうたい", "sentence": "ショウタイする。", "meaning": "招き入れる", "options": ["招き入れる", "入りみだれる", "あぶないこと", "むかし"], "answer_index": 0}, {"no": 118, "kanji": "投げる", "reading": "なげる", "sentence": "途中でナげだす。", "meaning": "ほうり出す", "options": ["ほうり出す", "ちからを出す", "気体になる", "ぜいたくに慣れる"], "answer_index": 0}, {"no": 119, "kanji": "提案", "reading": "ていあん", "sentence": "テイアンする。", "meaning": "考えを出す", "options": ["考えを出す", "鏡(かがみ)", "ほうり出す", "候補者"], "answer_index": 0}, {"no": 120, "kanji": "洗う", "reading": "あらう", "sentence": "靴をアラう。", "meaning": "きれいにする", "options": ["きれい", "きれいにする", "植物を育てる", "うまく動かす"], "answer_index": 1}, {"no": 121, "kanji": "仮", "reading": "かり", "sentence": "カリの話。", "meaning": "正式でない", "options": ["正式でない", "あぶないこと", "明かり", "気体になる"], "answer_index": 0}, {"no": 122, "kanji": "証拠", "reading": "しょうこ", "sentence": "決定的なショウコ。", "meaning": "事実を示すしるし", "options": ["片寄っている", "終わる", "事実を示すしるし", "問題点を示す"], "answer_index": 2}], "B": [{"no": 63, "kanji": "雑誌", "reading": "ざっし", "sentence": "本屋でザッシ。", "meaning": "週刊・月刊の本", "options": ["招く", "除く", "混乱", "雑誌"], "answer_index": 3}, {"no": 64, "kanji": "存在", "reading": "そんざい", "sentence": "ソンザイ感。", "meaning": "あること", "options": ["防ぐ", "存在", "緊張", "偶然"], "answer_index": 1}, {"no": 65, "kanji": "操る", "reading": "あやつる", "sentence": "巧みにアヤツる。", "meaning": "うまく動かす", "options": ["困る", "操る", "残る", "似る"], "answer_index": 1}, {"no": 66, "kanji": "鏡", "reading": "かがみ", "sentence": "カガミに姿を映す。", "meaning": "鏡(かがみ)", "options": ["昔", "差", "鏡", "幹"], "answer_index": 2}, {"no": 67, "kanji": "登場", "reading": "とうじょう", "sentence": "トウジョウ人物。", "meaning": "現れる、出てくる", "options": ["登場", "提唱", "姿勢", "確か"], "answer_index": 0}, {"no": 68, "kanji": "防ぐ", "reading": "ふせぐ", "sentence": "事故をフセぐ。", "meaning": "おさえとめる", "options": ["複雑", "防ぐ", "耕す", "約束"], "answer_index": 1}, {"no": 69, "kanji": "郵便", "reading": "ゆうびん", "sentence": "ユウビンを配達。", "meaning": "手紙を送るしくみ", "options": ["郵便", "拡張", "可能", "裁判"], "answer_index": 0}, {"no": 70, "kanji": "想像", "reading": "そうぞう", "sentence": "ソウゾウをめぐらす。", "meaning": "頭の中で思いえがく", "options": ["誤り", "想像", "専門", "混乱"], "answer_index": 1}, {"no": 71, "kanji": "異なる", "reading": "ことなる", "sentence": "事実とコトなる。", "meaning": "ちがう", "options": ["激しい", "告げる", "異なる", "並べる"], "answer_index": 2}, {"no": 72, "kanji": "判断", "reading": "はんだん", "sentence": "ハンダン力。", "meaning": "決めること", "options": ["危険", "簡単", "余裕", "判断"], "answer_index": 3}, {"no": 73, "kanji": "誤り", "reading": "あやまり", "sentence": "アヤマりを正す。", "meaning": "まちがい", "options": ["誤り", "蒸発", "補う", "役割"], "answer_index": 0}, {"no": 74, "kanji": "警備", "reading": "けいび", "sentence": "厳重なケイビ。", "meaning": "見はり", "options": ["笑顔", "対照", "往復", "警備"], "answer_index": 3}, {"no": 75, "kanji": "資源", "reading": "しげん", "sentence": "シゲンを大切に。", "meaning": "材料となるもの", "options": ["緊張", "立派", "資源", "発展"], "answer_index": 2}, {"no": 76, "kanji": "照明", "reading": "しょうめい", "sentence": "ショウメイをともす。", "meaning": "明かり", "options": ["照明", "評価", "笑顔", "群れ"], "answer_index": 0}, {"no": 77, "kanji": "立派", "reading": "りっぱ", "sentence": "リッパな老人。", "meaning": "見事な", "options": ["候補", "根幹", "立派", "興味"], "answer_index": 2}, {"no": 78, "kanji": "並べる", "reading": "ならべる", "sentence": "肩をナラベる。", "meaning": "ならべて置く", "options": ["垂れる", "並べる", "演じる", "肥える"], "answer_index": 1}, {"no": 79, "kanji": "候補", "reading": "こうほ", "sentence": "次期会長コウホ。", "meaning": "候補者", "options": ["操る", "枚挙", "周囲", "候補"], "answer_index": 3}, {"no": 80, "kanji": "役割", "reading": "やくわり", "sentence": "果たすべきヤクワリ。", "meaning": "受け持つ仕事", "options": ["種類", "役割", "予想", "遺産"], "answer_index": 1}, {"no": 81, "kanji": "除く", "reading": "のぞく", "sentence": "不安を取りノゾく。", "meaning": "とりさる", "options": ["築く", "届く", "招く", "除く"], "answer_index": 3}, {"no": 82, "kanji": "苦労", "reading": "くろう", "sentence": "クロウした甲斐。", "meaning": "つらい思い", "options": ["処理", "苦労", "可能", "疑う"], "answer_index": 1}, {"no": 83, "kanji": "悲鳴", "reading": "ひめい", "sentence": "ヒメイをあげる。", "meaning": "おどろきの声", "options": ["歓迎", "枚挙", "提供", "悲鳴"], "answer_index": 3}, {"no": 84, "kanji": "条件", "reading": "じょうけん", "sentence": "ジョウケンを示す。", "meaning": "決まり、必要なこと", "options": ["絶対", "条件", "綿密", "約束"], "answer_index": 1}, {"no": 85, "kanji": "快く", "reading": "こころよく", "sentence": "ココロヨく受け入れる。", "meaning": "気持ちよく", "options": ["招く", "快く", "除く", "届く"], "answer_index": 1}, {"no": 86, "kanji": "効果", "reading": "こうか", "sentence": "コウカが期待される。", "meaning": "ききめ", "options": ["従う", "防ぐ", "効果", "遺産"], "answer_index": 2}, {"no": 87, "kanji": "喜ぶ", "reading": "よろこぶ", "sentence": "勝利をヨロコぶ。", "meaning": "うれしく思う", "options": ["運ぶ", "苦労", "喜ぶ", "遊ぶ"], "answer_index": 2}, {"no": 88, "kanji": "筋", "reading": "すじ", "sentence": "スジの通った話。", "meaning": "話のつながり", "options": ["胸", "幹", "額", "筋"], "answer_index": 3}, {"no": 89, "kanji": "枚挙", "reading": "まいきょ", "sentence": "マイキョにいとまがない。", "meaning": "数えあげる", "options": ["役割", "候補", "枚挙", "魅力"], "answer_index": 2}, {"no": 90, "kanji": "許す", "reading": "ゆるす", "sentence": "時間のユルす限り。", "meaning": "認める", "options": ["許す", "評価", "極端", "耕す"], "answer_index": 0}, {"no": 91, "kanji": "似る", "reading": "にる", "sentence": "顔がニる。", "meaning": "そっくりである", "options": ["似る", "降る", "操る", "困る"], "answer_index": 0}, {"no": 92, "kanji": "根幹", "reading": "こんかん", "sentence": "計画のコンカン。", "meaning": "中心となる重要な部分", "options": ["拾う", "遺産", "喜ぶ", "根幹"], "answer_index": 3}, {"no": 93, "kanji": "吸う", "reading": "すう", "sentence": "息をスいこむ。", "meaning": "息を中に入れる", "options": ["従う", "補う", "吸う", "拾う"], "answer_index": 2}, {"no": 94, "kanji": "提供", "reading": "ていきょう", "sentence": "情報をテイキョウ。", "meaning": "差し出す", "options": ["効果", "姿勢", "運ぶ", "提供"], "answer_index": 3}, {"no": 95, "kanji": "密接", "reading": "みっせつ", "sentence": "ミッセツな関係。", "meaning": "深いつながり", "options": ["密接", "痛む", "操作", "維持"], "answer_index": 0}, {"no": 96, "kanji": "就職", "reading": "しゅうしょく", "sentence": "シュウショク先。", "meaning": "仕事につく", "options": ["就職", "機会", "想像", "瞬間"], "answer_index": 0}, {"no": 97, "kanji": "可能", "reading": "かのう", "sentence": "カノウ性を探る。", "meaning": "できること", "options": ["快く", "可能", "防ぐ", "絶対"], "answer_index": 1}, {"no": 98, "kanji": "規則", "reading": "きそく", "sentence": "キソク正しい生活。", "meaning": "決まり", "options": ["喜ぶ", "郵便", "規則", "悲鳴"], "answer_index": 2}, {"no": 99, "kanji": "笑顔", "reading": "えがお", "sentence": "彼はエガオだ。", "meaning": "笑った顔", "options": ["批評", "維持", "候補", "笑顔"], "answer_index": 3}, {"no": 100, "kanji": "指摘", "reading": "してき", "sentence": "欠点をシテキ。", "meaning": "問題点を示す", "options": ["洗う", "栽培", "指摘", "許す"], "answer_index": 2}, {"no": 101, "kanji": "省く", "reading": "はぶく", "sentence": "極力ハブく。", "meaning": "とりのぞく", "options": ["快く", "導く", "省く", "招く"], "answer_index": 2}, {"no": 102, "kanji": "苦い", "reading": "にがい", "sentence": "ニガい薬。", "meaning": "苦い味", "options": ["固い", "浅い", "苦い", "幼い"], "answer_index": 2}, {"no": 103, "kanji": "認める", "reading": "みとめる", "sentence": "やったことをミトめる。", "meaning": "受け入れる", "options": ["健やか", "率いる", "冷める", "認める"], "answer_index": 3}, {"no": 104, "kanji": "種類", "reading": "しゅるい", "sentence": "シュルイ別。", "meaning": "なかま分け", "options": ["要因", "立派", "種類", "清潔"], "answer_index": 2}, {"no": 105, "kanji": "簡潔", "reading": "かんけつ", "sentence": "カンケツに述べる。", "meaning": "短くまとまっている", "options": ["漂う", "清潔", "反応", "簡潔"], "answer_index": 3}, {"no": 106, "kanji": "周囲", "reading": "しゅうい", "sentence": "シュウイが騒がしい。", "meaning": "まわり", "options": ["失敗", "機会", "周囲", "呼吸"], "answer_index": 2}, {"no": 107, "kanji": "夢", "reading": "ゆめ", "sentence": "ユメをかなえる。", "meaning": "ねがい、ねむっている時の景色", "options": ["昔", "鏡", "額", "夢"], "answer_index": 3}, {"no": 108, "kanji": "演じる", "reading": "えんじる", "sentence": "重要な役をエンじる。", "meaning": "役を行う", "options": ["並べる", "浴びる", "演じる", "垂れる"], "answer_index": 2}, {"no": 109, "kanji": "従う", "reading": "したがう", "sentence": "規則にシタガう。", "meaning": "言うとおりにする", "options": ["負う", "洗う", "補う", "従う"], "answer_index": 3}, {"no": 110, "kanji": "残る", "reading": "のこる", "sentence": "耳にノコる。", "meaning": "あとまで残る", "options": ["操る", "困る", "盛る", "残る"], "answer_index": 3}, {"no": 111, "kanji": "漂う", "reading": "ただよう", "sentence": "不穏な空気がタダヨう。", "meaning": "ふわふわ浮かぶ", "options": ["補う", "漂う", "疑う", "従う"], "answer_index": 1}, {"no": 112, "kanji": "評価", "reading": "ひょうか", "sentence": "ヒョウカされる。", "meaning": "ねうちを判断する", "options": ["役割", "拝む", "笑顔", "評価"], "answer_index": 3}, {"no": 113, "kanji": "捨てる", "reading": "すてる", "sentence": "ゴミはステよう。", "meaning": "いらなくして手ばなす", "options": ["捨てる", "厳しい", "演じる", "垂れる"], "answer_index": 0}, {"no": 114, "kanji": "姿勢", "reading": "しせい", "sentence": "シセイを正す。", "meaning": "体の構え", "options": ["苦い", "効果", "姿勢", "届く"], "answer_index": 2}, {"no": 115, "kanji": "肥える", "reading": "こえる", "sentence": "舌がコえている。", "meaning": "ぜいたくに慣れる", "options": ["肥える", "避ける", "支える", "備える"], "answer_index": 0}, {"no": 116, "kanji": "訪れる", "reading": "おとずれる", "sentence": "チャンスがオトズれる。", "meaning": "やってくる", "options": ["危ない", "訪れる", "垂れる", "暮らす"], "answer_index": 1}, {"no": 117, "kanji": "招待", "reading": "しょうたい", "sentence": "ショウタイする。", "meaning": "招き入れる", "options": ["失敗", "招待", "危険", "興味"], "answer_index": 1}, {"no": 118, "kanji": "投げる", "reading": "なげる", "sentence": "途中でナげだす。", "meaning": "ほうり出す", "options": ["告げる", "試みる", "投げる", "冷める"], "answer_index": 2}, {"no": 119, "kanji": "提案", "reading": "ていあん", "sentence": "テイアンする。", "meaning": "考えを出す", "options": ["拡張", "省く", "提案", "簡単"], "answer_index": 2}, {"no": 120, "kanji": "洗う", "reading": "あらう", "sentence": "靴をアラう。", "meaning": "きれいにする", "options": ["従う", "漂う", "負う", "洗う"], "answer_index": 3}, {"no": 121, "kanji": "仮", "reading": "かり", "sentence": "カリの話。", "meaning": "正式でない", "options": ["幹", "仮", "差", "夢"], "answer_index": 1}, {"no": 122, "kanji": "証拠", "reading": "しょうこ", "sentence": "決定的なショウコ。", "meaning": "事実を示すしるし", "options": ["燃焼", "予想", "証拠", "喜ぶ"], "answer_index": 2}], "count": 60}, "C": {"A": [{"no": 123, "kanji": "反応", "reading": "はんのう", "sentence": "ハンノウする。", "meaning": "反応すること", "options": ["しょうどう", "はんのう", "かのう", "したがう"], "answer_index": 1}, {"no": 124, "kanji": "運ぶ", "reading": "はこぶ", "sentence": "交渉がハコぶ。", "meaning": "進む", "options": ["はこぶ", "ひたい", "あそぶ", "よろこぶ"], "answer_index": 0}, {"no": 125, "kanji": "魅力", "reading": "みりょく", "sentence": "ミリョク的。", "meaning": "心ひかれる力", "options": ["けっきょく", "しゅうしょく", "こころよく", "みりょく"], "answer_index": 3}, {"no": 126, "kanji": "浅い", "reading": "あさい", "sentence": "日がアサい。", "meaning": "深さや経験が少ない", "options": ["あさい", "しょうめい", "しせい", "きかい"], "answer_index": 0}, {"no": 127, "kanji": "危険", "reading": "きけん", "sentence": "キケンを察知。", "meaning": "あぶないこと", "options": ["ゆうびん", "きけん", "じょうけん", "けいけん"], "answer_index": 1}, {"no": 128, "kanji": "簡単", "reading": "かんたん", "sentence": "カンタンな問題。", "meaning": "やさしい", "options": ["じょうけん", "かんたん", "こんらん", "きょくたん"], "answer_index": 1}, {"no": 129, "kanji": "混乱", "reading": "こんらん", "sentence": "コンランが生じる。", "meaning": "入りみだれる", "options": ["せきにん", "こんらん", "さいばん", "はんだん"], "answer_index": 1}, {"no": 130, "kanji": "差", "reading": "さ", "sentence": "サをつけて勝利。", "meaning": "ちがい", "options": ["ふる", "かんご", "そうさ", "さ"], "answer_index": 3}, {"no": 131, "kanji": "反らす", "reading": "そらす", "sentence": "体を後ろにソらす。", "meaning": "曲げる、向きをかえる", "options": ["くらす", "そらす", "たがやす", "おこす"], "answer_index": 1}, {"no": 132, "kanji": "複雑", "reading": "ふくざつ", "sentence": "フクザツな説明書。", "meaning": "入りくんでいる", "options": ["しょうとつ", "みっせつ", "めんみつ", "ふくざつ"], "answer_index": 3}, {"no": 133, "kanji": "衝動", "reading": "しょうどう", "sentence": "ショウドウ買い。", "meaning": "急にわきおこる気持ち", "options": ["あらう", "たいしょう", "しょうどう", "ひりょう"], "answer_index": 2}, {"no": 134, "kanji": "勤勉", "reading": "きんべん", "sentence": "キンベンである。", "meaning": "まじめに励む", "options": ["しゅんかん", "いさん", "きんべん", "おんだん"], "answer_index": 2}, {"no": 135, "kanji": "裁判", "reading": "さいばん", "sentence": "サイバンを傍聴。", "meaning": "正しいか判断する", "options": ["こんかん", "きんべん", "さいばん", "ていあん"], "answer_index": 2}, {"no": 136, "kanji": "提唱", "reading": "ていしょう", "sentence": "新説をテイショウ。", "meaning": "考えをとなえる", "options": ["こしょう", "ていしょう", "ひりょう", "きんちょう"], "answer_index": 1}, {"no": 137, "kanji": "処理", "reading": "しょり", "sentence": "ショリ能力。", "meaning": "始末する", "options": ["べんり", "かり", "しょり", "やくわり"], "answer_index": 2}, {"no": 138, "kanji": "故障", "reading": "こしょう", "sentence": "コショウした車。", "meaning": "こわれる", "options": ["とうじょう", "かくちょう", "こしょう", "たいしょう"], "answer_index": 2}, {"no": 139, "kanji": "遺産", "reading": "いさん", "sentence": "世界イサン。", "meaning": "受けつがれた財産", "options": ["いさん", "はんだん", "きょくたん", "ていあん"], "answer_index": 0}, {"no": 140, "kanji": "拡張", "reading": "かくちょう", "sentence": "店舗のカクチョウ。", "meaning": "広げる", "options": ["かくちょう", "ねんしょう", "たいしょう", "ていきょう"], "answer_index": 0}, {"no": 141, "kanji": "操作", "reading": "そうさ", "sentence": "ハンドルをソウサ。", "meaning": "あつかう", "options": ["さ", "よゆう", "べんり", "そうさ"], "answer_index": 3}, {"no": 142, "kanji": "難しい", "reading": "むずかしい", "sentence": "ムズカしい問題。", "meaning": "むずかしい", "options": ["はげしい", "むずかしい", "なつかしい", "きびしい"], "answer_index": 1}, {"no": 143, "kanji": "肥料", "reading": "ひりょう", "sentence": "ヒリョウをやる。", "meaning": "土の栄養", "options": ["たいしょう", "とうじょう", "ひりょう", "ひひょう"], "answer_index": 2}, {"no": 144, "kanji": "演奏", "reading": "えんそう", "sentence": "エンソウを聴く。", "meaning": "楽器をならす", "options": ["よそう", "そうぞう", "とうじょう", "えんそう"], "answer_index": 3}, {"no": 145, "kanji": "備える", "reading": "そなえる", "sentence": "試験にソナえる。", "meaning": "用意する", "options": ["こえる", "そなえる", "ささえる", "ふる"], "answer_index": 1}, {"no": 146, "kanji": "暮らす", "reading": "くらす", "sentence": "クらし向き。", "meaning": "生活する", "options": ["そらす", "たがやす", "くらす", "ゆるす"], "answer_index": 2}, {"no": 147, "kanji": "起こす", "reading": "おこす", "sentence": "妹をオこす。", "meaning": "目をさまさせる", "options": ["くらす", "たがやす", "ついやす", "おこす"], "answer_index": 3}, {"no": 148, "kanji": "責任", "reading": "せきにん", "sentence": "セキニン感。", "meaning": "果たすべき務め", "options": ["よういん", "せきにん", "せんもん", "じょうけん"], "answer_index": 1}, {"no": 149, "kanji": "約束", "reading": "やくそく", "sentence": "ヤクソクの時刻。", "meaning": "前もって決めること", "options": ["こころよく", "やくそく", "よそく", "きそく"], "answer_index": 1}, {"no": 150, "kanji": "昔", "reading": "むかし", "sentence": "ムカシからの街並み。", "meaning": "むかし", "options": ["かんきょう", "くろう", "むかし", "ざっし"], "answer_index": 2}, {"no": 151, "kanji": "結局", "reading": "けっきょく", "sentence": "ケッキョク失敗。", "meaning": "最終的に", "options": ["みりょく", "しゅうしょく", "まねく", "けっきょく"], "answer_index": 3}, {"no": 152, "kanji": "予想", "reading": "よそう", "sentence": "ヨソウしない結末。", "meaning": "前もって考える", "options": ["えんそう", "したがう", "こきゅう", "よそう"], "answer_index": 3}, {"no": 153, "kanji": "追って", "reading": "おって", "sentence": "順をオって話す。", "meaning": "あとを追って、順に", "options": ["ひたい", "おって", "はっき", "そらす"], "answer_index": 1}, {"no": 154, "kanji": "遊ぶ", "reading": "あそぶ", "sentence": "アソんで暮らす。", "meaning": "あそぶ", "options": ["さいばい", "はこぶ", "よろこぶ", "あそぶ"], "answer_index": 3}, {"no": 155, "kanji": "幹", "reading": "みき", "sentence": "木のミキ。", "meaning": "木の幹", "options": ["りょういき", "みき", "はっき", "こうせき"], "answer_index": 1}, {"no": 156, "kanji": "機会", "reading": "きかい", "sentence": "キカイを与える。", "meaning": "チャンス", "options": ["しゅるい", "ようい", "きかい", "しっぱい"], "answer_index": 2}, {"no": 157, "kanji": "固い", "reading": "かたい", "sentence": "団結はカタい。", "meaning": "しっかりしている", "options": ["しょうたい", "かたい", "ひたい", "ぜったい"], "answer_index": 1}, {"no": 158, "kanji": "冷める", "reading": "さめる", "sentence": "興奮がサめる。", "meaning": "熱が下がる", "options": ["みとめる", "つげる", "さめる", "あずける"], "answer_index": 2}, {"no": 159, "kanji": "磁石", "reading": "じしゃく", "sentence": "ジシャクで集める。", "meaning": "磁気のある物", "options": ["やくそく", "とどく", "じしゃく", "おうふく"], "answer_index": 2}, {"no": 160, "kanji": "歓迎", "reading": "かんげい", "sentence": "カンゲイ会。", "meaning": "心からよろこんで迎える", "options": ["なつかしい", "むずかしい", "かんげい", "ひめい"], "answer_index": 2}, {"no": 161, "kanji": "栽培", "reading": "さいばい", "sentence": "穀物をサイバイ。", "meaning": "植物を育てる", "options": ["しゅうい", "ぜったい", "なつかしい", "さいばい"], "answer_index": 3}, {"no": 162, "kanji": "瞬間", "reading": "しゅんかん", "sentence": "このシュンカン。", "meaning": "ほんの一瞬", "options": ["こんかん", "さいばん", "しゅんかん", "きけん"], "answer_index": 2}, {"no": 163, "kanji": "領域", "reading": "りょういき", "sentence": "他国のリョウイキ。", "meaning": "範囲、なわばり", "options": ["してき", "はっき", "ぼうえき", "りょういき"], "answer_index": 3}, {"no": 164, "kanji": "呼吸", "reading": "こきゅう", "sentence": "コキュウを整える。", "meaning": "息をすること", "options": ["こきゅう", "ひろう", "そうじゅう", "ふきゅう"], "answer_index": 0}, {"no": 165, "kanji": "資格", "reading": "しかく", "sentence": "シカクがない。", "meaning": "ある身分・条件", "options": ["しかく", "へいまく", "みりょく", "しゅうしょく"], "answer_index": 0}, {"no": 166, "kanji": "失敗", "reading": "しっぱい", "sentence": "シッパイは成功のもと。", "meaning": "うまくいかないこと", "options": ["ぜったい", "たいざい", "さいばい", "しっぱい"], "answer_index": 3}, {"no": 167, "kanji": "燃焼", "reading": "ねんしょう", "sentence": "不完全ネンショウ。", "meaning": "燃えること", "options": ["こしょう", "かくちょう", "ねんしょう", "たいしょう"], "answer_index": 2}, {"no": 168, "kanji": "発展", "reading": "はってん", "sentence": "ハッテン的な内容。", "meaning": "のびひろがる", "options": ["はってん", "ぐうぜん", "はんだん", "せんもん"], "answer_index": 0}, {"no": 169, "kanji": "要因", "reading": "よういん", "sentence": "事故のヨウイン。", "meaning": "主な原因", "options": ["しゅんかん", "せきにん", "よういん", "ていあん"], "answer_index": 2}, {"no": 170, "kanji": "閉幕", "reading": "へいまく", "sentence": "大会がヘイマク。", "meaning": "終わる", "options": ["きそく", "のぞく", "へいまく", "さんさく"], "answer_index": 2}, {"no": 171, "kanji": "絶対", "reading": "ぜったい", "sentence": "ゼッタイに間違いない。", "meaning": "必ず", "options": ["ぜったい", "かたい", "ひたい", "しょうたい"], "answer_index": 0}, {"no": 172, "kanji": "懐かしい", "reading": "なつかしい", "sentence": "ふるさとがナツカしい。", "meaning": "なつかしい", "options": ["むずかしい", "はげしい", "きびしい", "なつかしい"], "answer_index": 3}, {"no": 173, "kanji": "避ける", "reading": "さける", "sentence": "サけて通れない。", "meaning": "よける", "options": ["こころみる", "にる", "さける", "あずける"], "answer_index": 2}, {"no": 174, "kanji": "衝突", "reading": "しょうとつ", "sentence": "意見がショウトツ。", "meaning": "ぶつかる", "options": ["かんさつ", "しょうとつ", "ふくざつ", "みっせつ"], "answer_index": 1}, {"no": 175, "kanji": "緊張", "reading": "きんちょう", "sentence": "キンチョウする。", "meaning": "張りつめる", "options": ["かくちょう", "きんちょう", "ていきょう", "かんきょう"], "answer_index": 1}, {"no": 176, "kanji": "余裕", "reading": "よゆう", "sentence": "ヨユウをもつ。", "meaning": "ゆとり", "options": ["よゆう", "きんちょう", "よそう", "ひひょう"], "answer_index": 0}, {"no": 177, "kanji": "対照", "reading": "たいしょう", "sentence": "原文とタイショウ。", "meaning": "比べあわせる", "options": ["ひひょう", "たいしょう", "ていきょう", "かくちょう"], "answer_index": 1}, {"no": 178, "kanji": "滞在", "reading": "たいざい", "sentence": "三日間タイザイ。", "meaning": "とどまる", "options": ["たいざい", "そんざい", "おさない", "さいばい"], "answer_index": 0}, {"no": 179, "kanji": "偶然", "reading": "ぐうぜん", "sentence": "グウゼン出会った。", "meaning": "思いがけず", "options": ["ぐうぜん", "きけん", "しげん", "かんたん"], "answer_index": 0}, {"no": 180, "kanji": "発揮", "reading": "はっき", "sentence": "実力をハッキ。", "meaning": "ちからを出す", "options": ["はっき", "りょういき", "ぼうえき", "みき"], "answer_index": 0}, {"no": 181, "kanji": "環境", "reading": "かんきょう", "sentence": "カンキョウに左右される。", "meaning": "まわりの状況", "options": ["かんきょう", "ひひょう", "かくちょう", "たいしょう"], "answer_index": 0}, {"no": 182, "kanji": "普及", "reading": "ふきゅう", "sentence": "自動車がフキュウ。", "meaning": "広まる", "options": ["こきゅう", "とうじょう", "ふきゅう", "そうじゅう"], "answer_index": 2}, {"no": 183, "kanji": "極端", "reading": "きょくたん", "sentence": "キョクタンに遅い。", "meaning": "片寄っている", "options": ["じょうけん", "きょくたん", "けいけん", "かんたん"], "answer_index": 1}, {"no": 184, "kanji": "維持", "reading": "いじ", "sentence": "現状イジ。", "meaning": "保ちつづける", "options": ["みちびく", "かのう", "いじ", "すじ"], "answer_index": 2}, {"no": 185, "kanji": "抵抗", "reading": "ていこう", "sentence": "テイコウを感じる。", "meaning": "さからう", "options": ["ちょぞう", "よそう", "あらう", "ていこう"], "answer_index": 3}], "C": [{"no": 123, "kanji": "反応", "reading": "はんのう", "sentence": "ハンノウする。", "meaning": "反応すること", "options": ["前もって決めること", "役を行う", "反応すること", "いたみを感じる"], "answer_index": 2}, {"no": 124, "kanji": "運ぶ", "reading": "はこぶ", "sentence": "交渉がハコぶ。", "meaning": "進む", "options": ["惑星をまわるもの", "候補者", "進む", "まちがいない"], "answer_index": 2}, {"no": 125, "kanji": "魅力", "reading": "みりょく", "sentence": "ミリョク的。", "meaning": "心ひかれる力", "options": ["心ひかれる力", "引き連れる", "おどろきの声", "現れる、出てくる"], "answer_index": 0}, {"no": 126, "kanji": "浅い", "reading": "あさい", "sentence": "日がアサい。", "meaning": "深さや経験が少ない", "options": ["むずかしい", "足りないところを足す", "深さや経験が少ない", "笑った顔"], "answer_index": 2}, {"no": 127, "kanji": "危険", "reading": "きけん", "sentence": "キケンを察知。", "meaning": "あぶないこと", "options": ["息をすること", "あぶないこと", "目標とするもの", "使ってなくす"], "answer_index": 1}, {"no": 128, "kanji": "簡単", "reading": "かんたん", "sentence": "カンタンな問題。", "meaning": "やさしい", "options": ["話のつながり", "やさしい", "とりさる", "強くはげしい"], "answer_index": 1}, {"no": 129, "kanji": "混乱", "reading": "こんらん", "sentence": "コンランが生じる。", "meaning": "入りみだれる", "options": ["入りみだれる", "受け入れる", "苦い味", "気持ちよく"], "answer_index": 0}, {"no": 130, "kanji": "差", "reading": "さ", "sentence": "サをつけて勝利。", "meaning": "ちがい", "options": ["反応すること", "ちがい", "ちがう", "ねうちを判断する"], "answer_index": 1}, {"no": 131, "kanji": "反らす", "reading": "そらす", "sentence": "体を後ろにソらす。", "meaning": "曲げる、向きをかえる", "options": ["そっくりである", "チャンス", "曲げる、向きをかえる", "広げる"], "answer_index": 2}, {"no": 132, "kanji": "複雑", "reading": "ふくざつ", "sentence": "フクザツな説明書。", "meaning": "入りくんでいる", "options": ["落ちているものを取る", "よびよせる", "とどく、行きつく", "入りくんでいる"], "answer_index": 3}, {"no": 133, "kanji": "衝動", "reading": "しょうどう", "sentence": "ショウドウ買い。", "meaning": "急にわきおこる気持ち", "options": ["急にわきおこる気持ち", "気持ちよく", "片寄っている", "なかま分け"], "answer_index": 0}, {"no": 134, "kanji": "勤勉", "reading": "きんべん", "sentence": "キンベンである。", "meaning": "まじめに励む", "options": ["まじめに励む", "つらい思い", "候補者", "むかし"], "answer_index": 0}, {"no": 135, "kanji": "裁判", "reading": "さいばん", "sentence": "サイバンを傍聴。", "meaning": "正しいか判断する", "options": ["正しいか判断する", "全身に受ける", "曲げる、向きをかえる", "息をすること"], "answer_index": 0}, {"no": 136, "kanji": "提唱", "reading": "ていしょう", "sentence": "新説をテイショウ。", "meaning": "考えをとなえる", "options": ["体の構え", "決まり", "考えをとなえる", "心からよろこんで迎える"], "answer_index": 2}, {"no": 137, "kanji": "処理", "reading": "しょり", "sentence": "ショリ能力。", "meaning": "始末する", "options": ["始末する", "きれいにする", "体の構え", "曲げる、向きをかえる"], "answer_index": 0}, {"no": 138, "kanji": "故障", "reading": "こしょう", "sentence": "コショウした車。", "meaning": "こわれる", "options": ["心ひかれる力", "こわれる", "つらい", "胸のあたり"], "answer_index": 1}, {"no": 139, "kanji": "遺産", "reading": "いさん", "sentence": "世界イサン。", "meaning": "受けつがれた財産", "options": ["受けつがれた財産", "おでこ", "全身に受ける", "短くまとまっている"], "answer_index": 0}, {"no": 140, "kanji": "拡張", "reading": "かくちょう", "sentence": "店舗のカクチョウ。", "meaning": "広げる", "options": ["広げる", "つらい", "下にさげる", "決まり"], "answer_index": 0}, {"no": 141, "kanji": "操作", "reading": "そうさ", "sentence": "ハンドルをソウサ。", "meaning": "あつかう", "options": ["なつかしい", "あつかう", "あぶない", "ためしにやってみる"], "answer_index": 1}, {"no": 142, "kanji": "難しい", "reading": "むずかしい", "sentence": "ムズカしい問題。", "meaning": "むずかしい", "options": ["範囲、なわばり", "むずかしい", "ある分野に絞った", "ていねいでくわしい"], "answer_index": 1}, {"no": 143, "kanji": "肥料", "reading": "ひりょう", "sentence": "ヒリョウをやる。", "meaning": "土の栄養", "options": ["知らせる", "国と国との取引", "土の栄養", "息を中に入れる"], "answer_index": 2}, {"no": 144, "kanji": "演奏", "reading": "えんそう", "sentence": "エンソウを聴く。", "meaning": "楽器をならす", "options": ["実際にしてみたこと", "古くからのならわし", "とりさる", "楽器をならす"], "answer_index": 3}, {"no": 145, "kanji": "備える", "reading": "そなえる", "sentence": "試験にソナえる。", "meaning": "用意する", "options": ["いらなくして手ばなす", "生活する", "用意する", "苦い味"], "answer_index": 2}, {"no": 146, "kanji": "暮らす", "reading": "くらす", "sentence": "クらし向き。", "meaning": "生活する", "options": ["笑った顔", "始末する", "生活する", "深さや経験が少ない"], "answer_index": 2}, {"no": 147, "kanji": "起こす", "reading": "おこす", "sentence": "妹をオこす。", "meaning": "目をさまさせる", "options": ["知らせる", "とどく、行きつく", "周りを取りまく", "目をさまさせる"], "answer_index": 3}, {"no": 148, "kanji": "責任", "reading": "せきにん", "sentence": "セキニン感。", "meaning": "果たすべき務め", "options": ["入りくんでいる", "必ず", "心からよろこんで迎える", "果たすべき務め"], "answer_index": 3}, {"no": 149, "kanji": "約束", "reading": "やくそく", "sentence": "ヤクソクの時刻。", "meaning": "前もって決めること", "options": ["燃えること", "息をすること", "おどろきの声", "前もって決めること"], "answer_index": 3}, {"no": 150, "kanji": "昔", "reading": "むかし", "sentence": "ムカシからの街並み。", "meaning": "むかし", "options": ["受け持つ仕事", "むかし", "むずかしい", "気体になる"], "answer_index": 1}, {"no": 151, "kanji": "結局", "reading": "けっきょく", "sentence": "ケッキョク失敗。", "meaning": "最終的に", "options": ["最終的に", "病人の世話", "保管をたのむ", "都合がよい"], "answer_index": 0}, {"no": 152, "kanji": "予想", "reading": "よそう", "sentence": "ヨソウしない結末。", "meaning": "前もって考える", "options": ["あやしむ", "近づける、向ける", "前もって考える", "あとを追って、順に"], "answer_index": 2}, {"no": 153, "kanji": "追って", "reading": "おって", "sentence": "順をオって話す。", "meaning": "あとを追って、順に", "options": ["あとを追って、順に", "前もって決めること", "燃えること", "息を中に入れる"], "answer_index": 0}, {"no": 154, "kanji": "遊ぶ", "reading": "あそぶ", "sentence": "アソんで暮らす。", "meaning": "あそぶ", "options": ["笑った顔", "あそぶ", "きれいにする", "比べあわせる"], "answer_index": 1}, {"no": 155, "kanji": "幹", "reading": "みき", "sentence": "木のミキ。", "meaning": "木の幹", "options": ["見事な", "木の幹", "下から押さえる", "生活する"], "answer_index": 1}, {"no": 156, "kanji": "機会", "reading": "きかい", "sentence": "キカイを与える。", "meaning": "チャンス", "options": ["チャンス", "最終的に", "言うとおりにする", "土の栄養"], "answer_index": 0}, {"no": 157, "kanji": "固い", "reading": "かたい", "sentence": "団結はカタい。", "meaning": "しっかりしている", "options": ["短くまとまっている", "しっかりしている", "終わらせる", "生活する"], "answer_index": 1}, {"no": 158, "kanji": "冷める", "reading": "さめる", "sentence": "興奮がサめる。", "meaning": "熱が下がる", "options": ["熱が下がる", "果たすべき務め", "のびひろがる", "ちがい"], "answer_index": 0}, {"no": 159, "kanji": "磁石", "reading": "じしゃく", "sentence": "ジシャクで集める。", "meaning": "磁気のある物", "options": ["ある身分・条件", "頭の中で思いえがく", "あつかう", "磁気のある物"], "answer_index": 3}, {"no": 160, "kanji": "歓迎", "reading": "かんげい", "sentence": "カンゲイ会。", "meaning": "心からよろこんで迎える", "options": ["役を行う", "上に積み上げる", "燃えること", "心からよろこんで迎える"], "answer_index": 3}, {"no": 161, "kanji": "栽培", "reading": "さいばい", "sentence": "穀物をサイバイ。", "meaning": "植物を育てる", "options": ["ためておく", "植物を育てる", "編み物をする", "あること"], "answer_index": 1}, {"no": 162, "kanji": "瞬間", "reading": "しゅんかん", "sentence": "このシュンカン。", "meaning": "ほんの一瞬", "options": ["おでこ", "周りを取りまく", "ほんの一瞬", "張りつめる"], "answer_index": 2}, {"no": 163, "kanji": "領域", "reading": "りょういき", "sentence": "他国のリョウイキ。", "meaning": "範囲、なわばり", "options": ["正式でない", "ほんの一瞬", "範囲、なわばり", "受け持つ仕事"], "answer_index": 2}, {"no": 164, "kanji": "呼吸", "reading": "こきゅう", "sentence": "コキュウを整える。", "meaning": "息をすること", "options": ["息をすること", "燃えること", "とりさる", "ためておく"], "answer_index": 0}, {"no": 165, "kanji": "資格", "reading": "しかく", "sentence": "シカクがない。", "meaning": "ある身分・条件", "options": ["磁気のある物", "ある身分・条件", "つらい思い", "保管をたのむ"], "answer_index": 1}, {"no": 166, "kanji": "失敗", "reading": "しっぱい", "sentence": "シッパイは成功のもと。", "meaning": "うまくいかないこと", "options": ["体の構え", "うまくいかないこと", "明るくほがらか", "あぶないこと"], "answer_index": 1}, {"no": 167, "kanji": "燃焼", "reading": "ねんしょう", "sentence": "不完全ネンショウ。", "meaning": "燃えること", "options": ["燃えること", "入りみだれる", "前もって決めること", "むかし"], "answer_index": 0}, {"no": 168, "kanji": "発展", "reading": "はってん", "sentence": "ハッテン的な内容。", "meaning": "のびひろがる", "options": ["主な原因", "のびひろがる", "なかま分け", "熱が下がる"], "answer_index": 1}, {"no": 169, "kanji": "要因", "reading": "よういん", "sentence": "事故のヨウイン。", "meaning": "主な原因", "options": ["小さい、子どもの", "主な原因", "やさしい", "そっくりである"], "answer_index": 1}, {"no": 170, "kanji": "閉幕", "reading": "へいまく", "sentence": "大会がヘイマク。", "meaning": "終わる", "options": ["終わる", "終わらせる", "できること", "目標とするもの"], "answer_index": 0}, {"no": 171, "kanji": "絶対", "reading": "ぜったい", "sentence": "ゼッタイに間違いない。", "meaning": "必ず", "options": ["教えて連れていく", "受け持つ仕事", "小さい、子どもの", "必ず"], "answer_index": 3}, {"no": 172, "kanji": "懐かしい", "reading": "なつかしい", "sentence": "ふるさとがナツカしい。", "meaning": "なつかしい", "options": ["ぶらぶら歩く", "なつかしい", "正しいか判断する", "範囲、なわばり"], "answer_index": 1}, {"no": 173, "kanji": "避ける", "reading": "さける", "sentence": "サけて通れない。", "meaning": "よける", "options": ["全身に受ける", "せおう、ひきうける", "よける", "あぶない"], "answer_index": 2}, {"no": 174, "kanji": "衝突", "reading": "しょうとつ", "sentence": "意見がショウトツ。", "meaning": "ぶつかる", "options": ["あつかう", "こわれる", "ためておく", "ぶつかる"], "answer_index": 3}, {"no": 175, "kanji": "緊張", "reading": "きんちょう", "sentence": "キンチョウする。", "meaning": "張りつめる", "options": ["頭の中で思いえがく", "決めること", "範囲、なわばり", "張りつめる"], "answer_index": 3}, {"no": 176, "kanji": "余裕", "reading": "よゆう", "sentence": "ヨユウをもつ。", "meaning": "ゆとり", "options": ["目標とするもの", "ねうちを判断する", "とりのぞく", "ゆとり"], "answer_index": 3}, {"no": 177, "kanji": "対照", "reading": "たいしょう", "sentence": "原文とタイショウ。", "meaning": "比べあわせる", "options": ["ゆとり", "つらい", "手を合わせる", "比べあわせる"], "answer_index": 3}, {"no": 178, "kanji": "滞在", "reading": "たいざい", "sentence": "三日間タイザイ。", "meaning": "とどまる", "options": ["仕事につく", "あること", "とどまる", "広まる"], "answer_index": 2}, {"no": 179, "kanji": "偶然", "reading": "ぐうぜん", "sentence": "グウゼン出会った。", "meaning": "思いがけず", "options": ["惑星をまわるもの", "思いがけず", "頭の中で思いえがく", "週刊・月刊の本"], "answer_index": 1}, {"no": 180, "kanji": "発揮", "reading": "はっき", "sentence": "実力をハッキ。", "meaning": "ちからを出す", "options": ["とどく、行きつく", "ちからを出す", "うまく動かす", "古くからのならわし"], "answer_index": 1}, {"no": 181, "kanji": "環境", "reading": "かんきょう", "sentence": "カンキョウに左右される。", "meaning": "まわりの状況", "options": ["まわりの状況", "おもしろさへの関心", "とりのぞく", "ふわふわ浮かぶ"], "answer_index": 0}, {"no": 182, "kanji": "普及", "reading": "ふきゅう", "sentence": "自動車がフキュウ。", "meaning": "広まる", "options": ["広まる", "あぶない", "息を中に入れる", "とどまる"], "answer_index": 0}, {"no": 183, "kanji": "極端", "reading": "きょくたん", "sentence": "キョクタンに遅い。", "meaning": "片寄っている", "options": ["あとまで残る", "広まる", "落ちているものを取る", "片寄っている"], "answer_index": 3}, {"no": 184, "kanji": "維持", "reading": "いじ", "sentence": "現状イジ。", "meaning": "保ちつづける", "options": ["広まる", "せおう、ひきうける", "いらなくして手ばなす", "保ちつづける"], "answer_index": 3}, {"no": 185, "kanji": "抵抗", "reading": "ていこう", "sentence": "テイコウを感じる。", "meaning": "さからう", "options": ["古くからのならわし", "ためておく", "あとまで残る", "さからう"], "answer_index": 3}], "B": [{"no": 123, "kanji": "反応", "reading": "はんのう", "sentence": "ハンノウする。", "meaning": "反応すること", "options": ["対照", "反応", "危険", "密接"], "answer_index": 1}, {"no": 124, "kanji": "運ぶ", "reading": "はこぶ", "sentence": "交渉がハコぶ。", "meaning": "進む", "options": ["普及", "遊ぶ", "喜ぶ", "運ぶ"], "answer_index": 3}, {"no": 125, "kanji": "魅力", "reading": "みりょく", "sentence": "ミリョク的。", "meaning": "心ひかれる力", "options": ["魅力", "領域", "反応", "衝動"], "answer_index": 0}, {"no": 126, "kanji": "浅い", "reading": "あさい", "sentence": "日がアサい。", "meaning": "深さや経験が少ない", "options": ["固い", "苦い", "浅い", "幼い"], "answer_index": 2}, {"no": 127, "kanji": "危険", "reading": "きけん", "sentence": "キケンを察知。", "meaning": "あぶないこと", "options": ["降る", "規則", "危険", "裁判"], "answer_index": 2}, {"no": 128, "kanji": "簡単", "reading": "かんたん", "sentence": "カンタンな問題。", "meaning": "やさしい", "options": ["衝動", "囲む", "省く", "簡単"], "answer_index": 3}, {"no": 129, "kanji": "混乱", "reading": "こんらん", "sentence": "コンランが生じる。", "meaning": "入りみだれる", "options": ["従う", "専門", "混乱", "綿密"], "answer_index": 2}, {"no": 130, "kanji": "差", "reading": "さ", "sentence": "サをつけて勝利。", "meaning": "ちがい", "options": ["差", "夢", "幹", "仮"], "answer_index": 0}, {"no": 131, "kanji": "反らす", "reading": "そらす", "sentence": "体を後ろにソらす。", "meaning": "曲げる、向きをかえる", "options": ["追って", "冷める", "暮らす", "反らす"], "answer_index": 3}, {"no": 132, "kanji": "複雑", "reading": "ふくざつ", "sentence": "フクザツな説明書。", "meaning": "入りくんでいる", "options": ["複雑", "耕す", "囲む", "従う"], "answer_index": 0}, {"no": 133, "kanji": "衝動", "reading": "しょうどう", "sentence": "ショウドウ買い。", "meaning": "急にわきおこる気持ち", "options": ["衝動", "幼い", "環境", "規則"], "answer_index": 0}, {"no": 134, "kanji": "勤勉", "reading": "きんべん", "sentence": "キンベンである。", "meaning": "まじめに励む", "options": ["危険", "負う", "刻む", "勤勉"], "answer_index": 3}, {"no": 135, "kanji": "裁判", "reading": "さいばん", "sentence": "サイバンを傍聴。", "meaning": "正しいか判断する", "options": ["瞬間", "疑う", "裁判", "似る"], "answer_index": 2}, {"no": 136, "kanji": "提唱", "reading": "ていしょう", "sentence": "新説をテイショウ。", "meaning": "考えをとなえる", "options": ["固い", "普及", "提唱", "漂う"], "answer_index": 2}, {"no": 137, "kanji": "処理", "reading": "しょり", "sentence": "ショリ能力。", "meaning": "始末する", "options": ["立派", "刻む", "普及", "処理"], "answer_index": 3}, {"no": 138, "kanji": "故障", "reading": "こしょう", "sentence": "コショウした車。", "meaning": "こわれる", "options": ["納得", "故障", "評価", "誤り"], "answer_index": 1}, {"no": 139, "kanji": "遺産", "reading": "いさん", "sentence": "世界イサン。", "meaning": "受けつがれた財産", "options": ["遺産", "容易", "役割", "提供"], "answer_index": 0}, {"no": 140, "kanji": "拡張", "reading": "かくちょう", "sentence": "店舗のカクチョウ。", "meaning": "広げる", "options": ["遺産", "周囲", "拡張", "苦い"], "answer_index": 2}, {"no": 141, "kanji": "操作", "reading": "そうさ", "sentence": "ハンドルをソウサ。", "meaning": "あつかう", "options": ["苦い", "失敗", "温暖", "操作"], "answer_index": 3}, {"no": 142, "kanji": "難しい", "reading": "むずかしい", "sentence": "ムズカしい問題。", "meaning": "むずかしい", "options": ["厳しい", "率いる", "難しい", "激しい"], "answer_index": 2}, {"no": 143, "kanji": "肥料", "reading": "ひりょう", "sentence": "ヒリョウをやる。", "meaning": "土の栄養", "options": ["肥料", "登場", "喜ぶ", "衝突"], "answer_index": 0}, {"no": 144, "kanji": "演奏", "reading": "えんそう", "sentence": "エンソウを聴く。", "meaning": "楽器をならす", "options": ["演奏", "裁判", "証拠", "運ぶ"], "answer_index": 0}, {"no": 145, "kanji": "備える", "reading": "そなえる", "sentence": "試験にソナえる。", "meaning": "用意する", "options": ["備える", "肥える", "起こす", "支える"], "answer_index": 0}, {"no": 146, "kanji": "暮らす", "reading": "くらす", "sentence": "クらし向き。", "meaning": "生活する", "options": ["冷める", "反らす", "暮らす", "預ける"], "answer_index": 2}, {"no": 147, "kanji": "起こす", "reading": "おこす", "sentence": "妹をオこす。", "meaning": "目をさまさせる", "options": ["起こす", "費やす", "激しい", "演じる"], "answer_index": 0}, {"no": 148, "kanji": "責任", "reading": "せきにん", "sentence": "セキニン感。", "meaning": "果たすべき務め", "options": ["責任", "往復", "専門", "混乱"], "answer_index": 0}, {"no": 149, "kanji": "約束", "reading": "やくそく", "sentence": "ヤクソクの時刻。", "meaning": "前もって決めること", "options": ["約束", "負う", "衛星", "可能"], "answer_index": 0}, {"no": 150, "kanji": "昔", "reading": "むかし", "sentence": "ムカシからの街並み。", "meaning": "むかし", "options": ["筋", "昔", "差", "額"], "answer_index": 1}, {"no": 151, "kanji": "結局", "reading": "けっきょく", "sentence": "ケッキョク失敗。", "meaning": "最終的に", "options": ["簡単", "磁石", "混乱", "結局"], "answer_index": 3}, {"no": 152, "kanji": "予想", "reading": "よそう", "sentence": "ヨソウしない結末。", "meaning": "前もって考える", "options": ["困る", "予想", "編む", "興味"], "answer_index": 1}, {"no": 153, "kanji": "追って", "reading": "おって", "sentence": "順をオって話す。", "meaning": "あとを追って、順に", "options": ["追って", "支える", "告げる", "冷める"], "answer_index": 0}, {"no": 154, "kanji": "遊ぶ", "reading": "あそぶ", "sentence": "アソんで暮らす。", "meaning": "あそぶ", "options": ["誤り", "喜ぶ", "運ぶ", "遊ぶ"], "answer_index": 3}, {"no": 155, "kanji": "幹", "reading": "みき", "sentence": "木のミキ。", "meaning": "木の幹", "options": ["筋", "額", "昔", "幹"], "answer_index": 3}, {"no": 156, "kanji": "機会", "reading": "きかい", "sentence": "キカイを与える。", "meaning": "チャンス", "options": ["便利", "拝む", "機会", "遺産"], "answer_index": 2}, {"no": 157, "kanji": "固い", "reading": "かたい", "sentence": "団結はカタい。", "meaning": "しっかりしている", "options": ["幼い", "固い", "浅い", "苦い"], "answer_index": 1}, {"no": 158, "kanji": "冷める", "reading": "さめる", "sentence": "興奮がサめる。", "meaning": "熱が下がる", "options": ["認める", "支える", "冷める", "投げる"], "answer_index": 2}, {"no": 159, "kanji": "磁石", "reading": "じしゃく", "sentence": "ジシャクで集める。", "meaning": "磁気のある物", "options": ["予測", "磁石", "警備", "密接"], "answer_index": 1}, {"no": 160, "kanji": "歓迎", "reading": "かんげい", "sentence": "カンゲイ会。", "meaning": "心からよろこんで迎える", "options": ["容易", "温暖", "歓迎", "評価"], "answer_index": 2}, {"no": 161, "kanji": "栽培", "reading": "さいばい", "sentence": "穀物をサイバイ。", "meaning": "植物を育てる", "options": ["燃焼", "栽培", "環境", "勤勉"], "answer_index": 1}, {"no": 162, "kanji": "瞬間", "reading": "しゅんかん", "sentence": "このシュンカン。", "meaning": "ほんの一瞬", "options": ["枚挙", "歓迎", "瞬間", "裁判"], "answer_index": 2}, {"no": 163, "kanji": "領域", "reading": "りょういき", "sentence": "他国のリョウイキ。", "meaning": "範囲、なわばり", "options": ["候補", "領域", "指摘", "吸う"], "answer_index": 1}, {"no": 164, "kanji": "呼吸", "reading": "こきゅう", "sentence": "コキュウを整える。", "meaning": "息をすること", "options": ["呼吸", "危険", "郵便", "洗う"], "answer_index": 0}, {"no": 165, "kanji": "資格", "reading": "しかく", "sentence": "シカクがない。", "meaning": "ある身分・条件", "options": ["予測", "幼い", "結局", "資格"], "answer_index": 3}, {"no": 166, "kanji": "失敗", "reading": "しっぱい", "sentence": "シッパイは成功のもと。", "meaning": "うまくいかないこと", "options": ["失敗", "提供", "防ぐ", "貯蔵"], "answer_index": 0}, {"no": 167, "kanji": "燃焼", "reading": "ねんしょう", "sentence": "不完全ネンショウ。", "meaning": "燃えること", "options": ["対象", "燃焼", "絶対", "衛星"], "answer_index": 1}, {"no": 168, "kanji": "発展", "reading": "はってん", "sentence": "ハッテン的な内容。", "meaning": "のびひろがる", "options": ["刻む", "発展", "功績", "容易"], "answer_index": 1}, {"no": 169, "kanji": "要因", "reading": "よういん", "sentence": "事故のヨウイン。", "meaning": "主な原因", "options": ["拾う", "栽培", "囲む", "要因"], "answer_index": 3}, {"no": 170, "kanji": "閉幕", "reading": "へいまく", "sentence": "大会がヘイマク。", "meaning": "終わる", "options": ["証拠", "緊張", "閉幕", "種類"], "answer_index": 2}, {"no": 171, "kanji": "絶対", "reading": "ぜったい", "sentence": "ゼッタイに間違いない。", "meaning": "必ず", "options": ["領域", "絶対", "効果", "経験"], "answer_index": 1}, {"no": 172, "kanji": "懐かしい", "reading": "なつかしい", "sentence": "ふるさとがナツカしい。", "meaning": "なつかしい", "options": ["垂れる", "懐かしい", "看護", "済ませる"], "answer_index": 1}, {"no": 173, "kanji": "避ける", "reading": "さける", "sentence": "サけて通れない。", "meaning": "よける", "options": ["浴びる", "預ける", "避ける", "健やか"], "answer_index": 2}, {"no": 174, "kanji": "衝突", "reading": "しょうとつ", "sentence": "意見がショウトツ。", "meaning": "ぶつかる", "options": ["条件", "操縦", "衝突", "混乱"], "answer_index": 2}, {"no": 175, "kanji": "緊張", "reading": "きんちょう", "sentence": "キンチョウする。", "meaning": "張りつめる", "options": ["反応", "運ぶ", "規則", "緊張"], "answer_index": 3}, {"no": 176, "kanji": "余裕", "reading": "よゆう", "sentence": "ヨユウをもつ。", "meaning": "ゆとり", "options": ["余裕", "貿易", "周囲", "拝む"], "answer_index": 0}, {"no": 177, "kanji": "対照", "reading": "たいしょう", "sentence": "原文とタイショウ。", "meaning": "比べあわせる", "options": ["約束", "提供", "温暖", "対照"], "answer_index": 3}, {"no": 178, "kanji": "滞在", "reading": "たいざい", "sentence": "三日間タイザイ。", "meaning": "とどまる", "options": ["機会", "従う", "滞在", "負う"], "answer_index": 2}, {"no": 179, "kanji": "偶然", "reading": "ぐうぜん", "sentence": "グウゼン出会った。", "meaning": "思いがけず", "options": ["極端", "納得", "招待", "偶然"], "answer_index": 3}, {"no": 180, "kanji": "発揮", "reading": "はっき", "sentence": "実力をハッキ。", "meaning": "ちからを出す", "options": ["失敗", "演奏", "経験", "発揮"], "answer_index": 3}, {"no": 181, "kanji": "環境", "reading": "かんきょう", "sentence": "カンキョウに左右される。", "meaning": "まわりの状況", "options": ["維持", "環境", "簡潔", "呼吸"], "answer_index": 1}, {"no": 182, "kanji": "普及", "reading": "ふきゅう", "sentence": "自動車がフキュウ。", "meaning": "広まる", "options": ["運ぶ", "普及", "快く", "衝突"], "answer_index": 1}, {"no": 183, "kanji": "極端", "reading": "きょくたん", "sentence": "キョクタンに遅い。", "meaning": "片寄っている", "options": ["拡張", "極端", "従う", "予想"], "answer_index": 1}, {"no": 184, "kanji": "維持", "reading": "いじ", "sentence": "現状イジ。", "meaning": "保ちつづける", "options": ["提供", "維持", "存在", "固い"], "answer_index": 1}, {"no": 185, "kanji": "抵抗", "reading": "ていこう", "sentence": "テイコウを感じる。", "meaning": "さからう", "options": ["絶対", "周囲", "勤勉", "抵抗"], "answer_index": 3}], "count": 63}};
+let currentCourse = 'A';  // current rank: 'A', 'B', or 'C'
+let QUESTIONS_A = COURSES[currentCourse].A;
+let QUESTIONS_C = COURSES[currentCourse].C;
+let QUESTIONS_B = COURSES[currentCourse].B;
+
+let STEP_INFO = {};
+function buildStepInfo(){
+  STEP_INFO = {
+    A: {title: '漢字 → 読み', sub: '漢字を見て、正しい読みを選びます', icon: 'A', questions: COURSES[currentCourse].A},
+    C: {title: '文中での意味', sub: '例文を読んで、その意味を選びます', icon: 'C', questions: COURSES[currentCourse].C},
+    B: {title: '書き取り', sub: 'カタカナを正しい漢字に直します', icon: 'B', questions: COURSES[currentCourse].B}
+  };
+}
+buildStepInfo();
+
+const STORAGE_PREFIX_BASE = 'kounin-kanji07-';
+let currentStep = 'A';
+let currentQuestions = [];
+let currentIndex = 0;
+let correctCount = 0;
+let isWeakMode = false;
+
+function weakKey(step){return STORAGE_PREFIX_BASE + currentCourse + '-weak-' + step;}
+function scoreKey(step){return STORAGE_PREFIX_BASE + currentCourse + '-score-' + step;}
+
+function loadWeak(step){
+  try{return JSON.parse(localStorage.getItem(weakKey(step)) || '{}');}
+  catch(e){return {};}
+}
+function saveWeak(step, data){localStorage.setItem(weakKey(step), JSON.stringify(data));}
+
+function loadScore(step){
+  try{return JSON.parse(localStorage.getItem(scoreKey(step)) || 'null');}
+  catch(e){return null;}
+}
+function saveScore(step, correct, total){
+  localStorage.setItem(scoreKey(step), JSON.stringify({correct, total, date: Date.now()}));
+}
+
+function totalWeakCount(){
+  return ['A','C','B'].reduce((sum, s) => sum + Object.keys(loadWeak(s)).length, 0);
+}
+function updateWeakCountChip(){
+  const count = totalWeakCount();
+  const chip = document.getElementById('weak-count-chip');
+  if(count > 0){
+    chip.style.display = 'inline-block';
+    document.getElementById('weak-count').textContent = count;
+  }else{
+    chip.style.display = 'none';
+  }
+}
+
+function renderStepCards(){
+  const container = document.getElementById('step-cards');
+  let html = '';
+  ['A','C','B'].forEach(step => {
+    const info = STEP_INFO[step];
+    const score = loadScore(step);
+    const weakCount = Object.keys(loadWeak(step)).length;
+    
+    let metaHtml = '';
+    if(score){
+      const pct = Math.round(score.correct/score.total*100);
+      metaHtml += `<span class="meta-chip score">最高 ${score.correct}/${score.total} (${pct}%)</span>`;
+    }else{
+      metaHtml += `<span class="meta-chip">未挑戦</span>`;
+    }
+    if(weakCount > 0){
+      metaHtml += `<span class="meta-chip weak-chip">苦手 ${weakCount}件</span>`;
+    }
+    
+    html += `
+      <div class="step-card" data-step="${step}" onclick="startStep('${step}')">
+        <div class="step-head">
+          <div class="step-icon">${info.icon}</div>
+          <div>
+            <div class="step-title">ステップ${step}: ${info.title}</div>
+            <div class="step-sub">${info.sub}</div>
+          </div>
+        </div>
+        <div class="step-meta">${metaHtml}</div>
+        <span class="arrow">▶</span>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => switchTab(t.dataset.tab));
+});
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  if(name === 'weak') renderWeakPanel();
+  if(name === 'home'){renderStepCards(); updateWeakCountChip();}
+}
+
+function startStep(step){
+  currentStep = step;
+  isWeakMode = false;
+  currentQuestions = [...STEP_INFO[step].questions];
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function startWeakReview(step){
+  const weak = loadWeak(step);
+  const weakNos = Object.keys(weak).map(Number);
+  if(weakNos.length === 0){
+    alert('このステップの苦手カードはまだありません');
+    return;
+  }
+  currentStep = step;
+  isWeakMode = true;
+  currentQuestions = STEP_INFO[step].questions.filter(q => weakNos.includes(q.no));
+  currentIndex = 0;
+  correctCount = 0;
+  switchTab('quiz');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = currentQuestions[currentIndex];
+  const total = currentQuestions.length;
+  
+  document.getElementById('step-badge').textContent = currentStep + (isWeakMode ? ' (苦手復習)' : '');
+  document.getElementById('step-badge').className = 'step-badge ' + currentStep;
+  document.getElementById('progress-text').textContent = `問題 ${currentIndex+1} / ${total}`;
+  document.getElementById('progress-bar').style.width = (currentIndex/total*100) + '%';
+  
+  let mainDisplay = '';
+  let promptText = '';
+  let sentenceHTML = '';
+  
+  if(currentStep === 'A'){
+    promptText = '次の漢字の読みを選びなさい';
+    mainDisplay = `<div class="question-kanji">${q.kanji}<button class="speaker-btn" onclick="speak('${q.kanji}')">▶</button></div>`;
+    // For 書き取り data, sentence has katakana. Show katakana highlighted.
+    const sH = q.sentence.replace(/[\u30A0-\u30FF]+/g, m => `<span class="target">${m}</span>`);
+    const escSent = q.sentence.replace(/'/g, "\\'");
+    sentenceHTML = `<div class="question-sentence">${sH}<button class="speaker-btn" onclick="speak('${escSent}')">▶</button></div>`;
+  }else if(currentStep === 'C'){
+    promptText = '次の語の意味として最も適切なものを選びなさい';
+    // Show sentence with katakana highlighted (or kanji if originally there)
+    const sH = q.sentence.replace(/[\u30A0-\u30FF]+/g, m => `<span class="target">${m}</span>`);
+    const escSent = q.sentence.replace(/'/g, "\\'");
+    mainDisplay = `<div style="font-size:22px;margin:20px 0;line-height:1.6;color:#001858;font-weight:bold">${sH}<button class="speaker-btn" onclick="speak('${escSent}')">▶</button></div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">「<strong style="color:#c1121f">${q.kanji}</strong>(${q.reading})」の意味は?</div>`;
+  }else if(currentStep === 'B'){
+    promptText = '例文中のカタカナを正しい漢字に直しなさい';
+    // Find katakana in the sentence (sequence of katakana characters)
+    const katakanaSeq = (q.sentence.match(/[\u30A0-\u30FF]+/g) || []).join('');
+    const sH = q.sentence.replace(/[\u30A0-\u30FF]+/g, m => `<span class="katakana-target">${m}</span>`);
+    mainDisplay = `<div style="font-size:24px;margin:20px 0;line-height:1.7;color:#001858;font-weight:bold">${sH}<button class="speaker-btn" onclick="speak('${q.sentence}')">▶</button></div>`;
+    sentenceHTML = `<div style="font-size:14px;color:#5e6472">読み:「<strong style="color:#c1121f">${q.reading}</strong>」</div>`;
+  }
+  
+  const html = `
+    <div class="question-card">
+      <div class="question-num">第 ${currentIndex+1} 問</div>
+      <div class="question-prompt">${promptText}</div>
+      ${mainDisplay}
+      ${sentenceHTML}
+    </div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+  `;
+  document.getElementById('quiz-content').innerHTML = html;
+  
+  const optsDiv = document.getElementById('options');
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    const fontStyle = currentStep === 'B' ? 'font-size:22px;' : '';
+    btn.innerHTML = `<span class="label">${String.fromCharCode(65+i)}</span><span style="${fontStyle}">${opt}</span>`;
+    btn.addEventListener('click', () => answerQuestion(i));
+    optsDiv.appendChild(btn);
+  });
+}
+
+function answerQuestion(selectedIndex){
+  const q = currentQuestions[currentIndex];
+  const correct = selectedIndex === q.answer_index;
+  
+  document.querySelectorAll('.option').forEach((opt, i) => {
+    opt.disabled = true;
+    if(i === q.answer_index) opt.classList.add('correct');
+    else if(i === selectedIndex) opt.classList.add('wrong');
+  });
+  
+  const weak = loadWeak(currentStep);
+  if(correct){
+    correctCount++;
+    if(weak[q.no]){
+      weak[q.no].streak = (weak[q.no].streak || 0) + 1;
+      if(weak[q.no].streak >= 2){
+        delete weak[q.no];
+      }
+    }
+    confetti();
+  }else{
+    if(!weak[q.no]){
+      weak[q.no] = {missCount: 1, streak: 0};
+    }else{
+      weak[q.no].missCount += 1;
+      weak[q.no].streak = 0;
+    }
+  }
+  saveWeak(currentStep, weak);
+  
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback show ' + (correct ? 'correct' : 'wrong');
+  fb.innerHTML = `
+    <div class="feedback-title">${correct ? '⭕ 正解!' : '❌ 不正解'}</div>
+    <div class="feedback-content">
+      <div><span class="label">漢字:</span><strong>${q.kanji}</strong></div>
+      <div><span class="label">読み:</span><strong style="color:#c1121f">${q.reading}</strong></div>
+      <div><span class="label">意味:</span>${q.meaning}</div>
+      <div><span class="label">例文:</span>${q.sentence}</div>
+    </div>
+    <button class="next-btn" id="next-btn">${currentIndex+1 === currentQuestions.length ? '結果を見る ▶' : '次の問題 ▶'}</button>
+  `;
+  document.getElementById('next-btn').addEventListener('click', nextQuestion);
+}
+
+function nextQuestion(){
+  currentIndex++;
+  if(currentIndex >= currentQuestions.length){
+    showResult();
+  }else{
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  const total = currentQuestions.length;
+  const pct = Math.round(correctCount/total*100);
+  const stepName = STEP_INFO[currentStep].title;
+  
+  if(!isWeakMode){
+    const prev = loadScore(currentStep);
+    if(!prev || correctCount/total > prev.correct/prev.total){
+      saveScore(currentStep, correctCount, total);
+    }
+  }
+  
+  let msg;
+  if(pct === 100) msg = '🎉 パーフェクト! 全問正解です!';
+  else if(pct >= 80) msg = '👍 よくできました!';
+  else if(pct >= 60) msg = '✏ あと少し!間違えた問題を復習しよう';
+  else msg = '💪 苦手カードでくり返し練習しよう';
+  
+  let nextStepHint = '';
+  const order = ['A','C','B'];
+  const idx = order.indexOf(currentStep);
+  if(!isWeakMode && pct >= 80 && idx < 2){
+    const next = order[idx+1];
+    nextStepHint = `<div style="margin-top:10px;padding:12px;background:#fef6e4;border-radius:8px;font-size:14px">🎯 次は <strong>ステップ${next}: ${STEP_INFO[next].title}</strong> に進みましょう!</div>`;
+  }
+  
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('progress-text').textContent = '完了';
+  document.getElementById('quiz-content').innerHTML = `
+    <div class="result-card">
+      <h2 style="border:none">ステップ${currentStep} ${isWeakMode ? '(苦手復習)' : ''} 結果</h2>
+      <div style="font-size:14px;color:#5e6472;margin-bottom:6px">${stepName}</div>
+      <div class="score-big">${correctCount}<span class="total"> / ${total}</span></div>
+      <div class="result-msg">${msg}</div>
+      <div style="font-size:14px;color:#5e6472">正答率: ${pct}%</div>
+      ${nextStepHint}
+      <div class="result-buttons">
+        <button class="start-btn" onclick="startStep('${currentStep}')">🔄 もう一度</button>
+        ${idx < 2 && !isWeakMode ? `<button class="start-btn secondary" onclick="startStep('${order[idx+1]}')">▶ ステップ${order[idx+1]}へ</button>` : ''}
+        <button class="start-btn gray" onclick="switchTab('home')">🏠 ホーム</button>
+      </div>
+    </div>
+  `;
+  if(pct === 100) bigConfetti();
+  updateWeakCountChip();
+}
+
+function renderWeakPanel(){
+  const container = document.getElementById('weak-content');
+  const totalCount = totalWeakCount();
+  
+  if(totalCount === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✨</div>
+        <div>苦手カードはまだありません</div>
+        <div style="font-size:13px;margin-top:6px">練習で間違えた問題が自動で集まります</div>
+      </div>
+    `;
+    document.getElementById('btn-clear-weak').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('btn-clear-weak').style.display = 'block';
+  
+  let html = '';
+  ['A','C','B'].forEach(step => {
+    const weak = loadWeak(step);
+    const nos = Object.keys(weak).map(Number).sort((a,b) => weak[b].missCount - weak[a].missCount);
+    if(nos.length === 0) return;
+    
+    const info = STEP_INFO[step];
+    html += `
+      <div class="weak-section">
+        <div class="weak-section-title">
+          <div class="step-mini ${step}">${step}</div>
+          <h3>ステップ${step}: ${info.title}</h3>
+          <span class="count">${nos.length}件</span>
+        </div>
+        <div class="weak-list">
+    `;
+    nos.forEach(no => {
+      const q = info.questions.find(x => x.no === no);
+      if(!q) return;
+      const w = weak[no];
+      html += `
+        <div class="weak-item">
+          <div>
+            <span class="kanji-text">${q.kanji}</span>
+            <span class="reading-text">(${q.reading})</span>
+          </div>
+          <div>
+            <span class="miss-count">×${w.missCount}</span>
+            ${w.streak > 0 ? `<span class="streak">連続${w.streak}</span>` : ''}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>
+        <button class="start-btn secondary" style="margin-top:10px" onclick="startWeakReview('${step}')">⚡ ステップ${step}の苦手を復習</button>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+document.getElementById('btn-clear-weak').addEventListener('click', () => {
+  if(confirm('全てのステップの苦手カードを消去しますか?')){
+    ['A','C','B'].forEach(s => saveWeak(s, {}));
+    renderWeakPanel();
+    updateWeakCountChip();
+  }
+});
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+
+let currentVwPop = null;
+function showVwPop(el, event){
+  event.stopPropagation();
+  closeVwPop();
+  
+  const word = el.textContent;
+  const pron = el.dataset.pron || '';
+  const mean = el.dataset.mean || '';
+  let opts = [];
+  try{opts = JSON.parse(el.dataset.opts || '[]');}catch(e){}
+  const ans = parseInt(el.dataset.ans || '0', 10);
+  
+  const pop = document.createElement('div');
+  pop.className = 'vw-pop';
+  let optsHtml = '';
+  opts.forEach((o, i) => {
+    optsHtml += `<button class="quiz-opt" data-i="${i}" data-ans="${ans}">${o}</button>`;
+  });
+  pop.innerHTML = `
+    <div class="word">${word}</div>
+    <div class="pron">[${pron}]</div>
+    <div class="meaning">${mean}</div>
+    ${opts.length > 0 ? `<div class="quiz-q">クイズ:正しい意味は?</div><div class="quiz-opts">${optsHtml}</div>` : ''}
+  `;
+  
+  document.body.appendChild(pop);
+  
+  const rect = el.getBoundingClientRect();
+  const popRect = pop.getBoundingClientRect();
+  let left = rect.left + window.scrollX;
+  let top = rect.bottom + window.scrollY + 6;
+  if(left + popRect.width > window.innerWidth - 10){
+    left = window.innerWidth - popRect.width - 10;
+  }
+  if(left < 10) left = 10;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  
+  pop.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const i = parseInt(btn.dataset.i, 10);
+      const a = parseInt(btn.dataset.ans, 10);
+      pop.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+      if(i === a){
+        btn.classList.add('correct');
+      }else{
+        btn.classList.add('wrong');
+        pop.querySelectorAll('.quiz-opt')[a].classList.add('correct');
+      }
+    });
+  });
+  
+  currentVwPop = pop;
+}
+function closeVwPop(){
+  if(currentVwPop){currentVwPop.remove();currentVwPop = null;}
+}
+document.addEventListener('click', closeVwPop);
+
+function confetti(){
+  const colors = ['#f582ae','#001858','#fef6e4','#10b981','#f3d2c1'];
+  for(let i = 0; i < 30; i++){
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.left = (50 + (Math.random()-0.5)*60) + '%';
+    p.style.top = '40%';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(p);
+    
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 3 + Math.random() * 4;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed - 4;
+    let x = 0, y = 0;
+    
+    const animate = () => {
+      vy += 0.3;
+      x += vx;
+      y += vy;
+      p.style.transform = `translate(${x}px, ${y}px) rotate(${x*4}deg)`;
+      p.style.opacity = Math.max(0, 1 - y/300);
+      if(y < 400){
+        requestAnimationFrame(animate);
+      }else{
+        p.remove();
+      }
+    };
+    requestAnimationFrame(animate);
+  }
+}
+function bigConfetti(){
+  for(let i = 0; i < 4; i++){
+    setTimeout(confetti, i * 200);
+  }
+}
+
+function renderCourseSelector(){
+  const counts = {A: COURSES.A.count, B: COURSES.B.count, C: COURSES.C.count};
+  const labels = {A: 'ランクA', B: 'ランクB', C: 'ランクC'};
+  const subs = {A: '基礎', B: '応用', C: '発展'};
+  let html = '';
+  ['A','B','C'].forEach(c => {
+    html += `<button class="course-btn ${c === currentCourse ? 'active' : ''}" onclick="switchCourse('${c}')">
+      <span class="label">${labels[c]}</span>
+      <span class="sub">${subs[c]} / ${counts[c]}問</span>
+    </button>`;
+  });
+  document.getElementById('course-selector').innerHTML = html;
+  
+  // Update info chip
+  const chip = document.getElementById('course-info-chip');
+  if(chip){
+    chip.textContent = `📚 ${labels[currentCourse]}: ${counts[currentCourse]}問 × 3ステップ`;
+  }
+}
+
+function switchCourse(c){
+  if(c === currentCourse) return;
+  currentCourse = c;
+  buildStepInfo();
+  renderCourseSelector();
+  renderStepCards();
+  updateWeakCountChip();
+}
+
+renderCourseSelector();
+renderStepCards();
+updateWeakCountChip();
+</script>
+</body>
+</html>
