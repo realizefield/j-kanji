@@ -718,7 +718,7 @@ function showResult(){
   let nextStepHint = '';
   const order = STEP_ORDER;
   const idx = order.indexOf(currentStep);
-  if(!isWeakMode && pct >= 80 && idx < 2){
+  if(!isWeakMode && pct >= 80 && idx < order.length - 1){
     const next = order[idx+1];
     nextStepHint = `<div style="margin-top:10px;padding:12px;background:#fef6e4;border-radius:8px;font-size:14px">🎯 次は <strong>ステップ${next}: ${STEP_INFO[next].title}</strong> に進みましょう!</div>`;
   }
@@ -735,7 +735,7 @@ function showResult(){
       ${nextStepHint}
       <div class="result-buttons">
         <button class="start-btn" onclick="startStep('${currentStep}')">🔄 もう一度</button>
-        ${idx < 2 && !isWeakMode ? `<button class="start-btn secondary" onclick="startStep('${order[idx+1]}')">▶ ステップ${order[idx+1]}へ</button>` : ''}
+        ${idx < order.length - 1 && !isWeakMode ? `<button class="start-btn secondary" onclick="startStep('${order[idx+1]}')">▶ ステップ${order[idx+1]}へ</button>` : ''}
         <button class="start-btn gray" onclick="switchTab('home')">🏠 ホーム</button>
       </div>
     </div>
@@ -922,5 +922,8 @@ function bigConfetti(){
 renderStepCards();
 updateWeakCountChip();
 </script>
+<script>window.KSET_UNIT=6;</script>
+<script src="kounin-data.js"></script>
+<script src="kounin-sets.js"></script>
 </body>
 </html>
