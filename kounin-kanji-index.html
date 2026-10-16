@@ -6,619 +6,269 @@
 <title>高校入試・高認 漢字語句 インデックス | 江原予備校</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
+  :root{--navy:#001858;--pink:#f582ae;--green:#10b981;--gold:#f59e0b;--line:#f3d2c1;--cream:#fef6e4;--gray:#5e6472}
   body{
     font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
     background:linear-gradient(135deg,#fef6e4 0%,#f3d2c1 100%);
-    color:#001858;
-    line-height:1.6;
-    min-height:100vh;
-    padding:16px;
+    color:var(--navy);line-height:1.6;min-height:100vh;padding:16px;
   }
-  .container{max-width:920px;margin:0 auto}
-  
-  header{
-    background:#fff;
-    border-radius:16px;
-    padding:24px;
-    margin-bottom:20px;
-    box-shadow:0 4px 12px rgba(0,24,88,0.08);
-    text-align:center;
-  }
-  header .badge{
-    display:inline-block;
-    background:#f582ae;
-    color:#fff;
-    padding:4px 14px;
-    border-radius:20px;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:10px;
-  }
-  header h1{font-size:26px;color:#001858;margin-bottom:6px}
-  header .sub{font-size:14px;color:#5e6472}
-  
-  .intro{
-    background:#fff;
-    border-radius:16px;
-    padding:20px 24px;
-    margin-bottom:20px;
-    box-shadow:0 4px 12px rgba(0,24,88,0.08);
-  }
-  .intro p{font-size:14px;margin-bottom:8px;color:#001858}
-  .intro p:last-child{margin-bottom:0}
-  .intro strong{color:#c1121f}
-  
-  .legend{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:12px;
-    padding-top:12px;
-    border-top:1px solid #f3d2c1;
-  }
-  .legend-item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:13px;
-    color:#5e6472;
-  }
-  .legend-dot{
-    display:inline-block;
-    width:14px;
-    height:14px;
-    border-radius:50%;
-  }
-  .legend-dot.published{background:#10b981}
-  .legend-dot.preparing{background:#f3d2c1}
-  
-  /* Unit accordion */
-  .unit{
-    background:#fff;
-    border-radius:14px;
-    margin-bottom:12px;
-    box-shadow:0 2px 8px rgba(0,24,88,0.06);
-    overflow:hidden;
-    border:2px solid transparent;
-    transition:all 0.2s;
-  }
-  .unit.open{border-color:#f582ae}
-  
-  .unit-hd{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:16px 20px;
-    cursor:pointer;
-    user-select:none;
-    background:#fff;
-    transition:background 0.2s;
-    flex-wrap:wrap;
-  }
-  .unit-hd:hover{background:#fef6e4}
-  .unit.open .unit-hd{background:#fef6e4;border-bottom:2px solid #f3d2c1}
-  
-  .unit-num{
-    background:#001858;
-    color:#fff;
-    padding:5px 12px;
-    border-radius:10px;
-    font-size:13px;
-    font-weight:bold;
-    flex-shrink:0;
-  }
-  .unit-title{
-    font-size:17px;
-    font-weight:bold;
-    color:#001858;
-    flex:1;
-    min-width:160px;
-  }
-  .unit-badge{
-    background:#10b981;
-    color:#fff;
-    padding:3px 10px;
-    border-radius:10px;
-    font-size:12px;
-    font-weight:bold;
-    flex-shrink:0;
-  }
-  .unit-badge.preparing{background:#f3d2c1;color:#001858}
-  .unit-toggle{
-    font-size:16px;
-    color:#5e6472;
-    margin-left:6px;
-    transition:transform 0.2s;
-  }
+  .container{max-width:960px;margin:0 auto}
+  a{color:inherit}
+
+  header{background:#fff;border-radius:16px;padding:22px 24px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,24,88,.08);text-align:center}
+  header .badge{display:inline-block;background:var(--pink);color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:8px}
+  header h1{font-size:26px;margin-bottom:4px}
+  header .sub{font-size:14px;color:var(--gray)}
+
+  /* 全体の達成度 */
+  .overall{background:#fff;border-radius:16px;padding:18px 22px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,24,88,.08)}
+  .overall-top{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .ring{--p:0;width:92px;height:92px;border-radius:50%;flex-shrink:0;
+    background:conic-gradient(var(--green) calc(var(--p)*1%), #eceff4 0);display:grid;place-items:center}
+  .ring span{width:70px;height:70px;border-radius:50%;background:#fff;display:flex;align-items:baseline;justify-content:center;padding-top:22px;font-size:24px;font-weight:bold}
+  .ring span small{font-size:12px}
+  .overall-info{flex:1;min-width:220px}
+  .overall-info .ttl{font-size:13px;color:var(--gray);font-weight:bold}
+  .overall-info .big{font-size:20px;font-weight:bold}
+  .overall-info .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .chip{font-size:12px;font-weight:bold;padding:3px 10px;border-radius:12px;background:var(--cream);border:1px solid var(--line)}
+  .chip.g{background:#d1fae5;border-color:#6ee7b7;color:#065f46}
+  .chip.y{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+  .continue{display:inline-block;margin-top:10px;background:var(--navy);color:#fff;text-decoration:none;font-weight:bold;
+    font-size:14px;padding:9px 18px;border-radius:22px}
+  .continue:hover{background:#172554}
+
+  /* 使い方 */
+  details.how{background:#fff;border-radius:14px;padding:12px 20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,24,88,.06);font-size:14px}
+  details.how summary{cursor:pointer;font-weight:bold}
+  details.how p{margin-top:8px}
+  details.how strong{color:#c1121f}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--gray)}
+  .lg{display:inline-block;min-width:22px;text-align:center;padding:1px 7px;border-radius:8px;font-size:12px;font-weight:bold;margin-right:4px}
+
+  /* ユニット */
+  .unit{background:#fff;border-radius:14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,24,88,.06);overflow:hidden;border:2px solid transparent}
+  .unit.open{border-color:var(--pink)}
+  .unit-hd{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;flex-wrap:wrap}
+  .unit-hd:hover{background:var(--cream)}
+  .unit.open .unit-hd{background:var(--cream);border-bottom:2px solid var(--line)}
+  .unit-num{background:var(--navy);color:#fff;padding:5px 12px;border-radius:10px;font-size:13px;font-weight:bold;flex-shrink:0}
+  .unit-title{font-size:17px;font-weight:bold;flex:1;min-width:150px}
+  .unit-title small{display:block;font-size:12px;color:var(--gray);font-weight:normal}
+  .unit-prog{width:200px;flex-shrink:0}
+  .bar{height:10px;background:#eceff4;border-radius:6px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#34d399,var(--green));border-radius:6px;transition:width .4s}
+  .bar.done i{background:linear-gradient(90deg,#fbbf24,var(--gold))}
+  .unit-prog .cap{font-size:12px;color:var(--gray);margin-top:3px;text-align:right}
+  .unit-toggle{font-size:15px;color:var(--gray);transition:transform .2s}
   .unit.open .unit-toggle{transform:rotate(180deg)}
-  
-  .unit-body{display:none;padding:18px 20px}
+
+  .unit-body{display:none;padding:16px 18px}
   .unit.open .unit-body{display:block}
-  
-  .unit-desc{
-    font-size:14px;
-    color:#5e6472;
-    margin-bottom:12px;
-    padding:10px 14px;
-    background:#fef6e4;
-    border-radius:8px;
-  }
-  
-  .sec-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:10px;
-  }
-  
-  .sec-card{
-    border:2px solid #f3d2c1;
-    border-radius:10px;
-    overflow:hidden;
-    transition:all 0.15s;
-    background:#fff;
-  }
-  .sec-card:hover{border-color:#f582ae;transform:translateY(-2px);box-shadow:0 4px 10px rgba(245,130,174,0.15)}
-  .sec-card.disabled{opacity:0.5;background:#f8f8f8}
-  .sec-card.disabled:hover{transform:none;box-shadow:none;border-color:#f3d2c1}
-  .sec-card a{
-    display:block;
-    padding:12px 14px;
-    text-decoration:none;
-    color:#001858;
-  }
-  .sec-card.disabled a{cursor:not-allowed;color:#5e6472}
-  .sc-hd{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:6px;
-  }
-  .sc-step{
-    background:#001858;
-    color:#fff;
-    padding:2px 8px;
-    border-radius:8px;
-    font-size:11px;
-    font-weight:bold;
-  }
-  .sc-step.A{background:#001858}
-  .sc-step.C{background:#f582ae}
-  .sc-step.B{background:#10b981}
-  .sc-title{font-size:14px;font-weight:bold;flex:1}
-  .sc-meta{font-size:12px;color:#5e6472}
-  
-  footer{
-    text-align:center;
-    margin-top:30px;
-    padding:20px;
-    font-size:13px;
-    color:#5e6472;
-  }
-  
-  @media(max-width:600px){
+  .unit-desc{font-size:14px;color:var(--gray);margin-bottom:12px;padding:10px 14px;background:var(--cream);border-radius:8px}
+  .unit-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tbtn{font-size:13px;font-weight:bold;text-decoration:none;padding:6px 14px;border-radius:18px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;font-family:inherit}
+  .tbtn:hover{background:var(--cream)}
+  .tbtn.pr{background:var(--navy);color:#fff}
+  .tbtn.pr:hover{background:#172554}
+
+  /* セットカード */
+  .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+  .set{border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;position:relative}
+  .set.clear{border-color:#6ee7b7;background:#f0fdf9}
+  .set.perfect{border-color:#fcd34d;background:#fffbeb}
+  .set-hd{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .set-no{font-weight:bold;font-size:15px}
+  .set-range{font-size:12px;color:var(--gray);flex:1}
+  .set-mark{font-size:18px;line-height:1}
+  .set-words{font-size:14px;line-height:1.5;margin-bottom:8px;min-height:21px;word-break:keep-all}
+  .set-words span{display:inline-block;margin-right:8px}
+  .steps{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .sbtn{display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-size:12px;font-weight:bold;
+    padding:5px 9px;border-radius:9px;border:2px solid #e5e7eb;background:#fafafa;color:var(--gray)}
+  .sbtn:hover{border-color:var(--pink)}
+  .sbtn .k{display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;border-radius:5px;background:var(--navy);color:#fff;font-size:11px}
+  .sbtn[data-s="C"] .k{background:var(--pink)}
+  .sbtn[data-s="B"] .k{background:var(--green)}
+  .sbtn.try{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+  .sbtn.pass{background:#d1fae5;border-color:#6ee7b7;color:#065f46}
+  .sbtn.perfect{background:#fef08a;border-color:#facc15;color:#854d0e}
+  .print-grp{margin-left:auto;display:flex;gap:6px}
+  .print-link{text-decoration:none;font-size:12px;font-weight:bold;padding:5px 9px;border-radius:9px;border:2px solid var(--navy);color:var(--navy);background:#fff}
+  .print-link:hover{background:var(--navy);color:#fff}
+
+  footer{text-align:center;margin-top:24px;padding:16px;font-size:13px;color:var(--gray)}
+  footer button{font-family:inherit;font-size:12px;color:var(--gray);background:none;border:1px solid #cbd0d8;border-radius:12px;padding:4px 12px;cursor:pointer;margin-top:8px}
+
+  @media(max-width:640px){
     header h1{font-size:20px}
-    .unit-title{font-size:15px;min-width:120px}
-    .sec-grid{grid-template-columns:1fr}
+    .unit-prog{width:100%;order:5}
+    .set-grid{grid-template-columns:1fr}
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .unit-body{display:block!important}
+    .tbtn,.print-link,.continue,details.how,footer button{display:none!important}
+    .unit,.overall,header{box-shadow:none;break-inside:avoid}
   }
 </style>
 </head>
 <body>
 <div class="container">
-  
+
   <header>
     <span class="badge">江原予備校 高校入試・高認対策</span>
     <h1>漢字・語句 インデックス</h1>
-    <div class="sub">読み・書き・意味を四択クイズで定着させよう</div>
+    <div class="sub">5問ずつ区切って、少しずつ確実に。できたセットが増えていくのを見える化しました</div>
   </header>
-  
-  <div class="intro">
-    <p><strong>📖 学習の進め方</strong></p>
-    <p>各ユニットは <strong>ステップA(漢字→読み)→ ステップC(文中での意味)→ ステップB(読み→漢字)</strong> の3段階で構成されています。順番に進むことで、漢字が定着しやすくなります。</p>
-    <p>間違えた問題は自動的に<strong>苦手カード</strong>に集まり、いつでも復習できます。</p>
+
+  <div class="overall" id="overall"></div>
+
+  <div class="overall" style="padding:12px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+    <strong style="font-size:14px">📋 漢字一覧(全ユニット)</strong>
+    <a class="tbtn" href="print/kanji-list.pdf" target="_blank" rel="noopener">👁 PDFで閲覧・印刷</a>
+    <a class="tbtn" href="print/kanji-list.docx" download>📝 Word版</a>
+  </div>
+
+  <details class="how">
+    <summary>📖 学習の進め方(クリックで開く)</summary>
+    <p>各ユニットは <strong>5問ずつの「セット」</strong> に分かれています。セットごとに <strong>ステップA(読み)→ステップC(意味)→ステップB(書き)</strong> の順で進むと、漢字が定着しやすくなります(ユニットによってステップの種類は異なります)。</p>
+    <p>各ステップで <strong>80%以上</strong> 正解すると「達成」です。すべてのステップを達成したセットは <strong>✅ クリア</strong>、すべて満点なら <strong>⭐ マスター</strong> になります。</p>
+    <p>間違えた問題は自動的に<strong>苦手カード</strong>に集まります。各セットの <strong>🖨 プリント</strong> から、書いて覚える練習プリント(書き・読み 各3回)を印刷できます。</p>
     <div class="legend">
-      <div class="legend-item"><span class="legend-dot published"></span>公開中</div>
-      <div class="legend-item"><span class="legend-dot preparing"></span>準備中</div>
+      <span><span class="lg" style="background:#fafafa;border:2px solid #e5e7eb;color:#5e6472">A</span>未挑戦</span>
+      <span><span class="lg" style="background:#fef3c7;color:#92400e">A 3/5</span>挑戦済み(80%未満)</span>
+      <span><span class="lg" style="background:#d1fae5;color:#065f46">A ✓4/5</span>達成</span>
+      <span><span class="lg" style="background:#fef08a;color:#854d0e">A ★5/5</span>満点</span>
     </div>
-  </div>
-  
-  <!-- Unit 1: 動詞訓読み -->
-  <div class="unit open">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 1</span>
-      <span class="unit-title">動詞の訓読み</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">入試・高認で頻出する動詞の訓読み。「促す」「漂う」「妨げる」など、ランクA(基礎)30問を3ステップで学習します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji01.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
-            <div class="sc-meta">30問 / 基礎</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji01.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">30問 / 基礎</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji01.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字</span></div>
-            <div class="sc-meta">30問 / 基礎</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 2: 形容詞訓読み -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 2</span>
-      <span class="unit-title">形容詞の訓読み</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「鮮やか」「巧み」「穏やか」など、状態や性質を表す形容詞の訓読み。ランクA(基礎)20問を3ステップで学習します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji02.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
-            <div class="sc-meta">20問 / 基礎</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji02.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">20問 / 基礎</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji02.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字</span></div>
-            <div class="sc-meta">20問 / 基礎</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 3: 名詞訓読み -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 3</span>
-      <span class="unit-title">名詞の訓読み</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「気配」「輪郭」「催し」「執念」「鼓動」など、入試で頻出する名詞。ランクA(8問)+ B上位12問を合わせた20問構成です。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji03.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
-            <div class="sc-meta">20問 / 基礎+応用</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji03.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">20問 / 基礎+応用</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji03.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字</span></div>
-            <div class="sc-meta">20問 / 基礎+応用</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 4: 音読み熟語 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 4</span>
-      <span class="unit-title">音読み熟語</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「披露」「制御」「典型」「貢献」「示唆」など、現代文や論説文で頻出する音読み熟語。ランクA(基礎)27問を3ステップで学習します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji04.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">熟語 → 読み</span></div>
-            <div class="sc-meta">27問 / 基礎</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji04.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">27問 / 基礎</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji04.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 熟語</span></div>
-            <div class="sc-meta">27問 / 基礎</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 5: 同訓異字 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 5</span>
-      <span class="unit-title">同訓異字</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「収める/納める/治める/修める」「暑い/熱い/厚い」など、同じ訓読みで意味によって使い分ける漢字を学びます。全71問・26グループを2ステップで学習。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji05.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">使い分け</span></div>
-            <div class="sc-meta">71問 / 全グループ</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji05.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">71問 / 全グループ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 6: 同音異義語 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 6</span>
-      <span class="unit-title">同音異義語</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「開放/解放/介抱/快方」「異議/意義/威儀」「意外/以外」など、同じ音読みで意味が違う熟語を区別する力を養います。全103問・39グループを2ステップで学習。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji06.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">使い分け</span></div>
-            <div class="sc-meta">103問 / 全グループ</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji06.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">103問 / 全グループ</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 7: 書き取り -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 7</span>
-      <span class="unit-title">書き取り(必修語)</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「光をアびる」「ゴミをヒロう」など、例文中のカタカナを正しい漢字に直す書き取り問題。全185問を <strong>ランクA(基礎62問)・B(応用60問)・C(発展63問)</strong> の3コースに分け、各コース内で A(漢字→読み)・C(意味)・B(書き取り)の3ステップを進めます。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji07.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
-            <div class="sc-meta">3コース選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji07.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">文中での意味</span></div>
-            <div class="sc-meta">3コース選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji07.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">書き取り</span></div>
-            <div class="sc-meta">3コース選択可</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 8: 四字熟語 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 8</span>
-      <span class="unit-title">四字熟語</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「支離滅裂」「以心伝心」「一石二鳥」「絶体絶命」など、入試頻出の四字熟語54語を <strong>1レッスン9語ずつの6レッスン</strong> に分けて学習。各レッスン内で意味・使い方・空欄補充の3ステップを進めます。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji08.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">四字熟語 → 意味</span></div>
-            <div class="sc-meta">6レッスン選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji08.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">例文での使い方</span></div>
-            <div class="sc-meta">6レッスン選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji08.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">空欄補充</span></div>
-            <div class="sc-meta">6レッスン選択可</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 9: 類義語 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 9</span>
-      <span class="unit-title">類義語</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「案外 ≒ 意外」「永遠 ≒ 永久」「方法 ≒ 手段」など、似た意味を持つ語のペア77組を <strong>10レッスン</strong> に分けて学習。A(語1→類義語)とC(類義語→語1)の双方向で確認します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji09.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">語1 → 類義語</span></div>
-            <div class="sc-meta">10レッスン選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji09.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">類義語 → 語1(逆方向)</span></div>
-            <div class="sc-meta">10レッスン選択可</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 10: 対義語 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 10</span>
-      <span class="unit-title">対義語</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「安全 ⇔ 危険」「具象 ⇔ 抽象」「需要 ⇔ 供給」など、反対の意味を持つ語のペア97組を <strong>10レッスン</strong> に分けて学習。A(語1→対義語)とC(対義語→語1)の双方向で確認します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji10.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">語1 → 対義語</span></div>
-            <div class="sc-meta">10レッスン選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji10.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">対義語 → 語1(逆方向)</span></div>
-            <div class="sc-meta">10レッスン選択可</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 11: 慣用句 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 11</span>
-      <span class="unit-title">慣用句・ことわざ</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「手に汗握る」「目を見張る」「覆水盆に返らず」「百聞は一見にしかず」「身から出た錆」など、頻出の慣用句・ことわざ10問を双方向(慣用句↔意味)で学習します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji11.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">慣用句 → 意味</span></div>
-            <div class="sc-meta">10問 / 全範囲</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji11.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">意味 → 慣用句(逆方向)</span></div>
-            <div class="sc-meta">10問 / 全範囲</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 12: 熟字訓 -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 12</span>
-      <span class="unit-title">熟字訓</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「明日(あす/あした)」「梅雨(つゆ)」「笑顔(えがお)」「相撲(すもう)」「七夕(たなばた)」など、特殊な読み方をする67語を <strong>8レッスン</strong> に分けて双方向(熟字↔読み)で学習します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji12.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">熟字 → 読み</span></div>
-            <div class="sc-meta">8レッスン選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji12.html">
-            <div class="sc-hd"><span class="sc-step C">C</span><span class="sc-title">読み → 熟字(逆方向)</span></div>
-            <div class="sc-meta">8レッスン選択可</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Unit 13: 読み誤りやすい -->
-  <div class="unit">
-    <div class="unit-hd" onclick="toggleUnit(this)">
-      <span class="unit-num">Unit 13</span>
-      <span class="unit-title">読み誤りやすい漢字</span>
-      <span class="unit-badge">✅ 公開中</span>
-      <span class="unit-toggle">▼</span>
-    </div>
-    <div class="unit-body">
-      <div class="unit-desc">「気配(けはい)」「仮病(けびょう)」「吹聴(ふいちょう)」「更迭(こうてつ)」「内裏(だいり)」など、間違えやすい読み方の漢字100語を <strong>10レッスン × 10問</strong> に分けて双方向(漢字↔読み)で学習します。</div>
-      <div class="sec-grid">
-        <div class="sec-card">
-          <a href="kounin-kanji13.html">
-            <div class="sc-hd"><span class="sc-step A">A</span><span class="sc-title">漢字 → 読み</span></div>
-            <div class="sc-meta">10レッスン選択可</div>
-          </a>
-        </div>
-        <div class="sec-card">
-          <a href="kounin-kanji13.html">
-            <div class="sc-hd"><span class="sc-step B">B</span><span class="sc-title">読み → 漢字(逆方向)</span></div>
-            <div class="sc-meta">10レッスン選択可</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+  </details>
+
+  <div id="units"></div>
+
   <footer>
     <p>江原予備校 - 高校入試・高認対策 学習ツール</p>
+    <button id="reset-btn" type="button">達成度をリセットする</button>
   </footer>
-  
+
 </div>
 
+<script src="kounin-data.js"></script>
 <script>
-function toggleUnit(el){
-  const unit = el.closest('.unit');
-  unit.classList.toggle('open');
-}
+(function(){
+  var KP='kounin-progress-v1', PASS=0.8;
+  function loadP(){try{return JSON.parse(localStorage.getItem(KP)||'{}');}catch(e){return {};}}
+  var P=loadP();
+  var UNITS=Object.keys(KDATA).map(Number).sort(function(a,b){return a-b;}).map(function(u){return KDATA[u];});
+  var STEP_LBL={A:'A',C:'C',B:'B'};
+
+  function stat(u,s,step){
+    var r=P['U'+u+'S'+s+step];
+    if(!r) return {k:'none'};
+    var ok=r.c/r.t>=PASS;
+    return {k: r.c===r.t?'perfect':(ok?'pass':'try'), c:r.c, t:r.t};
+  }
+  function setState(U,s){
+    var passed=0,perfect=0;
+    U.steps.forEach(function(st){var x=stat(U.unit,s.id,st.step);if(x.k==='pass'||x.k==='perfect')passed++;if(x.k==='perfect')perfect++;});
+    return {passed:passed,total:U.steps.length,clear:passed===U.steps.length,master:perfect===U.steps.length};
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function firstOpenUnit(){
+    for(var i=0;i<UNITS.length;i++){
+      var U=UNITS[i];
+      for(var j=0;j<U.sets.length;j++){ if(!setState(U,U.sets[j]).clear) return {U:U,set:U.sets[j]}; }
+    }
+    return null;
+  }
+
+  function render(){
+    P=loadP();
+    var totPairs=0,passPairs=0,totSets=0,clearSets=0,masterSets=0,tried=0;
+    UNITS.forEach(function(U){U.sets.forEach(function(s){
+      totSets++;var st=setState(U,s);totPairs+=st.total;passPairs+=st.passed;
+      if(st.clear)clearSets++;if(st.master)masterSets++;
+      U.steps.forEach(function(x){if(stat(U.unit,s.id,x.step).k!=='none')tried++;});
+    });});
+    var pct=Math.round(passPairs/totPairs*100);
+    var nx=firstOpenUnit();
+    var cont='';
+    if(nx){
+      var firstStep=nx.U.steps[0].step;
+      for(var q=0;q<nx.U.steps.length;q++){var k=stat(nx.U.unit,nx.set.id,nx.U.steps[q].step).k;if(k==='none'||k==='try'){firstStep=nx.U.steps[q].step;break;}}
+      cont='<a class="continue" href="'+nx.U.file+'?set='+nx.set.id+'&step='+firstStep+'">▶ つづきから(Unit '+nx.U.unit+' セット'+nx.set.id+')</a>';
+    }else{
+      cont='<div class="chip y" style="margin-top:10px">🎉 全セットクリア!おめでとうございます</div>';
+    }
+    document.getElementById('overall').innerHTML=
+      '<div class="overall-top"><div class="ring" style="--p:'+pct+'"><span>'+pct+'<small>%</small></span></div>'+
+      '<div class="overall-info"><div class="ttl">全体の達成度</div>'+
+      '<div class="big">'+clearSets+' / '+totSets+' セット クリア</div>'+
+      '<div class="stats"><span class="chip g">✅ クリア '+clearSets+'</span><span class="chip y">⭐ マスター '+masterSets+'</span>'+
+      '<span class="chip">挑戦したステップ '+tried+'</span></div>'+cont+'</div></div>';
+
+    var html='';
+    UNITS.forEach(function(U,idx){
+      var clear=0,pp=0,tp=0;
+      U.sets.forEach(function(s){var st=setState(U,s);if(st.clear)clear++;pp+=st.passed;tp+=st.total;});
+      var upct=Math.round(pp/tp*100);
+      var wasOpen=openState[U.unit]!==undefined?openState[U.unit]:(nx?U.unit===nx.U.unit:idx===0);
+      html+='<div class="unit'+(wasOpen?' open':'')+'" data-u="'+U.unit+'">'+
+        '<div class="unit-hd" onclick="toggleUnit(this)">'+
+        '<span class="unit-num">Unit '+U.unit+'</span>'+
+        '<span class="unit-title">'+esc(U.name)+'<small>全'+U.count+'問 / '+U.sets.length+'セット</small></span>'+
+        '<div class="unit-prog"><div class="bar'+(upct===100?' done':'')+'"><i style="width:'+upct+'%"></i></div>'+
+        '<div class="cap">'+clear+' / '+U.sets.length+' セット クリア('+upct+'%)</div></div>'+
+        '<span class="unit-toggle">▼</span></div>'+
+        '<div class="unit-body"><div class="unit-desc">'+esc(U.desc)+'</div>'+
+        '<div class="unit-tools"><a class="tbtn" href="'+U.file+'">📚 ユニット全体で練習</a>'+
+        '<a class="tbtn" href="kounin-print.html?unit='+U.unit+'" target="_blank" rel="noopener">👁 プリント全セットを閲覧</a>'+
+        '<a class="tbtn pr" href="kounin-print.html?unit='+U.unit+'&print=1" target="_blank" rel="noopener">🖨 プリント全セットを印刷</a>'+
+        '<a class="tbtn" href="print/worksheet_unit'+('0'+U.unit).slice(-2)+'.pdf" target="_blank" rel="noopener">📄 PDF(答え付き)</a>'+
+        '<a class="tbtn" href="print/worksheet_unit'+('0'+U.unit).slice(-2)+'.docx" download>📝 Word版</a></div>'+
+        '<div class="set-grid">';
+      U.sets.forEach(function(s){
+        var st=setState(U,s);
+        var first=s.items[0].no,last=s.items[s.items.length-1].no;
+        var words=s.items.map(function(e){return '<span>'+esc(e.kanji)+'</span>';}).join('');
+        html+='<div class="set'+(st.master?' perfect':(st.clear?' clear':''))+'">'+
+          '<div class="set-hd"><span class="set-no">セット'+s.id+'</span><span class="set-range">No.'+first+'〜'+last+'('+s.items.length+'問)</span>'+
+          '<span class="set-mark">'+(st.master?'⭐':(st.clear?'✅':''))+'</span></div>'+
+          '<div class="set-words">'+words+'</div><div class="steps">';
+        U.steps.forEach(function(sp){
+          var x=stat(U.unit,s.id,sp.step), cls='', lab='';
+          if(x.k==='try'){cls=' try';lab=x.c+'/'+x.t;}
+          else if(x.k==='pass'){cls=' pass';lab='✓'+x.c+'/'+x.t;}
+          else if(x.k==='perfect'){cls=' perfect';lab='★'+x.c+'/'+x.t;}
+          html+='<a class="sbtn'+cls+'" data-s="'+sp.step+'" title="'+esc(sp.title)+'" href="'+U.file+'?set='+s.id+'&step='+sp.step+'">'+
+            '<span class="k">'+sp.step+'</span>'+(lab||'<span style="font-weight:normal">'+esc(shortTitle(sp.title))+'</span>')+'</a>';
+        });
+        html+='<span class="print-grp"><a class="print-link" href="kounin-print.html?unit='+U.unit+'&set='+s.id+'" target="_blank" rel="noopener" title="練習プリントを画面で見る">👁 閲覧</a>'+
+          '<a class="print-link" href="kounin-print.html?unit='+U.unit+'&set='+s.id+'&print=1" target="_blank" rel="noopener" title="練習プリントを印刷する">🖨 印刷</a></span>'+
+          '</div></div>';
+      });
+      html+='</div></div></div>';
+    });
+    document.getElementById('units').innerHTML=html;
+  }
+  function shortTitle(t){return t.replace(/\(逆方向\)/,'').replace(/ /g,'');}
+
+  var openState={};
+  window.toggleUnit=function(el){
+    var unit=el.closest('.unit');unit.classList.toggle('open');
+    openState[unit.getAttribute('data-u')]=unit.classList.contains('open');
+  };
+  document.getElementById('reset-btn').addEventListener('click',function(){
+    if(confirm('これまでの達成度をすべて消してもよろしいですか?(苦手カードは消えません)')){
+      try{localStorage.removeItem(KP);}catch(e){}
+      render();
+    }
+  });
+  // 練習ページから戻ったときに最新の状態を表示
+  window.addEventListener('pageshow',render);
+  window.addEventListener('storage',render);
+  render();
+})();
 </script>
 </body>
 </html>
